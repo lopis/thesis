@@ -1,0 +1,74 @@
+%!TEX root = thesis.tex
+\chapter{Introdução}
+\label{chap:intro}
+
+\section*{}
+
+
+\section{Context}
+
+Multi-agent systems (MAS) are composed of autonomous computational elements capable of interacting with each other, called agents. \cite{wooldridge2008introduction} These systems use an interesting software paradigm with multiple applications such as problem solving, simulation and negotiation using an efficient and modular development approach. \cite{ferber1999multi}
+Many times such systems are created from scratch, meaning that the developers must define all features of the system - such as its agents, their behavior, communication and organization, using conventional tools and
+languages. However, several frameworks exist that offer some level of abstraction from the code, allowing for a more conceptual approach to
+MAS development. \cite{gormer2011jrep} These frameworks generally provide the programmer with a range of features such as communication protocols, agent awareness capabilities and simulation facilities.
+
+\section{Motivation} \label{sec:goals}
+The motivation for this thesis has to do with taking advantage of each
+framework's best features in distinct phases of MAS development.
+
+Each MAS needs different tools. Furthermore, in the course of its development
+there may be a need to use a different set of features. For instance, while
+developing a large scale MAS, a need for creating a simulation based on the
+same model may arise. The reverse can occur as well; the development may start
+as a simulation that later must be implemented with another kind of framework.
+
+As a concrete example, and as the object of this thesis, JADE and Repast are
+two popular MAS development frameworks that offer a different group of
+features.
+
+\begin{quote}
+	``JADE simplifies the development of distributed applications composed of autonomous entities that need to communicate and collaborate in order to achieve the working of the entire system. A software framework that hides all complexity of the distributed architecture is made available to application developers, who can focus their software development just on the logic of the application rather than on middleware issues, such as discovering and contacting the entities of the system.'' \cite{bellifemine2003jade}
+\end{quote}
+
+\begin{quote}
+	``[Repast] provides a library of objects for creating, running, displaying, and collecting data from an agent-based simulation. In addition, RePast includes several varieties of charts for visualizing data (e.g. histograms and sequence graphs) and can take snapshots of running simulations [...] and can properly be termed a “Swarm-like” simulation framework.''
+	\cite{collier2003repast}
+\end{quote}
+
+While JADE excels in creating seamless, distributed, peer-to-peer systems,
+Repast's strength is in creating simulations as well as collecting and displaying statistical data in different ways.
+A deeper analysis and comparison of both frameworks can be found in chapter
+\label{chap:jaderepast}
+
+\section{Goals}
+The first goal of this thesis is to create a tool that enables the programmer to generate a Repast simulation directly and automatically from the source code of a JADE application, as well as deploying a proper multi agent system parting from a Repast simulation.
+Such a conversion tool should be beneficial for MAS development for multiple
+reasons:
+
+\begin{itemize}
+  \item It allows the developer to quickly deploy a MAS or create a simulation, as explained before;
+  \item A proficient programmer in one framework can quickly get started in
+  developing with the other framework;
+  \item <more reasons?>
+\end{itemize}
+
+The second goal is to bring communication standards to Repast. JADE complies
+with the FIPA standards for agent interaction while Repast implements no
+standard at all. Creating a library for implementation of FIPA interaction
+protocols in Repast will not only enrich that framework but will make the code
+generation more direct.
+ 
+
+\section{Thesis contents} \label{sec:struct}
+
+After this introduction, I will start chapter \ref{chap:sota} by discussing some related work I read
+about JADE, Repast and about integrating both frameworks. Furthermore, a great part of this thesis is about Java code transformations, since the goal is to convert the code from one framework to the other.
+Therefore, part of my state-of-the-art research was related to code
+transformation tools.
+
+In chapter \ref{chap:technology} I compare both JADE and Repast. In chapter \ref{chap:setup-validation} I describe all the development setup
+as well as the definition of how the final product will be validated and evaluated.
+
+Chapter \ref{chap:plan} includes a detailed work plan for the following months
+and finally, \ref{chap:concl} includes final notes about this report and about
+the work done so far.
