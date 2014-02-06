@@ -1,9 +1,25 @@
-\chapter{Implementação}\label{chap:setup-validation}
+%!TEX root = thesis.tex
+\chapter{Experimental Setup} \label{chap:validation}
 
 \section*{}
 
-Setup, validation an evaluation
+I will now explain the methods that will be used to validate the final product and how the results should be evaluated. But first, I will describe the development environment.
 
-\section{Resumo ou Conclusões}
+\section{Setup}
+
+The programming component of this thesis will be performed using version 7 of the Java platform, the most recent stable release available as of the writing of this document. 
+
+\section{Validation}
+
+Because the validation of this tool's ability to correctly generate code depends entirely on the functionality of said code, unity testing can be used in order to verify conformity of a series of examples. For testing purposes four sets of unit testing will be developed
+
+\begin{description}
+  \item[The first] set of tests will cover the code of the code generation tool itself;
+  \item[The second] one will cover the code of the Repast/FIPA-ACL implementation library;
+  \item[The third] will include a group of example Repast code to be converted to JADE - the unit tests will be applied on the generated code;
+  \item[Fourth] will perform the complementary tests to the third set, testing the conversion of JADE code to Repast.
+\end{description}
 
 
+\section{Evaluation}
+While unit testing allows to verify the generated code functionality, it's also important to actually evaluate its quality. The quality of the code can be accessed with code analysis tools and by comparing it with the performance of the original code.

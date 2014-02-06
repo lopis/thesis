@@ -1,5 +1,41 @@
-\chapter{Work Plan} \label{chap:plan}
+%!TEX root = thesis.tex
+\chapter{Work Plan}
+\label{chap:plan}
 
 \section*{}
 
+\def\pgfcalendarweekdayletter#1{%
+\ifcase#1M\or T\or W\or T\or F\or S\or S\fi%
+}
 
+\begin{figure}
+	\caption{Work plan}
+	\label{dia:gantt}
+	\begin{ganttchart}[
+		x unit=0.005\textwidth,
+		time slot format=little-endian
+		]{1.2.2014}{31.5.2014}
+		\gantttitlecalendar*{1.2.2014}{31.5.2014}{month=shortname} \\
+		\ganttgroup{1. SOTA}{1.2.2014}{15.2.2014} \\
+
+		\ganttgroup{2. Specification}{17.2.2014}{16.3.2014} \\
+		\ganttbar{2.1 Tool Analysis}{17.2.2014}{23.3.2014} \\
+		\ganttbar{2.2 Framework Analysis}{24.2.2014}{2.3.2014} \\
+		\ganttbar{2.3 Repast FIPA-ACL}{3.3.2014}{9.3.2014} \\
+		\ganttbar{2.4 Software Specification}{10.3.2014}{16.3.2014} \\
+
+		\ganttgroup{3. Development}{17.3.2014}{25.5.2014} \\
+		\ganttbar{3.1 Code Gen. Tool}{17.3.2014}{18.5.2014} \\
+		\ganttbar{3.2 Examples Creation}{24.3.2014}{6.4.2014} \\
+		\ganttbar{3.3 Tests Creation}{24.3.2014}{6.4.2014} \\
+		\ganttbar{3.4 Testing and Validation}{24.3.2014}{31.5.2014} \\
+
+		\ganttgroup{4. Thesis}{5.5.2014}{31.5.2014} \\
+	\end{ganttchart}
+\end{figure}
+
+The diagram in figure \ref{dia:gantt} makes an attempt to summarize all the tasks planned for the next months. The work plan can be grouped in three phases: specification phase, when the details of implementation will be defined with as much detail as possible, and the foundation for the documentation of the tool will be created; the development phase, when the actual programming work load will take place, including creation and of tests and finally, the writing of the thesis, which will continue beyond this five month period.
+
+The \emph{specification phase} starts with a analysis of the tools being used (namely Eclipse and Spoon). The first week of this phase will be dedicated to the study of both tools' API and documentation (2.1), as well as actual testing of its features, followed by a week dedicated to JADE and Repast (2.2). In the second week a mapping and comparison of all features between the two frameworks will also be created. The following week will include a definition of the requisites for the FIPA-ACL library for Repast (2.3), followed by the specification of the architecture for the rest of the code generation tool, including its requisites and modules (2.4).
+
+The \emph{development phase} starts with a week for creating the general structure of the code generation tool, followed by the progressive development of all intended features (3.1). Starting in the second week, test examples will be created... (to be completed)
