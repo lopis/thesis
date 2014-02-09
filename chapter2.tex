@@ -11,33 +11,38 @@
 % O capítulo deve também efetuar uma revisão tecnológica às principais
 % ferramentas utilizáveis no âmbito do projeto, justificando futuras escolhas.
 
-In this chapter I will summarize and analyze some works related to the use of Repast and JADE frameworks in the development of MAS. The related
+This chapter presents a summary and analysis of some works related to the use of Repast and JADE frameworks in the development of MAS. The related
 work is sorted in four categories.
 
-First, I discuss some of work done on integrating both JAon total DE and Repast simultaneously by developing a middleware framework.  While the goal of this thesis is not to use both frameworks simultaneously, these works give a valuable insight into the shortcomings of both frameworks as well as providing some interesting comparisons between their features.
-Second, I make an overview of the FIPA standards for agent communication protocols along with a discussion of implementations of these protocols in Repast.
-Then, I review some existing Java code generation and transformation tools. These tools will aid me in the automation of code refactoring, detection of code patterns and library calls.
-Finally, I analyze some works on code generation and transformation techniques.
-More than just tools, there are proper methodologies of automating code generation.
-I will finish with a summary of the bibliography review and an overview of the most interesting topics approached in this chapter.
+The first category includes a discussion about existing works on integrating both JADE and Repast simultaneously by developing a middleware framework.  While the goal of this thesis is not to use both frameworks simultaneously, these works give a valuable insight into the shortcomings of both frameworks as well as providing some interesting comparisons between their features.
+The following category includes an overview of the FIPA standards for agent communication protocols along with a brief discussion about implementations of these protocols in Repast.
+Then, the third category presents some existing Java code generation and transformation tools. These tools will aid me in the automation of code refactoring, detection of code patterns and library calls.
+Finally, some works on code generation and transformation techniques are analyzed. More than just tools, there are proper methodologies of automating code generation. I will finish with a summary of the bibliography review and an overview of the most interesting topics approached in this chapter.
 
 \section{JADE and Repast integration}
-
+JADE is a very popular framework for developing MAS, providing an infrastructure that allows the programmer to create a distributed system in a very transparent way. As discussed before, in the motivation for this thesis, JADE is not the best tool to develop a MABS, not only because it lacks the visualization tools that other frameworks provide for displaying data about agent behavior, but also because due to its multi threaded architecture JADE has performance issues when the system comprises a large number of agents. Following are two frameworks created to bridge the worlds of MAS development and simulation by integrating Repast and JADE in the same platform by means of a middleware.
 
 \subsection{MISIA: Middleware Infrastructure to Simulate Intelligent Agents}
-\begin{quote}
-	``MISIA allows simulation, visualization and analysis of the agent’s behavior. MISIA makes use of technologies for the development of multi-agent systems known and widely used, and combines them so that it is possible to use their capabilities to build highly complex and dynamic systems. On one hand, it is JADE, the most widely used platform for based software agents middleware. On the other hand, it is Repast, a free and open-source agent-based modeling and simulation toolkit.'' \cite{garcia2011misia}
-\end{quote}
 
-	MISIA is a middleware which goal is to enhance the simulation of intelligent agents and to allow the visualization and analysis of agent's behavior. To reach that goal, a simulation tool and another framework that provided the agent infrastructure and behavior. In Garcia E. \textit{et al} \cite{garcia2011misia}, the authors chose to develop this framework on top of JADE and Repast Symphony. Their reasoning lies on the wide use of JADE as a software based agent development middleware, on Repast being simple and well documented and finally on both frameworks being open source.
+	MISIA is a middleware which goal is to enhance the simulation of intelligent agents and to allow the visualization and analysis of agent's behavior. Not only does MISIA allow ``simulation, visualization and analysis of the agent’s behavior'', but also ``makes use of technologies for the development of multi-agent systems known and widely used, and combines them so that it is possible to use their capabilities to build highly complex and dynamic systems.'' In Garcia \textit{et al}, the authors chose to develop this framework on top of JADE and Repast Symphony. Their reasoning lies on the widespread use of JADE as a agent-based software development middleware, on Repast being simple and well documented and finally on both frameworks being open source. \cite{garcia2011misia}
 
-	Most platforms like JADE lack organizational features and simulation constraints and his infrastructure must usually be developed by the programmer. The main concept introduced to JADE by MISIA is the concept of time - synchronization is fundamental for simulation. MISIA also brings the possibility to develop open MAS to Repast by taking advantage of JADE implementation of FIPA protocols.
 
-	MISIA consists of three layers of components: a layer of contact with Repast; an intermediate layer between the two frameworks; a layer that enables JADE concept of time.
+	Most platforms like JADE lack organizational features and simulation constraints and this infrastructure must be developed by the programmer. The main concept introduced to JADE by MISIA is the concept of time - synchronization is fundamental for simulation. MISIA also brings the possibility to develop open MAS in Repast by taking advantage of JADE implementation of FIPA protocols.
 
-	The purpose of the `JADE layer' is for JADE's agents to perform their actions in each tick - the smallest unit of time in a simulation. The synchronization of JADE's agents is made by informing them about the current tick. MISIA uses an agent for this - dubbed `synchronizer' - that acts as a notifier. Furthermore, FIPA protocols are implemented with a wrapper that adapts them to Repast ticks.
+	\begin{figure}[t]
+	  \begin{center}
+	    \leavevmode
+	    \includegraphics[width=.7\textwidth]{misia}
+	    \caption{Functional structure of MISIA \cite{garcia2011misia}}
+	    \label{fig:misiadiagram}
+	  \end{center}
+	\end{figure}
 
-	Besides creating a wrapper on JADE's agents and FIPA protocols, an extra agent is created on the Repast layer. This means that for each agent created with MISIA, there are actually two agents being created. This layer also lets the synchronizer know that a new tick passed.
+	As illustrated in the diagram on figure \ref{fig:misiadiagram}, MISIA consists of three layers of components: a layer of contact with Repast; an intermediate layer between the two frameworks; a layer that enables JADE concept of time.
+
+	The purpose of the `JADE layer' is for JADE's agents to perform their actions in each tick - the smallest unit of time in a Repast-based simulation. The synchronization of JADE's agents is made by informing them about the current tick. MISIA uses an agent for this - dubbed `synchronizer' - that acts as a notifier. Furthermore, FIPA protocols are implemented with a wrapper that adapts them to Repast ticks.
+
+	Besides creating a wrapper on JADE's agents and FIPA protocols, an extra agent was included in the Repast layer. This means that for each agent created with MISIA, there are actually two agents being created. This layer also lets the synchronizer know that a new tick has passed.
 
 \subsection{JRep - Extending Repast Symphony for JADE Agent Behavior Components}
 \begin{quote}
