@@ -58,24 +58,23 @@ Repast's strength is in creating simulations as well as collecting and displayin
 
 JADE and Repast were chosen over other platforms mainly for their popularity and widespread use - not dismissing their quality, of course. As an example of an alternative framework, Cougaar (Cognitive Agent Architecture) solves the problem explain above by proposing a fully featured agent architecture, while maintaining high performance and scalability required for simulation. It doesn't, however, implement any interaction standards; messages are exchanged by means of serialized Java objects \cite{helsinger2004cougaar}. Table \ref{tab:jadevsrep} presents a rundown of the comparison of these frameworks.
 
+The analysis made in this section applies to JADE version 4.3.1 (6 December 2013) and Repast Symphony 2.1 (12 August 2013), which are also the versions that will be used throughout the production of this thesis.
 
 
 \section{Goals}
-The first goal of this thesis is to create a code conversion tool. This tool enables the programmer to generate a Repast simulation automatically from the source code of a JADE application (development to simulation), as well as obtaining a proper multi agent system in JADE starting from a Repast simulation (simulation to development). Such a conversion tool not only allows the developer to quickly deploy a MAS or create a simulation, as explained before, but also enables a proficient programmer in one framework to quickly get started in developing with the other framework. This thesis will focus mainly on agent interaction, i.e. the 
+The first goal of this thesis is to create a code conversion tool. This tool enables the programmer to generate a Repast simulation automatically from the source code of a JADE application (development to simulation), as well as obtaining a proper multi agent system in JADE starting from a Repast simulation (simulation to development). Such a conversion tool not only allows the developer to quickly deploy a MAS or create a simulation, as explained before, but also enables a proficient programmer in one framework to quickly get started in developing with the other framework.
 
-The second goal is to bring communication standards to Repast. While JADE complies with the FIPA standards for agent interaction, Repast implements no standards at all. Creating a library for implementation of FIPA interaction protocols in Repast will not only enrich that framework but will make the code generation more direct.
+The second goal is to bring communication standards to Repast. While JADE complies with the FIPA standards for agent interaction, Repast implements no standards at all. Creating a library for implementation of FIPA interaction protocols in Repast will not only enrich that framework but will make the code generation more straightforward.
 
 One of the soft goals for the final product is that the programmer should not be forced to introduce significant changes to the original code in order to be able to use the tool. The generated code must also preserve the functionality of the original code - meaning that the re-conversion must generate code that is equivalent to the original one.
+
+It's important to note that the main focus of this thesis is to convert agent interaction between the two frameworks. Agent behavior can be far more complex and go beyond simply agent interaction and, while the initial work will be laid down to allow for future work on perfectly mimicking agent behavior, this is not a main goal.
  
 
 \section{Thesis contents} \label{sec:struct}
 
-After this introduction, chapter \ref{chap:sota} starts by discussing some related work about JADE, Repast and about integrating both frameworks. Furthermore, a great part of this thesis is about Java code transformations, since the goal is to convert the code from one framework to the other.
-Therefore, part of the state-of-the-art research was related to code
-transformation tools.
+To summarize, this report proposes the development of a tool that converts a MABS created in Repast into MAS that uses JADE. Conversely, it should allow the conversion of a JADE MAS into a Repast MABS as well. This tool is useful in the context of development of a MAS that either started as a MABS or when the need to create a simulation arises during development. JADE and Repast were chosen for this thesis not only for their quality but also for their widespread use.
 
-Chapter \ref{chap:technology} ...
+After this introduction, chapter \ref{chap:sota} starts by discussing some related work about JADE, Repast and about integrating both frameworks. A great part of this thesis will be about Java code transformations, since the goal is to convert the code from one framework to the other. Therefore, part of the state-of-the-art review was related to code transformation tools.
 
-Chapter \ref{chap:validation} describes the details of the development environment as well as the definition of how the final product will be validated and evaluated. Chapter \ref{chap:plan} includes a detailed work plan for the following months
-and finally, \ref{chap:concl} includes final notes about this report and about
-the work done so far.
+Chapter \ref{chap:validation} describes the details of the development environment as well as the definition of how the final product will be validated and evaluated. Chapter \ref{chap:plan} includes a detailed work plan for the following months and finally, \ref{chap:concl} includes final notes about this report and about the work done so far.
