@@ -4,80 +4,66 @@
 
 \section*{}
 
+Multi-agent systems (MAS) are composed of autonomous computational elements capable of interacting with each other, called agents. The development of this class of systems comprise an interesting software paradigm but in terms of computer science history, MAS are a recent subject, having gained significant traction only after the mid 1990's \cite{wooldridge2008introduction}. With multiple applications such as problem solving, simulation, trading, negotiation, computer games and logistics using an efficient and modular development approach, MAS enjoyed a rapid growth in popularity and are in widespread use nowadays \cite{ferber1999multi}.
 
 \section{Context}
 
-Multi-agent systems (MAS) are composed of autonomous computational elements capable of interacting with each other, called agents. \cite{wooldridge2008introduction} These systems use an interesting software paradigm with multiple applications such as problem solving, simulation and negotiation using an efficient and modular development approach. \cite{ferber1999multi}
-Many times such systems are created from scratch, meaning that the developers must define all features of the system - such as its agents, their behavior, communication and organization, using conventional tools and
-languages. However, several frameworks exist that offer some level of abstraction from the code, allowing for a more conceptual approach to
-MAS development. \cite{gormer2011jrep} These frameworks generally provide the programmer with a range of features such as communication protocols, agent awareness capabilities and simulation facilities.
+Although their use is certainly widespread, there is no single general purpose standard for MAS development, since each system has different needs. Many times, such systems are created from scratch, meaning that the developers must define all features of the system - such as its agents, their behavior, communication and organization, using conventional programming languages and tools. However, several frameworks exist that offer some level of abstraction from the code, allowing for a more conceptual approach to
+MAS development \cite{gormer2011jrep}. 
 
-As a concrete example, and as the object of this thesis, JADE and Repast are
-two popular MAS development frameworks that offer a different group of
-features.
+Most uses of MAS, for instance in negotiation, games or logistics, demand a small number of agents, typically with larger resource demands but also without any need for control global control of execution, i.e. it is perfectly reasonable for these types of systems to be based on events and for its agents to work asynchronously. In contrast, multi-agent-based simulations (MABS) are usually implemented using a large number of lightweight agents with a small resource footprint. MAS development frameworks generally provide the programmer with a range of features such as execution control, communication protocols or agent awareness capabilities. In spite of that, most frameworks that focus on MAS development lack synchronization mechanisms and lightweight agent infrastructure required by MABS. One of the main goals of simulations is to be able to visualize real-time, as well as historical data that allow to study emergent and evolutionary phenomena. \cite{mengistu2008scalability}
 
-\begin{quote}
-	``JADE simplifies the development of distributed applications composed of autonomous entities that need to communicate and collaborate in order to achieve the working of the entire system. A software framework that hides all complexity of the distributed architecture is made available to application developers, who can focus their software development just on the logic of the application rather than on middleware issues, such as discovering and contacting the entities of the system.'' \cite{bellifemine2003jade}
-\end{quote}
 
-\begin{quote}
-	``[Repast] provides a library of objects for creating, running, displaying, and collecting data from an agent-based simulation. In addition, RePast includes several varieties of charts for visualizing data (e.g. histograms and sequence graphs) and can take snapshots of running simulations [...] and can properly be termed a “Swarm-like” simulation framework.''
-	\cite{collier2003repast}
-\end{quote}
+\section{Motivation} \label{sec:goals}
+
+
+The motivation for this thesis pertains the study of the development of agent-based software, focusing on the notion that MAS and MABS can both integrate the same project. As said before, MAS and MABS developers expect different groups of features to be provided by the development frameworks. Furthermore, in the course of development, a need may arise to use a different set of features. For instance, while developing a large scale MAS, a need for creating a simulation based on the same model may arise. The reverse can occur as well - the development may start as a simulation that later must be implemented with another kind of framework.
+
+This thesis will focus on using two frameworks that are very popular in their respective domain. First we have JADE, a framework that attempts to simplify the development of distributed agent application by seamlessly hiding all complexity concerning its distributed architecture. JADE is also FIPA compliant, meaning that is much easier to create an open MAS. With JADE, the programmers ``can focus their software development just on the logic of the application rather than on middleware issues, such as discovering and contacting the entities of the system'' \cite{bellifemine2003jade}. The second selected framework was Repast, a toolkit that provides objects for the creation and execution of MABS, while allowing the programmer to collect data from the agents. With Repast it is also fairly simple to create a wide range of different charts to represent the collected data.
 
 \begin{table}[tb]
 	\caption{Summary of JADE and Repast features.}
 	\label{tab:jadevsrep}
 	\begin{center}
-		\begin{tabular}{l|cc}
+		\begin{tabular}{l|ccc}
 		\hline
 
 		\hline
-		\textbf{} & \textbf{JADE} & \textbf{Repast} \\
+		\textbf{} & \textbf{JADE} & \textbf{Repast} & \textbf{Cougaar} \\
 		\hline
-			Communication & FIPA ACL &  Method calls \\
+			Communication & FIPA ACL &  Method calls  & Serialized Object \\
 						  &			 &  Shared resources \\
 		\hline
-			Distribution & Yes & No \\
+			Distribution & Yes & No & Yes \\
 		\hline
-			Simulation Tools & No & Yes \\
+			Simulation Tools & No & Yes & Yes \\
 		\hline
-			Scalability & Limited & High \\
+			Scalability & Limited & High & High \\
 		\hline
-			Ontologies & Yes & No \\
+			Ontologies & Yes & No & Yes\\
 		\hline
-			Open Source & Yes & Yes \\
+			Open Source & Yes & Yes & Yes\\
 		\hline
-			Agent Execution & Behavior-based & Schedule-based \\
-							& Multi-threaded & Single-threaded \\
-							& Event-driven   & Tick-driven \\
-							& Assync		 & Sync \\
+			Agent Execution & Behavior-based & Schedule-based  &  \\
+							& Multi-threaded & Single-threaded &  \\
+							& Event-driven   & Tick-driven 	   &  \\
+							& Assync		 & Sync 		   &  \\
 		\hline
 		\end{tabular}
 	\end{center}
 \end{table}
 
-\section{Motivation} \label{sec:goals}
-The motivation for this thesis has to do with taking advantage of each
-framework's best features in distinct phases of MAS development.
-
-Each MAS needs different tools. Furthermore, in the course of its development
-there may be a need to use a different set of features. For instance, while
-developing a large scale MAS, a need for creating a simulation based on the
-same model may arise. The reverse can occur as well; the development may start
-as a simulation that later must be implemented with another kind of framework.
-
 While JADE excels in creating seamless, distributed, peer-to-peer systems,
-Repast's strength is in creating simulations as well as collecting and displaying statistical data in different ways.
+Repast's strength is in creating simulations as well as collecting and displaying statistical data in different ways. In JADE, as table \ref{tab:jadevsrep} illustrates, agents execute in separate threads and while this architecture facilitates the platform's distribution, JADE's agent are heavy in terms of resources. Experiments with JADE show that the platform's scalability is limited in number of agents and that the global system performance drops quickly for large number of agents \cite{mengistu2008scalability} \cite{garcia2011misia}.
+
+JADE and Repast were chosen over other platforms mainly for their popularity and widespread use - not dismissing their quality, of course. As an example of an alternative framework, Cougaar (Cognitive Agent Architecture) solves the problem explain above by proposing a fully featured agent architecture, while maintaining high performance and scalability required for simulation. It doesn't, however, implement any interaction standards; messages are exchanged by means of serialized Java objects \cite{helsinger2004cougaar}. Table \ref{tab:jadevsrep} presents a rundown of the comparison of these frameworks.
+
 
 
 \section{Goals}
-The first goal of this thesis is to create a code conversion tool. This tool enables the programmer to generate a Repast simulation automatically from the source code of a JADE application, as well as deploying a proper multi agent system in JADE starting from a Repast simulation.
-Such a conversion tool not only allows the developer to quickly deploy a MAS or create a simulation, as explained before, but also enables a proficient programmer in one framework to quickly get started in developing with the other framework.
+The first goal of this thesis is to create a code conversion tool. This tool enables the programmer to generate a Repast simulation automatically from the source code of a JADE application (development to simulation), as well as obtaining a proper multi agent system in JADE starting from a Repast simulation (simulation to development). Such a conversion tool not only allows the developer to quickly deploy a MAS or create a simulation, as explained before, but also enables a proficient programmer in one framework to quickly get started in developing with the other framework. This thesis will focus mainly on agent interaction, i.e. the 
 
-The second goal is to bring communication standards to Repast. While JADE complies with the FIPA standards for agent interaction, Repast implements no standards at all. Creating a library for implementation of FIPA interaction
-protocols in Repast will not only enrich that framework but will make the code
-generation more direct.
+The second goal is to bring communication standards to Repast. While JADE complies with the FIPA standards for agent interaction, Repast implements no standards at all. Creating a library for implementation of FIPA interaction protocols in Repast will not only enrich that framework but will make the code generation more direct.
 
 One of the soft goals for the final product is that the programmer should not be forced to introduce significant changes to the original code in order to be able to use the tool. The generated code must also preserve the functionality of the original code - meaning that the re-conversion must generate code that is equivalent to the original one.
  
