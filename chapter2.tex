@@ -14,22 +14,19 @@
 This chapter presents a summary and analysis of some works related to the use of Repast and JADE frameworks in the development of MAS. The related
 work is sorted in four categories.
 
-The first category includes a discussion about existing works on integrating both JADE and Repast simultaneously by developing a middleware framework.  While the goal of this thesis is not to use both frameworks simultaneously, these works give a valuable insight into the shortcomings of both frameworks as well as providing some interesting comparisons between their features.
-The following category includes an overview of the FIPA standards for agent communication protocols along with a brief discussion about implementations of these protocols in Repast.
-Then, the third category presents some existing Java code generation and transformation tools. These tools will aid me in the automation of code refactoring, detection of code patterns and library calls.
-Finally, some works on code generation and transformation techniques are analyzed. More than just tools, there are proper methodologies of automating code generation. I will finish with a summary of the bibliography review and an overview of the most interesting topics approached in this chapter.
+The first category includes a discussion about existing works on integrating both JADE and Repast simultaneously by developing a middleware framework.  While the goal of this thesis is not to use both frameworks simultaneously, these works give a valuable insight into the shortcomings of both frameworks as well as providing some interesting comparisons between their features. The second category includes discussion about implementations of these protocols in Repast. Then, the third category presents some existing Java code generation and transformation tools. These tools will give support to the automation of code refactoring, detection of code patterns and library calls. This chapter ends with a summary of the bibliography review and an overview of the most interesting topics approached in this chapter.
 
 \section{JADE and Repast integration}
-JADE is a very popular framework for developing MAS, providing an infrastructure that allows the programmer to create a distributed system in a very transparent way. As discussed before, in the motivation for this thesis, JADE is not the best tool to develop a MABS, not only because it lacks the visualization tools that other frameworks provide for displaying data about agent behavior, but also because due to its multi threaded architecture JADE has performance issues when the system comprises a large number of agents. Following are two frameworks created to bridge the worlds of MAS development and simulation by integrating Repast and JADE in the same platform by means of a middleware.
+JADE is a very popular framework for developing MAS, providing an infrastructure that allows the programmer to create a distributed system in a very transparent way. As discussed before, in the motivation for this thesis, JADE is not the best tool to develop a MABS, not only because it lacks the visualization tools that other frameworks provide for displaying data about agent behavior, but also because due to its multi threaded architecture JADE has performance issues when the system comprises a large number of agents. Following are two frameworks created to bridge these two worlds of MAS development and simulation by integrating Repast and JADE in the same platform by means of a middleware.
 
 \subsection{MISIA: Middleware Infrastructure to Simulate Intelligent Agents}
 
-	MISIA is a middleware which goal is to enhance the simulation of intelligent agents and to allow the visualization and analysis of agent's behavior. Not only does MISIA allow ``simulation, visualization and analysis of the agent’s behavior'', but also ``makes use of technologies for the development of multi-agent systems known and widely used, and combines them so that it is possible to use their capabilities to build highly complex and dynamic systems.'' In Garcia \textit{et al}, the authors chose to develop this framework on top of JADE and Repast Symphony. Their reasoning lies on the widespread use of JADE as a agent-based software development middleware, on Repast being simple and well documented and finally on both frameworks being open source. \cite{garcia2011misia}
+	MISIA is a middleware whose goal is to enhance the simulation of intelligent agents and to allow the visualization and analysis of agent's behavior. Not only does MISIA allow ``simulation, visualization and analysis of the agent’s behavior'', but also ``makes use of technologies for the development of multi-agent systems known and widely used, and combines them so that it is possible to use their capabilities to build highly complex and dynamic systems.'' In Garcia \textit{et al}, the authors chose to develop this framework on top of JADE and Repast Symphony. Their reasoning lies on the widespread use of JADE as an agent-based software development middleware, on Repast being simple and well documented and finally on both frameworks being open source. \cite{garcia2011misia}
 
 
-	Most platforms like JADE lack organizational features and simulation constraints and this infrastructure must be developed by the programmer. The main concept introduced to JADE by MISIA is the concept of time - synchronization is fundamental for simulation. MISIA also brings the possibility to develop open MAS in Repast by taking advantage of JADE implementation of FIPA protocols.
+	Most platforms like JADE lack organizational features and support for simulation constraints - this infrastructure must be developed by the programmer. The main concept introduced to JADE by MISIA is the concept of time - synchronization is fundamental for simulation. MISIA also brings the possibility to develop open MAS in Repast by taking advantage of JADE implementation of FIPA protocols.
 
-	\begin{figure}[t]
+	\begin{figure}[h]
 	  \begin{center}
 	    \leavevmode
 	    \includegraphics[width=.7\textwidth]{misia}
@@ -38,51 +35,44 @@ JADE is a very popular framework for developing MAS, providing an infrastructure
 	  \end{center}
 	\end{figure}
 
-	As illustrated in the diagram on figure \ref{fig:misiadiagram}, MISIA consists of three layers of components: a layer of contact with Repast; an intermediate layer between the two frameworks; a layer that enables JADE concept of time.
+	As illustrated in the diagram on figure \ref{fig:misiadiagram}, MISIA consists of three layers of components: a layer of contact with Repast; an intermediate layer between the two frameworks; a layer that interfaces with JADE and enables the concept of time in that framework.
 
 	The purpose of the `JADE layer' is for JADE's agents to perform their actions in each tick - the smallest unit of time in a Repast-based simulation. The synchronization of JADE's agents is made by informing them about the current tick. MISIA uses an agent for this - dubbed `synchronizer' - that acts as a notifier. Furthermore, FIPA protocols are implemented with a wrapper that adapts them to Repast ticks.
 
 	Besides creating a wrapper on JADE's agents and FIPA protocols, an extra agent was included in the Repast layer. This means that for each agent created with MISIA, there are actually two agents being created. This layer also lets the synchronizer know that a new tick has passed.
 
-\subsection{JRep - Extending Repast Symphony for JADE Agent Behavior Components}
+\subsection{JREP - Extending Repast Symphony for JADE Agent Behavior Components}
+	In Gömer \textit{et al} \cite{gormer2011jrep}, the authors propose JREP, another platform for integrating JADE and Repast Symphony in the same framework, by means of a middleware. To demonstrate its use, the authors present an example of a smart airport and how it can be simulated using JREP.
+
 \begin{quote}
 	``JREP [is] a novel integration of JADE and Repast Symphony that efficiently combines the macro and micro perspective with an interaction layer. It allows to see not only the overall system behavior, but also the individual together with its interests, goals and the communication to
 	others for local coordination and cooperation. Scheduling of the agents, (time) synchronization and the registration of new agents with the environment has been solved.'' \cite{gormer2011jrep}
 \end{quote}
 
-	In Gömer, J. \textit{et al} \cite{gormer2011jrep}, the authors propose another platform for integrating JADE and Repast Symphony in the same framework, by means of a middleware platform.
-
-	To demonstrate its use, the authors the example of a smart airport and how it can be simulated using JREP.
 	The rationale for their choosing of JADE and Repast Symphony as working platforms is well defined:
 	Repast provides statistical functions, real-time monitoring, graphs and history recording; it also supports external statistical programs and has good execution speed.
 	JADE, on the other hand, is pointed as having a highly efficient message transport layer. 
 
 	JREP's architecture is similar to that of MISIA. There are three layers where the first one, called \textit{macro level} interacts with Repast, providing the scheduling mechanism; the second one, which they called \textit{micro level}, interacts with JADE and contains the behavior objects and the third one, called \textit{interaction level} which handles agent interaction using FIPA ACL.
-	Agents in JREP are represented as both a Repast Agent and a JADE Agent. The main difference to MISIA is that the Repast Agent contains the reference to the respective JADE agent while is MISIA this was handled by an intermediate layer.
+	Agents in JREP are represented as both a Repast Agent and a JADE Agent. The main difference to MISIA is that in JREP the Repast Agent contains the reference to the respective JADE agent while is MISIA this was handled by an intermediate layer.
 
 \subsection{Similar work}
-	Other works related to integration of features from Repast and JADE are available. This, however, is not the main focus of this thesis since my goal is not to use both frameworks simultaneously. That said, there is some interest in these works, as I explained in the beginning of this chapter. 
-
+	Other works related to integration of features from Repast and JADE are available. This, however, is not the main focus of this thesis since its goal is not to use both frameworks simultaneously. That said, there is some interest in these works, as I explained in the beginning of this chapter. 
 
 % end % JADE and Repast integration
 
 \section{FIPA standards in Repast}
-	MISIA and JREP both attempted to complement Repast's lack of communication protocols. However, JADE's implementation of FIPA interaction protocols was used to achieve that. 
+	MISIA and JREP both attempted to complement Repast's lack of communication protocols by creating an interface with JADE's implementation of FIPA interaction protocols. 
 
-	Open source projects exist that contemplate the use of FIPA ACL as a library, but none was found to be actively maintained or properly documented. Therefore, for this thesis, I decided to create my own Java library that brings FIPA standards to Repast.
+	Open source projects exist that contemplate the use of FIPA ACL as a library, but none was found to be actively maintained or properly documented. Therefore, this thesis will contemplate the creation of a Java library that brings FIPA standards to Repast.
 % end % FIPA standards in Repast
 
 
-\section{Code generation tools}
-	There are multiple was to tackle the problem of code transformations, as described in this thesis. The brute force approach would be to parse the source code, create an abstract syntax tree (AST), which represents all instructions in the code, perform certain transformations in the tree, and then generate back the code from the new AST. Fortunately, there are free and open source projects that can be used to do exactly this. From the available tools, I selected the ones that are the most relevant to this thesis, i.e. tools for Java code transformation that are open source, well documented and still supported. 
+\section{Code generation}
+	There are multiple ways to tackle the problem of code transformations, as described in this thesis. The brute force approach would be to parse the source code, create an abstract syntax tree (AST), which represents all code constructions in a program, perform certain transformations in the tree, and then generate back the code from the new AST. Fortunately, there are free and open source projects that developers can use to do exactly this with significantly reduced effort. From the available tools, I selected the ones that are the most relevant to this thesis, i.e. tools for Java code transformation that are open source, well documented and still supported. 
 
 \subsection{Eclipse Java Development Tools (JDT)}
 
-\begin{quote}
-	``The JDT project contributes a set of plug-ins that add the capabilities of a full-featured Java IDE to the Eclipse platform. The JDT plugins provide APIs so that they can themselves be further extended by other tool builders.'' \cite{eclipseJDT}
-\end{quote}
-	
-	\subsubsection{(work in progress)}
 
 	The Java Development Tools are are a group of plug-ins that provide Eclipse the necessary means to become a full-featured Java IDE. JDT can be broken down into five main components: 
 
@@ -94,26 +84,69 @@ JADE is a very popular framework for developing MAS, providing an infrastructure
 		\item[UI] Java IDE user interface 
 	\end{description}
 
-	While these tools make up what we perceive as the ``Eclipse IDE'', programmers can use these libraries in their Java projects and perform tasks that require a certain introspection of the code itself. Some of the possibilities presented by Eclipse JDT that could be interesting for this thesis are the creation of projects (in runtime) which would allow the generated code to be shown immediately in the IDE; accessing projects in the workspace, allowing the programmer to access the project's code; finding calls to methods, very useful for mapping library calls from one framework to the other (for instance) or AST parsing, for a lower level parsing of code, allowing to directly manipulate methods and data structures.
+	These tools make up what we perceive as the ``Eclipse IDE'' and programmers can use these libraries in their Java projects and perform tasks that require a certain introspection of the code itself. Some of the possibilities presented by Eclipse JDT that could be interesting for this thesis are the creation of projects (in runtime and programmatically) which would allow the generated code to be shown immediately in the IDE; accessing projects in the workspace, allowing the programmer to access the project's code; finding calls to methods, very useful for mapping library calls from one framework to the other (for instance) and AST parsing, for a lower level parsing of code, allowing to directly manipulate methods and data structures \cite{eclipseJDT}.
 
 
 \subsection{Spoon - Program Analysis and Transformation in Java}
-\begin{quote}
-	`` Using annotations within the Spoon framework allows the programmer to extend the Java language without defining new syntactic elements, and in such a way that it is naturally supported by IDEs for Java 5 and greater. Generics, as a priceless complement, allow for the well-typing of Spoon programs that implement the programmers' language extensions.'' \cite{eclipseJDT}
-\end{quote}
+	Spoon is a tool created to take advantage of the new features introduced on the release of Java 5, namely annotations and generics. It is a Java transformation tool that uses annotation processing, compile-time reflection and templates in a pure-Java environment to enable programmers to create their own platforms for code transformations. As illustrated by figure \ref{fig:spoon-compile}, these transformations occur on compile time and annotations are used as parameters for compilation. The programmer uses plain Java code to define the transformations that should occur, for instance, adding code snippets to the beginning of a method in a class. Finally, Spoon can be seamlessly integrated in an IDE such as Eclipse \cite{spoon,pawlak2006spoon}.
 
+	\begin{figure}[h]
+	  \begin{center}
+	    \leavevmode
+	    \includegraphics[width=.5\textwidth]{spoon-compile}
+	    \caption{Spoon compile-time processing \cite{pawlak2006spoon}}
+	    \label{fig:spoon-compile}
+	  \end{center}
+	\end{figure}
 
+\subsection{ATL - ATL Transformation Language }
+	ATL - \emph{ATLAS Transformation Language}, is both the name of a language and its enclosing plug-in and allows the creation of model transformations. Unlike JDT and Spoon analyzed before, ATL does not focus on applying transformations to the source code.
+
+	\begin{figure}[h]
+	  \begin{center}
+	    \leavevmode
+	    \includegraphics[width=.7\textwidth]{atl}
+	    \caption{Overview of ATL transformational approach \cite{jouault2006transforming}}
+	    \label{fig:so-atl-wow}
+	  \end{center}
+	\end{figure}
+
+	\begin{quote}
+		``ATL is applied in a transformational pattern shown in Fig. 1 . In this pattern a source model Ma is transformed into a target model Mb according to a transformation definition mma2mmb.atl written in the ATL language. The transformation definition is a model. The source and target models and the transformation definition conform to their metamodels MMa, MMb, and ATL respectively. The metamodels conform to the MOF metametamodel.''
+	\end{quote}
+
+	As explained in Jouault \emph{et al} and as illustrated in figure \ref{fig:so-atl-wow} by the same authors, ``a source model Ma is transformed into a target model Mb according to a transformation definition mma2mmb.atl written in the ATL language'', which is also a model itself. The three must conform to their respective metamodels MMa, MMb and ATL which then conform to the metametamodel MOF.
 % end % Code generation tools
 
 
-\section{Code generation techniques}
-% end % Code generation techniques
-(Estou a ponderar se irei deixar esta secção. Não encontrei informação relevante. Estou à espera de uma resposta do professor João Moreira, que foi meu juri, e referiu algumas coisas sobre isto, mas na altura não apontei.)
-
-
 \section{Summary}
-Although the problem of converting code between JADE and Repast has not been approach before in the available literature, it is clear that some related work is useful in the definition of a solution proposed in this thesis. JREP and MISIA show is that interoperability between the two frameworks is possible. The usefulness of these works is limited, though, since the course code is not readily available and it is unknown if either project is still being developed and supported.
+Although the specific problem of converting code between JADE and Repast has not been approach before in the available literature, it is clear that some related work is useful in the definition of a solution proposed in this thesis. JREP and MISIA show is that interoperability between the two frameworks is possible and helped defining the limitations of each framework. The usefulness of these works is limited, though, since the source code is not readily available and it is unknown if either project is still being developed and supported.
 
-Further testing is necessary to determine which of the two generation tools will be used: Spoon or Eclipse JDT. As shown above, both tools provide interesting features to developers. An integration of both tools could prove to be the best approach, allowing the creation of an Eclipse plug-in with JDT and simplifying code transformations with Spoon.
+Further testing is necessary to determine which of the code generation approaches proposed by the tools reviewed in this report should be used. As shown above, these tools provide interesting features and different methodologies to developers who wish to apply transformations on the source code of their projects in an automated way. An integration of these tools could prove to be the best approach, allowing the creation of an Eclipse plug-in with JDT and simplifying code transformations using simple Java constructions with Spoon or the specific transformation language of ATL.
+
+Table \ref{tab:codetools} presents a summary of the comparison of these three tools in an attempts to point out each one's strengths and limitations. From what was possible to gather about there tools without further practical testing, each tool could be useful in this thesis: ATL should be chosen if the model-based approach proves to be useful; JDT is the preferred choice for using runtime reflection and Spoon presents the simplest of the approaches to JAVA transformations in terms of programming difficulty.
+
+\begin{table}[h]
+	\caption{Comparison of code generation tools}
+	\label{tab:codetools}
+	\begin{center}
+		\begin{tabular}{l|ccc}
+		\hline
+
+		\hline
+		\textbf{} & \textbf{ATL} & \textbf{Spoon} & \textbf{JDT} \\
+		\hline
+			Language & ATL 		& Java 		& Java \\
+		\hline
+			License & EPL 		& CeCILL-C 	& EPL \\
+					& (FOSS) 	& (FOSS)	& (FOSS) \\
+		\hline
+			Annotation Processing & No & Yes & Yes \\
+		\hline
+			AST parsing & No & Yes & Yes \\
+		\hline
+		\end{tabular}
+	\end{center}
+\end{table}
 
 
