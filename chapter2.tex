@@ -73,22 +73,21 @@ JADE is a very popular framework for developing MAS, providing an infrastructure
 
 \subsection{Eclipse Java Development Tools (JDT)}
 
-	The Java Development Tools are are a group of plug-ins that provide Eclipse the necessary means to become a full-featured Java IDE. JDT can be broken down into five main components: 
+	The Java Development Tools are are a group of plug-ins that provide Eclipse the necessary means to become a full-featured Java IDE.
+	These tools make up what we perceive as the ``Eclipse IDE'' and programmers can use these libraries in their Java projects and perform tasks that require a certain introspection of the code itself. Some of the possibilities presented by Eclipse JDT that could be interesting for this thesis are the creation of projects (in runtime and programmatically) which would allow the generated code to be shown immediately in the IDE; accessing projects in the workspace, allowing the programmer to access the project's code; finding calls to methods, very useful for mapping library calls from one framework to the other (for instance) and AST parsing, for a lower level parsing of code, allowing to directly manipulate methods and data structures \cite{eclipseJDT}.
+
+	JDT can be broken down into five main components: 
 
 	\begin{description}
 		\item[APT] - Annotation Processing Tool\hfill \\
   			This component can be used to parse annotations in the code. Annotations are a Java construction introduced in Java 5 and can be used to add meta information about classes, objects and methods. These annotations can then be parsed by frameworks that use the POJO (plain old Java objects) that enclose them. As an example in the context of the code generation tool, annotations could be used to select entities like agents or data structures in a JADE project that would then be visualized in a Repast chart.
 		\item[Core] - Java IDE headless infrastructure \hfill \\
-  			
-		\item[Debug] \hfill \\
-  			Debug support for Java
-		\item[Text] \hfill \\
-  			Java editing support
-		\item[UI] \hfill \\
-  			Java IDE user interface 
+  			The core for the Java IDE, it allows to transverse the Java element tree and find package fragments, compilation units, binary classes, types, methods and fields. This tool could be useful for mapping methods and library calls from one framework to another.
+		\item[Debug] - Debug support for Java\hfill \\
+  			This tool makes the debug facilities of Eclipse possible. It provides functionalities such as execution control and contextual expression evaluation. It will probably not be very useful in the context of this thesis
+		\item[Text and UI] - Java editing support and Java IDE user interface \hfill \\
+  			These components make development in Eclipse possible by providing a GUI for code editing, enriched with syntactic errors highlighting, among other interesting aids. This component is not immediately necessary for the development of the code generation tool.
 	\end{description}
-
-	These tools make up what we perceive as the ``Eclipse IDE'' and programmers can use these libraries in their Java projects and perform tasks that require a certain introspection of the code itself. Some of the possibilities presented by Eclipse JDT that could be interesting for this thesis are the creation of projects (in runtime and programmatically) which would allow the generated code to be shown immediately in the IDE; accessing projects in the workspace, allowing the programmer to access the project's code; finding calls to methods, very useful for mapping library calls from one framework to the other (for instance) and AST parsing, for a lower level parsing of code, allowing to directly manipulate methods and data structures \cite{eclipseJDT}.
 
 
 \subsection{Spoon - Program Analysis and Transformation in Java}
