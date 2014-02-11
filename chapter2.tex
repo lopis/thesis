@@ -73,15 +73,19 @@ JADE is a very popular framework for developing MAS, providing an infrastructure
 
 \subsection{Eclipse Java Development Tools (JDT)}
 
-
 	The Java Development Tools are are a group of plug-ins that provide Eclipse the necessary means to become a full-featured Java IDE. JDT can be broken down into five main components: 
 
 	\begin{description}
-		\item[APT] Java 5.0 annotation processing infrastructure
-		\item[Core] Java IDE headless infrastructure
-		\item[Debug] Debug support for Java
-		\item[Text] Java editing support
-		\item[UI] Java IDE user interface 
+		\item[APT] - Annotation Processing Tool\hfill \\
+  			This component can be used to parse annotations in the code. Annotations are a Java construction introduced in Java 5 and can be used to add meta information about classes, objects and methods. These annotations can then be parsed by frameworks that use the POJO (plain old Java objects) that enclose them. As an example in the context of the code generation tool, annotations could be used to select entities like agents or data structures in a JADE project that would then be visualized in a Repast chart.
+		\item[Core] - Java IDE headless infrastructure \hfill \\
+  			
+		\item[Debug] \hfill \\
+  			Debug support for Java
+		\item[Text] \hfill \\
+  			Java editing support
+		\item[UI] \hfill \\
+  			Java IDE user interface 
 	\end{description}
 
 	These tools make up what we perceive as the ``Eclipse IDE'' and programmers can use these libraries in their Java projects and perform tasks that require a certain introspection of the code itself. Some of the possibilities presented by Eclipse JDT that could be interesting for this thesis are the creation of projects (in runtime and programmatically) which would allow the generated code to be shown immediately in the IDE; accessing projects in the workspace, allowing the programmer to access the project's code; finding calls to methods, very useful for mapping library calls from one framework to the other (for instance) and AST parsing, for a lower level parsing of code, allowing to directly manipulate methods and data structures \cite{eclipseJDT}.
@@ -120,11 +124,9 @@ JADE is a very popular framework for developing MAS, providing an infrastructure
 
 
 \section{Summary}
-Although the specific problem of converting code between JADE and Repast has not been approach before in the available literature, it is clear that some related work is useful in the definition of a solution proposed in this thesis. JREP and MISIA show is that interoperability between the two frameworks is possible and helped defining the limitations of each framework. The usefulness of these works is limited, though, since the source code is not readily available and it is unknown if either project is still being developed and supported.
+Although the specific problem of converting code between JADE and Repast has not been approach before in the available literature, it is clear that some related work is useful in the definition of a solution proposed in this thesis. JREP and MISIA show is that interoperability between the two frameworks is possible and helped defining the limitations of each framework. The usefulness of these works is limited, though, since the source code is not readily available and it is unknown if either project is still being developed and supported. Also, one of the goals proposed in the Introduction refers to the ability to generate code with introducing extensive changes to the original code. What JREP and MISIA propose is a platform to build new systems from the beggining using JADE and Repast.
 
 Further testing is necessary to determine which of the code generation approaches proposed by the tools reviewed in this report should be used. As shown above, these tools provide interesting features and different methodologies to developers who wish to apply transformations on the source code of their projects in an automated way. An integration of these tools could prove to be the best approach, allowing the creation of an Eclipse plug-in with JDT and simplifying code transformations using simple Java constructions with Spoon or the specific transformation language of ATL.
-
-Table \ref{tab:codetools} presents a summary of the comparison of these three tools in an attempts to point out each one's strengths and limitations. From what was possible to gather about there tools without further practical testing, each tool could be useful in this thesis: ATL should be chosen if the model-based approach proves to be useful; JDT is the preferred choice for using runtime reflection and Spoon presents the simplest of the approaches to JAVA transformations in terms of programming difficulty.
 
 \begin{table}[h]
 	\caption{Comparison of code generation tools}
@@ -148,5 +150,8 @@ Table \ref{tab:codetools} presents a summary of the comparison of these three to
 		\end{tabular}
 	\end{center}
 \end{table}
+
+Table \ref{tab:codetools} presents a summary of the comparison of these three tools in an attempts to point out each one's strengths and limitations. From what was possible to gather about there tools without further practical testing, each tool could be useful in this thesis: ATL should be chosen if the model-based approach proves to be useful; JDT is the preferred choice for using runtime reflection and Spoon presents the simplest of the approaches to JAVA transformations in terms of programming difficulty.
+
 
 
