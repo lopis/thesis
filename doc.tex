@@ -1,0 +1,37 @@
+\documentclass[letterpaper, 10 pt, conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+
+\usepackage{cite}
+\usepackage{makeidx}
+\usepackage[utf8]{inputenc}
+
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{{img/}}
+
+\input{preamble}
+
+\begin{document}
+
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\input{abstract}
+
+\input{1-intro}
+\input{2-related} \cite{garcia2011misia}
+\input{3-proposal}
+\input{4-prototype}
+\input{5-verification}
+\input{6-conclusion}
+
+%\bibliographystyle{IEEEtran} & This style ain't work'n
+\bibliographystyle{plain}
+\bibliography{references}
+
+
+\end{document}
+
