@@ -2,14 +2,25 @@
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
+Multi-agent systems (MAS) are composed of autonomous computational elements capable of interacting with each other, called agents.
+\cite{wooldridge2008introduction}
+MAS are in widespread use in multiple fields such as simulation, negotiation, computer games and logistics and can be very heterogeneous, often requiring interoperation between agents from different systems. \cite{wooldridge2008introduction}
+Therefore, for agent-based technologies to mature, standards needed to emerge to support the interaction between agents.
 
-The software described in this paper (tenderly named RepACL brings the implementation of FIPA Protocols to the Repast Simphony Framework.
+The specifications of the Foundation for Intelligent Physical Agents (FIPA) include such standards and try to promote interoperability between agents systems. These standards define not only a common agent communication language (ACL), but also a group of interaction protocols, recommended facilities for agent management and directory services. \cite{o1998fipa} Several frameworks exist that offer some level of abstraction from the code, allowing for a more conceptual approach to MAS development. As one would expect, FIPA standards (or any standards) are not supported by all of them. \cite{gormer2011jrep}
 
-Founded in 1995, FIPA (The Foundation for Intelligent Physical Agents) was established with the goal to produce specifications for open agent interfaces, aiming to mature intelligent software agent technologies. Its purpose is not to define what the agent internal architecture should be, but to specify the interfaces that allow agents from different networks and developers to interoperate. FIPA's specifications includes not only the details for agent communication - including the Agent Communication Language (ACL) - but also specifies the the facilities for agent managementm , software integration and human/agent interaction.
-\cite{o1998fipa}
+In this paper we focus on two frameworks, JADE and Repast Simphony. JADE is a FIPA compliant used in the development of distributed agent applications that seamlessly hides all complexity concerning its distributed architecture. \cite{bellifemine2003jade} Repast, on the other hand, is a toolkit focused in the creation and execution of Multi-Agent-Based Simulations (MABS). Repast is a very rich simulation tool, but doesn't support any open standards. \cite{collier2003repast} As such, one of the main motivations for the definition of the software described in this paper is to push Repast closer to being FIPA-compliant, thus improving the interoperability between the two frameworks. As an ultimate goal, we wish to enable the conversion of Repast models into full featured JADE MAS, as well as the conversion of JADE MAS into Repast simulations.
 
+The first step towards our goal is to implement FIPA interaction protocols in Repast.
+We this goal in mind, we propose an agent architecture, a set of guidelines and an API to be used in Repast-based simulations.
+The software, entitled Repacl (from Repast and ACL) defines not only the agents, but also their interaction behaviors and agent management facilities.
 
+Some of the challenges of developing this software lies in balancing its complexity. MABS are usually very fast; maintaining a simple architecture that reduces its impact on performance is therefore important. However, in order to enable interoperability and the possibility of conversion, the architecture we propose was based in JADE.
 
+In section \ref{sec:related_work}, we analyse some related works where the authors tried to integrate both frameworks in a single environment, enabling them to use the best of JADE and Repast. These works are still relevant to our proposal since they give important insight on how to implement the interaction protocols from JADE (inherently event-driven) in Repast's tick-based environment.
 
-One of the main motivations for the development of this API and for bringing Repast and JADE closer together is to reduce the difficulty 
+The details of the architecture, protocols and usage guidelines are defined in section \ref{sec:proposal}. We give a clear overview of the details of the current implementation, while justifying the design decisions that were made and showing how it compares to JADE's own implementation. As of the writing of this paper, Repacl is capable of being used in the creation of MABS using three kinds of FIPA interaction protocols: `Request-like', Contract Net and Propose.
 
+In section \ref{sec:prototype} we present our proposal for the code conversion tool that will allow us to convert between Repast simulations created with Repacl and JADE applications. It's still an early prototype, but in section \ref{sec:verification} we present some usage examples and results of our implementation.
+
+ TODO: Introduction summary
