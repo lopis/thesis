@@ -10,11 +10,12 @@ they work seamlessly as one.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.5\textwidth]{figures/MISIA.png}
-	\caption{Basic structure of MISIA}
+	\caption{Basic structure of MISIA. Diagram
+		adapted from original paper. \cite{garcia2011misia}}
 	\label{fig:misia}
 \end{figure}
 
-One of the challenges when re-implementing the FIPA interaction protocols was to synchronize them with Repast tick-based simulation. Given JADE's event-driven architecture, MISIA proposes the use of a coordinator agent that informs the JADE-Agent when a tick has passed. MISIA also proposes its own implementation of the interaction protocols supported by JADE, making them tick-friendly.
+One of the challenges the authors iditified when re-implementing the FIPA interaction protocols was to synchronize them with Repast tick-based simulation. Given JADE's event-driven architecture, MISIA proposes the use of a coordinator agent that informs the JADE-Agent when a tick has passed. MISIA also proposes its own implementation of the interaction protocols supported by JADE, making them tick-friendly.
 
 JReps's approach is not as complex as MISIA's. By having the Repast agent encapsulate the JADE agent representation, the synchronization is immediate and doesn't require an external coordinator. The two agent representations take care of synchronizing any state changes.
 
@@ -23,7 +24,8 @@ Each agent then takes care of interfacing their respective frameworks. The inter
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.5\textwidth]{figures/jrep.png}
-	\caption{Basic structure of JRep}
+	\caption{Basic structure of JRep. Diagram
+		adapted from original paper. \cite{garcia2011misia}}
 	\label{fig:jrep}
 \end{figure}
 
@@ -31,7 +33,7 @@ The most obvious advantage of the approach proposed in this paper is the possibi
 
 JADE is a very rich platform, but for many simulation scenarios, the overhead introduce by it will have an impact on the simulation performance. \cite{mengistu2008scalability} \apiname{}, as we describe with more detail in the next section, uses an implementation of those protocols that is conceptually very close to JADE's but tailored for Repast with no extra dependencies - in fact, the API could be used with other frameworks with little adaptation.
 
-As suggested by Figure \ref{fig:related-repacl}, \apiname{}'s architecture is far simpler than that of JRep and MISIA because, while these these advantage of both frameworks' features, \apiname{} is focused on the interaction protocols. Furthermore, unlike those, our proposal does not force the dual representation of agents in both frameworks.
+As suggested by Figure \ref{fig:related-repacl}, \apiname{}'s general structure is simpler than that of JRep and MISIA because, while these take advantage of both frameworks' features, \apiname{} is focused on the interaction protocols. Furthermore, unlike those, our proposal does not force the dual representation of agents in both frameworks.
 
 \begin{figure}[h]
 	\centering
