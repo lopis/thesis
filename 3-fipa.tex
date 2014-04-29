@@ -1,0 +1,98 @@
+%!TEX root = doc.tex
+\section{FIPA Specifications} % (fold)
+\label{sec:fipa}
+
+% Intro to FIPA in JADE/API
+\apiname{} closely follows JADE's architecture regarding the use of protocols and services specified by \gls{FIPA}, represented in Figure \ref{fig:agentManag}. The architecture of the API described in this paper includes four main concepts proposed by \gls{FIPA}: the \gls{DF}, the \gls{MTS}, the \gls{ACL} Message and the Interaction protocols. The following is a brief description of these concepts and of how JADE uses and implements them.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=2.5in]{figures/agentManag.png}
+	\caption{
+		Agent Management Reference Model, as specified by FIPA and implemented by JADE. \apiname{} only supports a single Agent Platform.
+	}
+	\label{fig:agentManag}
+\end{figure}
+
+% DF 
+The \gls{DF} is a component that provides a yellow page service and is part of the FIPA Agent Management Specification. It allows one agent to perform searches in order to request information about other agents. Only agents that are registered in the DF will be indexed and agents can register and deregister themselves at any time.
+
+% DF Agent Description
+When using the DF, agents can specify a series of restrictions that filter the search results. FIPA specifies the DF Agent Description that represents this filter and contains the fields on table \ref{tab:dfAgentDescription}.
+
+\begin{table}
+	\normalsize
+	\caption{Fields of the DF Agent Description used to filter the results of the DF service.}
+	\label{tab:dfAgentDescription}
+	\begin{center}
+		\begin{tabular}{c|c}
+		\hline
+		\textbf{Parameter} & \textbf{Description} \\
+		\hline
+		\texttt{name} & The identifier of the agent \\
+		\hline
+		\texttt{services} & A list of services supported by this agent \\
+		\hline
+		\texttt{protocol} & A list of interaction protocols supported by the agent. \\
+		\hline
+		\texttt{ontology} & A list of ontologies known by the agent. \\
+		\hline
+		\texttt{language} & A list of content languages known by the agent. \\
+		\hline
+		\end{tabular}
+	\end{center}
+\end{table} 
+
+% MTS
+The \gls{MTS} is a service, also specified by FIPA, for transportation of ACL messages between agents. It is also responsible for resolving agent addresses, in order to be able to deliver those messages.
+
+% ACL Message
+The ACL Message is the envelope that contains the details for communication. \gls{ACL} is specified by \gls{FIPA}, which stipulates what fields the message should contain. Table \ref{tab:fipaACLMessage} was adapted from the FIPA ACL Message structure specification and contains the list of fields in a message. Not all of them are mandatory. FIPA specifies the \texttt{performative} as the only mandatory field, although the \texttt{sender}, \texttt{receiver} and \texttt{content} are usually expected to be present.
+
+\begin{table}
+	\normalsize
+	\caption{FIPA ACL Message Parameters. The highlighted fields are the ones featured in \apiname{}.}
+	\label{tab:fipaACLMessage}
+	\begin{center}
+		\fboxsep1pt
+		\begin{tabular}{c|c}
+		\hline
+		\textbf{Parameter} & \textbf{Category of Parameters} \\
+		\hline
+		\colorbox{Apricot}{\texttt{performative}} & Type of communicative acts \\
+		\hline
+		\colorbox{Apricot}{\texttt{sender}} & \multirow{3}{*}{Participant in communication} \\
+		\cline{1-1}
+		\colorbox{Apricot}{\texttt{receiver}} \\
+		\cline{1-1}
+		\texttt{reply-to}  \\
+		\hline
+		\colorbox{Apricot}{\texttt{content}} & Content of message \\
+		\hline
+		\texttt{language} & \multirow{3}{*}{Description of Content} \\
+		\cline{1-1}
+		\texttt{encoding} \\
+		\cline{1-1}
+		\colorbox{Apricot}{\texttt{ontology}} \\
+		\hline
+		\colorbox{Apricot}{\texttt{protocol}} & \multirow{5}{*}{Control of conversation} \\
+		\cline{1-1}
+		\colorbox{Apricot}{\texttt{conversation-id}} \\
+		\cline{1-1}
+		\texttt{reply-with} \\
+		\cline{1-1}
+		\texttt{in-reply-to} \\
+		\cline{1-1}
+		\colorbox{Apricot}{\texttt{reply-by}} \\
+		\hline
+		\end{tabular}
+	\end{center}
+\end{table} 
+
+% Behaviors in JADE
+JADE uses the concept of behaviours which are adopted by agents that want to play a certain role or perform a task.
+Some of these behaviours are meant to be used in agent interaction and include two roles, as specified in FIPA interaction protocols: the initiator and the responder.
+
+%% Implementing these protocols.
+In order to create an application using these protocols, programmers only need to extend these behaviours and implement the message handlers.
+All the complexity regarding the interaction and networking infrastructure is hidden and taken care of by JADE, allowing the programmer to focus on the implementation of agent behaviour.

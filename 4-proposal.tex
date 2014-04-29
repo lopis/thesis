@@ -2,119 +2,58 @@
 \section{The \apiname{} API} % (fold)
 \label{sec:proposal}
 
-At times, when developing MAS on a specific platform, a need arises for adopting different tools than those available in the original platform. More specifically, this paper is the result of a necessity to quickly and easily create JADE-based applications out of Repast-based simulations, eventually being able to perform the complementary operation. \apiname{}'s main goal is to enable in Repast the support for the development of FIPA-compliant MABS. In this section we try to give a thorough description of \apiname{}'s architecture while comparing our design decisions with those of JADE.
+%% Intro to the proposal
+% Framework limitations issues
+The modelling of agent-based systems can be accomplished using on of the wide number of available platforms, such as those surveyed in Nikolai \emph{et al.}\cite{survey}. In order to benefit from different features, modelling the same MAS in different tools may be necessary.
+% The main goal of this proposal
+The API we propose is the direct result of an undergoing project to solve such necessity. More specifically, we propose a way to easily create JADE-like simulations based solely on the Repast Symphony platform.
+
+The main feature of \apiname{} is the fact that it enables the development of FIPA-compliant MABS in Repast.
+% A secondary objective
+An objective that has also been taken in consideration in the framework's architecture is ultimately being able to perform a seamless conversion between the two frameworks.
+% Conclusion and intro to the section objective
+In this section we describe \apiname{}'s architecture thoroughly, while comparing our design decisions with those of JADE.
 % [citation needed: is conversion a real need?]
 
-\subsection{Repast and JADE}
+
+%% Summarizing and comparing Repast and JADE features
+%\subsection{Repast and JADE}
 % What was missing in Repast?
-JADE and Repast are two popular agent-based application development tools with a very distinct set of features. Table \ref{tab:jadevsrep} summarizes the main differences between the two. It's worth pointing out that communication and ontologies are both covered by FIPA specifications. This, together with the differences in agent execution, make up the targets of out API.
+%JADE and Repast are two popular agent-based frameworks with a very distinct set of features. Table \ref{tab:jadevsrep} summarizes the main differences between the two.
 
-Our goal is not to reproduce JADE's distribution architecture in Repast. One advantage of using Repast is that, since the communication is local (while JADE's agents are often spread in different containers), the execution of Repast-based simulations is typically much faster. This also makes it more suited to perform simulations and tests on MAS \cite{mengistu2008scalability} \cite{gormer2011jrep} \cite{garcia2011misia}.
+%Our goal is not to reproduce JADE's distributed architecture in Repast. One advantage of using Repast is that, since communication is local (while JADE agents are often spread in different containers), the execution of Repast-based simulations is typically much faster. This also makes it more suited to perform simulations and tests on MAS \cite{mengistu2008scalability} \cite{gormer2011jrep} \cite{garcia2011misia}.
 
-By incorporating FIPA specifications in Repast, we bring it closer to JADE. By using \apiname{}, programmers that are already comfortable with creating MAS in JADE can feel comfortable enough to produce Repast-based simulations with the tools they're used to in JADE.
+%By incorporating FIPA specifications in Repast, we bring it closer to JADE. Also, when using \apiname{}, programmers that are already comfortable with creating MAS in JADE can feel comfortable enough to produce Repast-based simulations with the features they are used to in JADE.
 
-\begin{table}[h]
-	\normalsize
-	\caption{Summary of JADE and Repast features.}
-	\label{tab:jadevsrep}
-	\begin{center}
-		\begin{tabular}{l|cc}
-		\hline
+\subsection{\gls{FIPA} Specifications}
 
-		\hline
-		\textbf{} & \textbf{JADE} & \textbf{Repast} \\ %& \textbf{Cougaar} \\
-		\hline
-			Agent 		& FIPA  	&  Method calls  \\ %& Serialized Object \\
-			Interaction	& protocols	&  Shared resources \\
-		\hline
-			Distribution & Yes & No \\ %& Yes \\
-		\hline
-			Simulation Tools & No & Yes \\ %& Yes \\
-		\hline
-			Scalability & Limited & High \\ %& High \\
-		\hline
-			Ontologies & Yes & No \\ %& Yes\\
-		\hline
-			Open Source & Yes & Yes \\ %& Yes\\
-		\hline
-			Agent  		& Behavior-based & Schedule-based  \\ %&  \\
-			Execution	& Multi-threaded & Single-threaded \\ %&  \\
-						& Event-driven   & Tick-driven 	   \\ %&  \\
-						& Assync		 & Sync 		   \\ %&  \\
-		\hline
-		\end{tabular}
-	\end{center}
-\end{table} 
+% Brief intro
+As previously mentioned, \apiname{} closely follows JADE's architecture and includes the four main concepts proposed by \gls{FIPA}: the \gls{DF}, the \gls{MTS}, the ACL Message and the Interaction protocols.
+% The DF Agent Description
+Our API implements the DF Agent Description used to filter DF searches. The focus of our tool is the development of local simulations (as opposed to distributed). As such, a single DF exists in each simulation. \apiname{}'s implementation of the MTS is simplified as well due to the absence of a distributed infrastructure; all our agents are local, therefore agent address resolution is unnecessary.
 
-\subsection{FIPA Specifications}
+% The Repast Context
+It is worth noting that Repast has its own agent manager, named ``Context''.
+Repast's Context contains all objects that are to be scheduled. In \apiname{}'s this consists off all active behaviours. 
 
-As mentioned before, \apiname{} closely follows JADE's architecture regarding the use of protocols and services specified by FIPA. The architecture described in this paper includes four main concepts proposed by FIPA: the Directory Facilitator (DF), the Message Transport Service (MTS), the ACL Message and the Interaction protocols.
+%\apiname{} offers support to this feature by integrating a reference to the Context in the DF, while preserving the API's independence from Repast. While not present in JADE, this feature was included in \apiname{} out of convenience and is used internally. 
 
-The DF is a component that provides a yellow page service and is part FIPA Agent Management Specification \footnote{FIPA AM - http://www.fipa.org/specs/fipa00023/XC00023H.html}. It allows one agent to perform searches in order to request information about other agents. Only agents that are registered in the DF will be indexed and agents can register and deregister themselves at any time. These searches can be filtered in order to find the agents that are announcing themselves as providers or certain service. 
+Our implementation uses a version of the ACL Message that is slightly simpler than in the one found in JADE, focusing on the most common elements (the ones highlighted in Table \ref{tab:fipaACLMessage}).
 
-In \apiname{}, the services used as filters in search are the type of interaction behavior that an agent is expected to have adopted. Since the context of out tool is the development local (vs. distributed) simulations, a single DF exists in each simulation. Is worth noting that Repast has it's own agent manager, named ``Context''. \apiname{} offers support to this feature by integrating a reference to this object in the DF.
+Finally, the main focus of the API we're proposing is the incorporation of \gls{FIPA} Interaction Protocols in Repast. At the present time, we chose to include a few of the most common protocols in \apiname{}, following JADE's implementation.
 
-The MTS is a service, also specified by FIPA \footnote{FIPA MTS - http://www.fipa.org/specs/fipa00067/SC00067F.html}, for transportation of ACL messages between agents. One of its tasks is to be able to resolve agent addresses, in order to be able to deliver those messages. \apiname{}'s implementation of the MTS is simplified. Since \apiname{}'s target is the development of simulations in Repast, all our agents are local and agent address resolution is not required.
-
-The ACL Message is the envelope that contains the details for communication. ACL (Agent Communication Language) is specified by FIPA, which stipulates what fields the message should contain. Table \ref{tab:fipaACLMessage} was adapted from the FIPA ACL Message structure specification and gives and contains the list of fields in a message. Not all of them are mandatory. FIPA specifies the \texttt{performative} as the only mandatory field, although the \texttt{sender}, \texttt{receiver} and \texttt{content} are usually expected to be present.\footnote{http://www.fipa.org/specs/fipa00061/SC00061G.html}.
-
-Our implementation uses a version of the ACL Message that is slightly simpler than in the one found in JADE. The language, encoding and reply-by fields were omitted in the current version. Also, the ontology field is simply a text field. \apiname{} does not support more complex ontologies at present time.
-
-\begin{table}[h]
-	\normalsize
-	\caption{FIPA ACL Message Parameters}
-	\label{tab:fipaACLMessage}
-	\begin{center}
-		\begin{tabular}{cc}
-		\hline
-		\textbf{Parameter} & \textbf{Category of Parameters} \\
-		\hline
-		\texttt{performative} & Type of communicative acts \\
-		\hline
-		\texttt{sender} & Participant in communication \\
-		\hline
-		\texttt{receiver} & Participant in communication \\
-		\hline
-		\texttt{reply-to} & Participant in communication \\
-		\hline
-		\texttt{content} & Content of message \\
-		\hline
-		\texttt{language} & Description of Content \\
-		\hline
-		\texttt{encoding} & Description of Content \\
-		\hline
-		\texttt{ontology} & Description of Content \\
-		\hline
-		\texttt{protocol} & Control of conversation \\
-		\hline
-		\texttt{conversation-id} & Control of conversation \\
-		\hline
-		\texttt{reply-with} & Control of conversation \\
-		\hline
-		\texttt{in-reply-to} & Control of conversation \\
-		\hline
-		\texttt{reply-by} & Control of conversation \\
-		\end{tabular}
-	\end{center}
-\end{table} 
-
-Finally, the main focus of the software we're proposing is the incorporation of FIPA Interaction Protocols in Repast. At the present time, we chose to include a few of the most common protocols in \apiname{}, following JADE's implementation.
-
-The FIPA protocols from JADE we chose to include in \apiname{} at this point were the ``request-like'' Achieve Rational Effect (AchieveRE) protocol, the Propose protocol and the Contract Net protocol. The AchieveRE is a single protocol that encompasses multiple FIPA protocols, namely FIPA-Request, FIPA-query, FIPA-Request-When, FIPA-recruiting and FIPA-brokering protocols, as defined in JADE's documentation \footnote{http://jade.tilab.com/doc/api/jade/proto/AchieveREInitiator.html}.
-
+The \gls{FIPA} protocols from JADE we chose to include in \apiname{} at this point were the ``request-like'' Achieve Rational Effect (AchieveRE) protocol, the Propose protocol and the Contract Net protocol. The AchieveRE is a single protocol that encompasses multiple \gls{FIPA} protocols, namely FIPA-Request, FIPA-query, FIPA-Request-When, FIPA-recruiting and FIPA-brokering protocols, as defined in JADE's documentation \footnote{http://jade.tilab.com/doc/api/jade/proto/AchieveREInitiator.html}.
 
 
 \subsection{Agent Execution}
 
-In the process of incorporating FIPA specifications, there was a necessity to make adaptations to JADE's protocols to
+In the process of integrating JADE's protocols in \apiname{}, it was necessary to make adaptations to its behaviours' implementation in order to take Repast's concept of time into account. Even though a local application can take advantage of direct method invocation, for the sake of compatibility with JADE communication in \apiname{} is made asynchronously.
 
-to reproduce Repast's the concept of time in JADE's protocols, which are essentially event-driven. In \apiname{}, communication happens asynchronously but not event-driven. As Figures \ref{fig:com-example-jade} and \ref{fig:com-example-repast} try to illustrate, agent execution in JADE and \apiname{} are significantly different.
+JADE agent execution is concurrent and possibly parallel, since JADE supports distributed and multi-threaded agent systems. Agent execution in Repast, on the other hand, in not concurrent. Repast uses a time-share type of execution, granting each agent the right to perform its tasks until they finish them, in sequence, but in no particular order.
 
-Agent execution in Repast in not concurrent. Repast uses a time-share type of execution, granting each agent the right to perform its tasks until they finish them, in sequence, but in no particular order. Figure \ref{fig:com-example-repast} represents a best case scenario where the order of execution of the agents by Repast was favorable to communication. It's not unexpected for Agents A and B to execute again once before Agent C does, making the protocol take a bit longer to finish.
+Figures \ref{fig:com-example-jade} and \ref{fig:com-example-repast} represent a scenario where two agents send a message to a third one, who then replies to the first two. In Repast, messages are delivered to the agent's mailbox, and processed later on while in JADE, messages can arrive concurrently and be processed right away, because the arrival of a message triggers a correspondent event.
 
-JADE agent execution, on the other hand, is concurrent and possibly parallel, since JADE supports distributed and multi-threaded agent systems.
-
-\begin{figure}[h]
+\begin{figure}
 	\centering
 	\includegraphics[width=3.0in]{figures/tickExample2.pdf}
 	\caption{
@@ -123,7 +62,7 @@ JADE agent execution, on the other hand, is concurrent and possibly parallel, si
 	\label{fig:com-example-jade}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
 	\centering
 	\includegraphics[width=3.5in]{figures/tickExample.pdf}
 	\caption{
@@ -132,25 +71,44 @@ JADE agent execution, on the other hand, is concurrent and possibly parallel, si
 	\label{fig:com-example-repast}
 \end{figure}
 
-Our approach when adapting Jade-based protocols was to use a mail box for each agent. Messages in the mail box will not be processed until Repast grants execution to the behaviors whose agent owns that mail box. It's worth noting that the order by which Repast executes each scheduled item is never guaranteed. In fact, it's not guaranteed that all the behaviors or a single agent are executed together. This is the expected behavior when working with Repast as well as with JADE and it is up to the programmer to ensure that the application does not depend on the order or execution.
+It is worth noting that the order by which Repast executes each scheduled behaviour is never guaranteed. In fact, it is not guaranteed that all the behaviours of a single agent are executed together. This is the expected execution when working with Repast as well as with JADE and it is up to the programmer to ensure that the application does not depend on the order or execution.
 
 \subsection{Architecture}
 
-Figure \ref{fig:arch} illustrates the details of \apiname{}'s architecture. Most concepts represented in this diagram are present in JADE, namely the Agent, ACL Message, Behavior, MTS and DF service.
+Figure \ref{fig:arch} illustrates the details of \apiname{}'s architecture. Most concepts represented in this diagram are present in JADE, namely the Agent, ACL Message, Behaviour, MTS and DF service.
 
-As mentioned before, an agent in \apiname{} contains a queue of Behaviors and a mail box. On each ``round'', these behaviors are schedules to be executed and some will take care of handling the messages arrived at the mail box.
+An agent in \apiname{} contains a set of Behaviours and a Mail Box. The Behaviours have access to the agent who owns them and to its Mail Box. A behaviour tha implements an interaction protocol contains a Message Template which is used in the Mail Box to retrieve relevant messages.
 
-The protocol package contains the implementation of the different FIPA protocols. Other protocols can be created by extending these and creating new behaviors can be done by extending the main Behavior. The typical work flow when developing a new protocol, is to select the most appropriate one among the one available and implement a set of handlers for the ACL Messages. These handlers are called at certain states of the protocol and all the protocol logic is perform in the backstage.
+The DF Service, as described before, provides the yellow page service. Agents can register or unregister themselves in the DF as well as perform searches. While tasks can be performed during agent setup, in runtime they are typically executed inside Behaviours.
 
-The ACL message, the DF and the MF shown in Figure \ref{fig:arch} are described with more detail in the previous section about FIPA Specifications.
+To follow JADE-like communication, ACL Messages carry agent identifiers (AID) for senders and receivers. These AIDs are returned by the DF as search results and are resolved to an agent by the MTS when sending a message.
 
-\begin{figure}[h]
+The ``plug-in points'' to the API are the Agent and the Behaviour and its derived classes. In Figure \ref{fig:arch}, all protocol definitions are implied by the generic sub-classes ``ProtocolInitiator'' and ``ProtocolResponder''.
+
+\begin{figure}
 	\centering
-	\includegraphics[width=3.5in]{figures/repacl_arch.pdf}
+	\includegraphics[width=\linewidth]{figures/repacl_arch.pdf}
 	\caption{Detailed architecture or \apiname{}}
 	\label{fig:arch}
 \end{figure}
 
+\subsection{Using Repast}
+
+The Context is an utility created to provide support for Repast. In order for the simulation to run, scheduled behaviours must be added to it. In Repast simulations, the context must be set in the API by the Context Builder, which functions as the main class of a Repast simulation. We decided to integrate this feature in \apiname{} despite not being present in JADE to preserve the API's independence from Repast. This way, \apiname{} has it's own internal representation of the context.
+
+Repast uses Java annotations to indicate which methods are to be scheduled. \apiname{}'s Behaviours contain an \texttt{action} method that should be scheduled and called when programmers implement their own instances of the Behaviours in the API. The following Java snippet represents the basic recommended usages of the Repast scheduler when extending \apiname{}'s Behaviours. Being a Repast construct, the action method is not used for actual behaviour tasks.
+
+\begin{lstlisting}[language=Java]
+	public class MyBehaviour extends Behaviour {
+		...
+		@Override
+		@ScheduledMethod(start=1, interval=0.1)
+		public void action() {
+			super.action();
+		}
+		...
+	}
+\end{lstlisting}
 
 
 % section proposal (end)
