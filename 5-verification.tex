@@ -1,18 +1,15 @@
 %!TEX root = doc.tex
-\section{Verification}
+\section{Validation}
 \label{sec:verification}
 
+To perform a validation of the API, we developed a contract net scenario. This is a deterministic test which uses a fixed data set, thus having always the same outcome. The example was implemented in Repast (using \apiname{}) and then manually ported to JADE, after some adaptations.
 
+\subsection{Experimental Setup}
 
-To perform the verification of the API, we developed a contract net scenario. This was a deterministic test which used a fixed data set, thus having always having the same outcome. The example was implemented in Repast and then manually ported to JADE, after some adaptations.
+The diagram in Figure \ref{fig:CNetExample} illustrates the contract net created for this test. An agent (the buyer) intends to purchase a certain quantity of three kinds of goods: rice, flour and oats. Besides the quantities of each product it needs, the buyer also stipulates a maximum price for the whole deal. The buyer will issue a call for proposals (CFP) containing a request for supplies to all agents that announce themselves as suppliers in the DF.
 
-\subsection{Experiment Setup}
-
-The diagram in Figure \ref{fig:CNetExample} tries to illustrate the contract net created for this test. An agent - the buyer - intends to purchase a certain quantity of three kinds of goods - rice, flour and oats. Besides the quantities of each product it needs, the buyer also stipulates a maximum price for the whole deal. The buyer will issue a call for proposals (CFP) containing a request for supplies to all agents that announce themselves as suppliers.
-
-The supplier agents have a maximum supply capacity and a price for each product. After receiving a CFP, the supplier will send a price proposal to the buyer if the supply is within the seller's capacity. Otherwise, a REFUSE message will be sent to the buyer.
-
-Finally, the buyer agent will compare all valid proposals, choose the cheapest offer and send an ACCEPT PROPOSAL to the owner of the best offer, and REJECT PROPOSAL to every other agent.
+Supplier agents have a maximum supply capacity and a price for each product. After receiving a CFP, the supplier will send to the buyer a PROPOSAL containing a price for each product if the demanded supply is within the seller's capacity. Otherwise, a REFUSE message will be sent to the buyer.
+Finally, the buyer agent will compare all valid proposals, choose the cheapest offer for each individual product and reply with an ACCEPT PROPOSAL to the best offers, and REJECT PROPOSAL to all others.
 
 \begin{figure}[h]
 	\centering
@@ -23,42 +20,48 @@ Finally, the buyer agent will compare all valid proposals, choose the cheapest o
 	\label{fig:CNetExample}
 \end{figure}
 
-Using a large data set with values for prices and supply capacity in both frameworks, we ensured the proper comparison of results. For demonstration purposes, we focused on two simple metrics to evaluate our work: time and  outcome.
+Using a large data set with values for prices and supply capacity in both frameworks, we ensured the proper comparison of results. For demonstration purposes, we focused on two simple metrics to evaluate our work: time and  outcome. We have run the same experiment with varying numbers of suppliers (as sugested by Figure \ref{fig:performance}) and performed multiple repetitions of each setup.
 
-The time was measured from be begining of the protocol, until all suppliers were notified. The JADE application was also tested in two different setups: first, with all agents running in a single container; second, with the supplier agents in one container and the buyer in a separate one (but in the same machine). All tests were performed using an Intel i7 CPU (8 logical cores). The second validation metric we used was the actual result of the protocol, i.e who was the supplier agent chosen by the buyer and its price proposal.
+Time was measured from be begining of the protocol, until all suppliers were notified. The JADE implementation was tested in two different setups: first, with all agents running in a single container; second, with the supplier agents in one container and the buyer in a separate one (but in the same host). In this configuration, all communication between agents happens across containers. All tests were performed using an Intel i7 CPU with 8 logical cores at 2.20 GHz. The second validation metric we used was the actual result of the protocol, i.e who were the supplier agents chosen by the buyer and their price proposals.
 
 \subsection{Results}
 
-The average performance on both experiments is represented in \ref{fig:performance}. As excepted, Repast excels when the number of agents is high. JADE was able to perform better with a lower number of agents by taking advantage of its multi-threaded architecture - more so when using two distinct containres. As studied by Mengistu et. al \cite{mengistu2008scalability}, JADE's performance drops very significantly when there is a high communication-to-computation ratio in the application.
+For each number of agents, the experiment was run 5 times. The average performance of the experiments is represented in Figure \ref{fig:performance}. As excepted, Repast performance was significantly better, and it excels when the number of agents is high. JADE was able to perform better when using two distinct containers. As studied by Mengistu et. al \cite{mengistu2008scalability}, JADE's performance drops very significantly when there is a high communication-to-computation ratio in the application.
 
-Regarding the outcome of the protocol, an equal value was obtained in the three experiments with equal number of agents. This allowed us to verify that the behaviour of the protocol was similar identical in both implementations.
+Regarding the outcome of the protocol, as expected the same values were obtained in both implementations, with equal number of suppliers. This allowed us to verify that the behaviour of the protocol is identical in both implementations.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%% The Chart %%%%%%%%%%%%%%%%%%
 
 \begin{figure}[h]
+	\label{fig:performance}
 	\centering
 	%\includegraphics[width=\linewidth]{figures/performance.png}
-	\begin{tikzpicture}
+	\begin{tikzpicture}[scale=0.85]
 
 		% horizontal axis
-		\draw[->] (0,0) -- (8,0);
-		\draw (4,-0.75) node[align=center] {Number of agents}; %label
+		\draw[->] (0,0) -- (11,0);
+		\draw (5.5,-1.2) node[align=center] {Number of agents}; %label
 
+		%					  north
+		%			west [anchor center] east
+		%					  south
+		
 		% labels
-		\draw	(1,0) node[anchor=north] {10}
-				(2,0) node[anchor=north] {20}
-				(3,0) node[anchor=north] {50}
-				(4,0) node[anchor=north] {100}
-				(5,0) node[anchor=north] {200}
-				(6,0) node[anchor=north] {500}
-				(7,0) node[anchor=north] {1000};
+		\draw	(0.5,0) node[rotate=90, anchor=east] {50}
+				(1.0,0) node[rotate=90, anchor=east] {100}
+				(2.0,0) node[rotate=90, anchor=east] {200}
+				(3.0,0) node[rotate=90, anchor=east] {300}
+				(4.0,0) node[rotate=90, anchor=east] {400}
+				(5.0,0) node[rotate=90, anchor=east] {500}
+				(7.5,0) node[rotate=90, anchor=east] {750}
+				(10.,0) node[rotate=90, anchor=east] {1000};
 
-		\draw	(-0.5,1) node[anchor=center] {300}
-				(-0.5,2) node[anchor=center] {600}
-				(-0.5,3) node[anchor=center] {900}
-				(-0.5,4) node[anchor=center] {1200};
+		\draw	(-0.5,0.5) node[anchor=center] {350}
+				(-0.5,1.5) node[anchor=center] {1050}
+				(-0.5,2.5) node[anchor=center] {1800}
+				(-0.5,3.5) node[anchor=center] {2550};
 		% vertical axis
 		\draw[->] (0,0) -- (0,4);
 		\draw (-1.5,2) node[align=center] {Time\\(ms)}; %label
@@ -66,41 +69,44 @@ Regarding the outcome of the protocol, an equal value was obtained in the three 
 
 		%% Data %%
 		% JADE 2 containers
-		\draw[thick,dashed] (1,0.05) --
-							(2,0.07) --
-							(3,0.21) --
-							(4,0.35) --
-							(5,0.52) --
-							(6,1.28) --
-							(7,2.89);
-		% JADE 1 container							
-		\draw[thick,dotted] (1,0.02) --
-							(2,0.03) --
-							(3,0.11) --
-							(4,0.28) --
-							(5,0.99) --
-							(6,2.56) --
-							(7,3.95);
+		\draw[thick,dashed] (0.5,3.0) --
+			(1,3.0) node[anchor=west, pos=1.0] {JADE (2 containters)}; %subtitle
+		\draw[thick,dashed] (0.5, 0.10) --
+					(1.0, 0.19) --
+					(2.0, 0.28) --
+					(3.0, 0.43) --
+					(4.0, 0.49) --
+					(5.0, 0.65) --
+					(7.5, 1.11) --
+					(10., 1.53);
+		% JADE 1 containers
+		\draw[thick,dotted] (0.5,3.5) --
+			(1,3.5) node[anchor=west, pos=1.0] {JADE (1 containter)}; %subtitle
+		\draw[thick,dotted] (0.5, 0.06) --
+					(1.0, 0.16) --
+					(2.0, 0.46) --
+					(3.0, 0.73) --
+					(4.0, 1.18) --
+					(5.0, 1.44) --
+					(7.5, 2.19) --
+					(10., 3.59);
 		% Repast
-		\draw[thick] (1,0.35) --
-					(2,0.32) --
-					(3,0.32) --
-					(4,0.38) --
-					(5,0.37) --
-					(6,0.46) --
-					(7,0.61);
+		\draw[thick] (0.5,2.5) --
+			(1,2.5) node[anchor=west, pos=1.0] {Repast using \apiname{}}; %subtitle
+		\draw[thick] (0.5, 0.04) --
+					(1.0, 0.04) --
+					(2.0, 0.07) --
+					(3.0, 0.08) --
+					(4.0, 0.10) --
+					(5.0, 0.11) --
+					(7.5, 0.14) --
+					(10., 0.19);
 
-
-		% Data Labels
-		\draw[thick,dashed] (0.5,3.5) -- (1,3.5) node[anchor=west, pos=1.0] {JADE w/ 1 containter};
-		\draw[thick,dashed] (0.5,3.0) -- (1,3.0) node[anchor=west, pos=1.0] {JADE w/ 2 containters};
-		\draw[thick] (0.5,2.5) -- (1,2.5) node[anchor=west, pos=1.0] {Repast using API};
 
 	\end{tikzpicture}
 	\caption{
 		Average execution time of each framework in the different experiments.
 	}
-	\label{fig:performance}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -3,17 +3,17 @@
 \label{sec:introduction}
 
 % 1 - Intro to MAS
-A \gls{MAS} is composed of autonomous computational elements, called agents, capable of interacting with each other \cite{wooldridge2008introduction}.
-Agent-based applications and simulations are in widespread use in multiple fields of research and industry and can be very heterogeneous, often requiring interoperation between agents from different systems.
+A \gls{MAS} is composed of autonomous intelligent agents, capable of interacting with each other \cite{wooldridge2008introduction}.
+Agent-based applications are in widespread use in multiple fields of research and industry and can be heterogeneous, often requiring interoperation between agents from different systems.
 In order to make this possible, agent technologies have matured and standards have emerged to support the interaction between agents.
 
 % 2 - FIPA and ACL
-The specifications of \gls{FIPA}\footnote{http://fipa.org/} include such standards and try to promote interoperability in heterogeneous agent systems.
+The specifications of \gls{FIPA}\footnote{http://fipa.org/} promote interoperability in heterogeneous agent systems.
 These standards define not only a common \gls{ACL}, but also a group of interaction protocols, recommended facilities for agent management and directory services \cite{o1998fipa}.
 
 % 3 - Framework problems (not supporting FIPA)
 Several frameworks exist \cite{survey} that offer some level of abstraction from low level development, allowing programmers to focus on a more conceptual approach in \gls{MAS} design.
-They are usually focused in one or more domains.
+% They are usually focused in one or more domains.
 It turns out, though, that \gls{FIPA} standards (or any standards) are not supported by all of them.
 
 % 4 - This paper focus JADE and Repast
@@ -21,11 +21,12 @@ In this paper we focus on two frameworks, the \gls{JADE} and the \gls{Repast}. F
 
 % 4.1 - \gls{JADE}
 \gls{JADE} is a \gls{FIPA}-compliant, general-purpose (i.e. not focused on a single domain) framework used in the development of distributed agent applications.
-\gls{JADE} seamlessly hides all complexity concerning its distributed architecture \cite{bellifemine2003JADE}.
-However, experiments with \gls{JADE} show that the platform's scalability is limited, meaning that \gls{JADE} is not an appropriate tool to create MABS which usually deal with a large number of agents \cite{mengistu2008scalability}.
+It seamlessly hides all complexity concerning its distributed architecture \cite{bellifemine2003JADE}.
+However, experiments with \gls{JADE} show that the platform's scalability is limited \cite{mengistu2008scalability}, meaning that \gls{JADE} is not an appropriate tool to create MABS which usually deal with a large number of agents.
 
 % 4.2 - Repast
-Repast, on the other hand, is a toolkit focused in the creation and execution of \gls{MABS}. Repast \cite{repSimph} is a very rich simulation tool, but does not support any open standards. As such, one of the main motivations for the creation of the software described in this paper is to enable Repast-based \gls{FIPA}-compliant simulations to be created, thus making them more similar to distributed MAS implementations. As an ultimate goal, we wish to enable the conversion of Repast models into full featured \gls{JADE} MAS, as well as the conversion of \gls{JADE} MAS into Repast simulations. Table \ref{tab:jadevsrep} summarizes the main differences between the two frameworks.
+Repast, on the other hand, is a toolkit focused in the creation and execution of \gls{MABS}. It is a very rich simulation tool \cite{repSimph}, but does not support any open standards. Table \ref{tab:jadevsrep} summarizes the main differences between the two frameworks. One of the main motivations for the solution we propose is to enable Repast-based \gls{FIPA}-compliant simulations to be created, thus making them more similar to distributed MAS implementations. This solution can be useful in scenarios where proficient JADE developers intend to create Repast simulations, allowing them to use familiar JADE-like tools. 
+With this goal in mind, we wish to enable the conversion of Repast models into full featured \gls{JADE} MAS, as well as the conversion of \gls{JADE} MAS into Repast simulations, thus further closing the gap between the two frameworks.
 
 \begin{table}[h]
 	\normalsize
@@ -59,26 +60,26 @@ Repast, on the other hand, is a toolkit focused in the creation and execution of
 \end{table} 
 
 % 5 - Proposal 
-With these goals in mind, we propose the use of an API when developing Repast-based simulations. Our API, \apiname{} (\apilongname{}), addresses not only agent programming, but also their interaction and related infrastructural components.
-We are aware that this kind of facilities is only valuable for true multi-agent based simulation, and not in general for any agent-based modeling and simulation approach (for which Repast is also suited).
+With these goals in mind, we propose the use of an API when developing Repast-based simulations. \apiname{} (\apilongname{}) addresses not only agent programming, but also their interaction and related infrastructural components.
+We are aware that this kind of facilities is only valuable for true multi-agent based simulation, and not in general for any agent-based modelling and simulation approach (for which Repast is also suited).
 
 % 6 - Challenges
 Some of the challenges of developing this software lie in balancing its complexity.
 MABS's execution is usually very fast paced; maintaining a simple architecture with a low impact on performance is therefore important.
-However, in order to enable interoperability and the possibility of conversion, the architecture we propose for the API is based on \gls{JADE}.
-A compromise has been met by porting the features from \gls{JADE} that we find most valueable in a \gls{MAS} and that are needed for a meaningful exploitation of both frameworks.
+The architecture we propose, however, is based on \gls{JADE}.
+A compromise has been met by porting the features from \gls{JADE} that we find most valuable in a \gls{MAS} and that are needed for a meaningful exploitation of both frameworks.
 
 % 7 - Objectives
 One of the guidelines while developing this API was to make the software considerably generic, in the sense that it is not heavily dependent on a framework.
 We accomplished this by using a pure Java implementation that does not rely on constructs provided by Repast or \gls{JADE}, as opposed to some of the similar works we discuss in Section \ref{sec:related_work}.
 %% Related work
-These works try to integrate both frameworks in a single environment, enabling them to use the best of \gls{JADE} and Repast. They are still relevant to our proposal since they give important insight on how to implement interaction protocols from \gls{JADE} (inherently event-driven) in Repast's tick-based scheduler.
+Those works try to integrate both frameworks in a single environment, seeking to use the best of \gls{JADE} and Repast. They are still relevant to our proposal since they give important insight on how to implement interaction protocols available in \gls{JADE} (inherently event-driven) in Repast's tick-based scheduler.
 
-Section \ref{sec:fipa} contains a brief discussion about FIPA specifications, especially focused on the concepts that are relevant to this project and their presence in JADE.
+Section \ref{sec:fipa} contains a brief discussion about FIPA specifications, especially focused on the concepts present in JADE that are relevant to this project.
 %% Architecture
-The details of the architecture, protocols and usage guidelines are defined in Section \ref{sec:proposal}. We provide a clear overview of the details of the current implementation, while justifying the design decisions that were made and showing how it compares to \gls{JADE}'s own implementation.
+The details of the API are defined in Section \ref{sec:proposal}. We provide a clear overview of its architecture and justify our design decisions and how it compares to \gls{JADE}'s own implementation.
 %% Verification
-For exemplification and comparison purposes, in Section \ref{sec:verification} we present an experiment performed in both frameworks and using \apiname{}. The experiment consisted of a contract net where a large number of agents communicate in order to buy and sell goods.
+For exemplification and comparison purposes, in Section \ref{sec:verification} we present an experiment performed in both frameworks and using \apiname{}.
 %% Prototype
 In Section \ref{sec:prototype} we present our proposal for the code conversion tool that will allow programmers to convert between Repast simulations created with \apiname{} and \gls{JADE} applications. While still under development, we try to give an overview of its main features.
 % Conclusions
