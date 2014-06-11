@@ -1,3 +1,49 @@
 %!TEX root = ../thesis.tex
-\chapter{Solution Proposal}
+\chapter{Automatic Code Conversion based on SAJaS}
 \label{chap:solution}
+
+The modelling of MAS can be accomplished through the use of a wide range of available platforms, as explained before. In certain cases, in order to benefit from different features, modelling the same system in multiple development environments may be necessary.
+
+The developed solution consists in an integrated system comprised of two main components:
+
+\begin{enumerate}
+  \item The \textbf{Simple API for JADE-based Simulations (SAJaS)}, which provides a set of features present in JADE; those features were reimplemented from scratch in an attempt to simplify their internal complexity, preserving JADE-like external execution;
+  \item The \textbf{Code Conversion Tool} in the form of an Eclipse plug-in that is capable of mapping JADE and SAJaS features and convert applications developed using one into applications based on the other, automatically.
+\end{enumerate}
+
+This chapter explains each of these components with detail, including a section on FIPA, and follows with a presenting with the expected use cases of the integrated system.
+
+\section{Overview}
+%In this section, explain the integrated solution of SAJaS + plug-in, how they work, what they use in terms of dependencies, etc.
+
+SAJaS is an API meant to be used with simulation frameworks to enable JADE-based features in them, including agent interaction protocols and agent management services. The API also uses JADE's concept of behaviours which encapsulate most of agents' actions.
+
+SAJaS was initially created to be used with Repast SImphony. However, it was developed in a way that allows its integration with other simulation tools. The interface between Repast and SAJaS is made in a single point, the Scheduler, which is a Repast-specific structure. BY creating a different implementation of the scheduler, it is possible to use other simulation frameworks.
+
+\subsection{FIPA Specifications}
+
+On of the main features of \apiname{} is the fact that it enables the development of FIPA-compliant MABS.
+% Brief intro
+As previously mentioned, \apiname{} closely follows JADE's architecture.
+% The DF Agent Description in the api
+It implements the DF Agent Description used to filter DF searches. Its focus is the development of local simulations (as opposed to distributed). As such, a single DF exists in each simulation. \apiname{}'s implementation of the MTS is simplified as well due to the absence of a distributed infrastructure considering that agent address resolution is unnecessary. The AMS contains a mapping of all AIDs to their respective agent objects, which is used by the MTS when delivering messages.
+% The ACL message in the api
+\apiname{}'s implementation of the ACL Message is slightly simpler than the one found in JADE, focusing on the most commonly used elements (the ones highlighted in Table \ref{tab:fipaACLMessage} from Chapter \ref{chap:background}).
+
+% The interaction protocols in the api
+The initial focus was the incorporation of \gls{FIPA} Interaction Protocols in Repast, but it grew to include the whole agent management infrastructure. The most common protocols were selected, following JADE's implementation, to be included in \apiname{}.
+% The specific protocols
+The implemented protocols were the ``request-like'' Achieve Rational Effect (AchieveRE) protocol, the Contract Net protocol and the Single Session Contract Net - including the Responder Dispatcher behaviour, which uses it. The AchieveRE encompasses multiple \gls{FIPA} protocols, namely Request, Query, Request-When, Recruiting and Brokering protocols, as defined in JADE's documentation. Chapter \ref{chap:architecture} explains with greater detail how agents execute in SAJaS and how they use behaviours and protocols.
+
+\section{Usage Scenarios}
+%In this section, show how the whole setup is used with detailed use cases
+This section is meant to describe both the scenarios where this system is expected to be useful, as well as the actual possible use cases.
+
+One possible scenario is when a JADE developer created a JADE MAS and desires to perform some tests and simulations in a local and controlled environment. The developer can use this tool to convert the MAS into a MABS. Eventually, the application can be converted back is changes were made while in the simulation format.
+
+A second possible scenario could be that of a developer that intends to create a MABS with the goal of later creating a MAS out of it. This could be a Repast developer who desires to create more complex agent simulations or a JADE developer that wants to create Repast simulations using familiar JADE-like tools.
+
+A third scenario is when a developer simply wants to create a complex agent-based, FIPA-compliant simulation. In this case, there is no need for a code conversion tool, but SAJaS can be used as a standalone library.
+
+\subsection{Use Cases}
+

@@ -32,6 +32,9 @@
 % For gantt timeline diagrams
 \usepackage{pgfgantt}
 
+% For tables
+\usepackage{multirow}
+
 % For glossary
 \usepackage[acronym]{glossaries}
 
@@ -47,8 +50,14 @@
 %% Include color package
 \usepackage{color}
 \definecolor{cloudwhite}{cmyk}{0,0,0,0.025}
+\definecolor{Apricot}{HTML}{FBB982}
 \newcommand{\apiname}{SAJaS} 
 \newcommand{\apilongname}{Simple API for JADE-based Simulations}
+
+%%% For charts%%
+\usepackage{tikz}
+
+
 
 %% Include source-code listings package
 \usepackage{listings}
@@ -75,6 +84,10 @@
  escapeinside={\%*}{*)},            % if you want to add a comment within your code
  morekeywords={*,var,template,new}  % if you want to add more keywords to the set
 }
+%% For code block %%
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=0pt,frame=lrbt,rulecolor=\color{Gray}}
+%%%
 
 %% Uncomment to create an index (at the end of the document)
 %\makeindex
@@ -83,7 +96,7 @@
 %% TIP: use folder ``figures'' to keep all your figures
 \graphicspath{{figures/}}
 
-\makeglossaries
+%\makeglossaries
 
 %%----------------------------------------
 %% TIP: if you want to define more macros, use an external file to keep them

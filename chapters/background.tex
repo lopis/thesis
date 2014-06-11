@@ -114,42 +114,21 @@ There are multiple ways to tackle the problem of code transformations, as descri
 
 
 \subsection{Spoon - Program Analysis and Transformation in Java}
-	Spoon is a tool created to take advantage of the new features introduced on the release of Java 5, namely annotations and generics. It is a Java transformation tool that uses annotation processing, compile-time reflection and templates in a pure-Java environment to enable programmers to create their own platforms for code transformations. As illustrated by figure \ref{fig:spoon-compile}, these transformations occur on compile time and annotations are used as parameters for compilation. The programmer uses plain Java code to define the transformations that should occur, for instance, adding code snippets to the beginning of a method in a class. Finally, Spoon can be seamlessly integrated in an IDE such as Eclipse \cite{spoon,pawlak2006spoon}.
+	Spoon is a tool created to take advantage of the new features introduced on the release of Java 5, namely annotations and generics. It is a Java transformation tool that uses annotation processing, compile-time reflection and templates in a pure-Java environment to enable programmers to create their own platforms for code transformations. These transformations occur on compile time and annotations are used as parameters for compilation. The programmer uses plain Java code to define the transformations that should occur, for instance, adding code snippets to the beginning of a method in a class. Finally, Spoon can be seamlessly integrated in an IDE such as Eclipse \cite{pawlak2006spoon}.
 
-	\begin{figure}[h]
-	  \begin{center}
-	    \leavevmode
-	    \includegraphics[width=.5\textwidth]{spoon-compile}
-	    \caption{Spoon compile-time processing \cite{pawlak2006spoon}}
-	    \label{fig:spoon-compile}
-	  \end{center}
-	\end{figure}
 
 \subsection{ATL - ATL Transformation Language }
 	ATL - \emph{ATLAS Transformation Language}, is both the name of a language and its enclosing plug-in and allows the creation of model transformations. Unlike JDT and Spoon analyzed before, ATL does not focus on applying transformations to the source code.
 
-	\begin{figure}[h]
-	  \begin{center}
-	    \leavevmode
-	    \includegraphics[width=.7\textwidth]{atl}
-	    \caption{Overview of ATL transformational approach \cite{jouault2006transforming}}
-	    \label{fig:so-atl-wow}
-	  \end{center}
-	\end{figure}
-
-	\begin{quote}
-		``ATL is applied in a transformational pattern shown in Fig. 1 . In this pattern a source model Ma is transformed into a target model Mb according to a transformation definition mma2mmb.atl written in the ATL language. The transformation definition is a model. The source and target models and the transformation definition conform to their metamodels MMa, MMb, and ATL respectively. The metamodels conform to the MOF metametamodel.''
-	\end{quote}
-
-	As explained in Jouault \emph{et al} and as illustrated in figure \ref{fig:so-atl-wow} by the same authors, ``a source model Ma is transformed into a target model Mb according to a transformation definition mma2mmb.atl written in the ATL language'', which is also a model itself. The three must conform to their respective metamodels MMa, MMb and ATL which then conform to the metametamodel MOF.
+	As explained in Jouault \emph{et al}, ``a source model Ma is transformed into a target model Mb according to a transformation definition mma2mmb.atl written in the ATL language'', which is also a model itself. The three must conform to their respective metamodels MMa, MMb and ATL which then conform to the metametamodel MOF.
 % end % Code generation tools
 
 \subsection{Eclipse Java Development Tools (JDT)}
 
-	The Java Development Tools are are a group of tools that provide Eclipse the necessary means to become a full-featured Java IDE.
+	The Java Development Tools\footnote{https://www.eclipse.org/jdt/} are are a group of tools that provide Eclipse the necessary means to become a full-featured Java IDE.
 	These tools make up what we perceive as the ``Eclipse IDE'' and programmers can use these libraries in their Java projects and perform tasks that require a certain introspection of the code itself. 
 
-	JDT was chosen for the development of the code generation tool. Some of its most interesting features are the automatic cloning of projects, the handling of classes, imports, methods and fields as objects and the possibility of doing complex manipulation tasks without parsing the code. It does, however, allow the use of a high level AST for a more direct manipulation of the source code \cite{eclipseJDT}.
+	JDT was chosen for the development of the code generation tool. Some of its most interesting features are the automatic cloning of projects, the handling of classes, imports, methods and fields as objects and the possibility of doing complex manipulation tasks without parsing the code. It does, however, allow the use of a high level AST for a more direct manipulation of the source code.
 
 	JDT can be broken down into five main components: 
 
@@ -163,6 +142,8 @@ There are multiple ways to tackle the problem of code transformations, as descri
 		\item[Text and UI] - Java editing support and Java IDE user interface \hfill \\
   			These components make development in Eclipse possible by providing a GUI for code editing, enriched with syntactic errors highlighting, among other interesting aids.
 	\end{description}
+
+\input{chapters/background:fipa}
 
 \section{Summary}
 Although the specific problem of converting code between JADE and Repast has not been approached before in the available literature, it is clear that some related work is useful in the definition of the solution proposed in this thesis. JREP and MISIA show is that interoperability between the two frameworks is possible and they helped understand the limitations of each framework. The usefulness of these works is limited, though, since the source code is not readily available and neither project is still being developed and supported. Also, one of the goals proposed in the Introduction refers to the ability to generate code with introducing extensive changes to the original code. What JREP and MISIA propose is a platform to build new systems from scratch using JADE and Repast simultaneously. The next chapters give a thorough explanation of the developed solution.
