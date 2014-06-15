@@ -41,6 +41,8 @@
 % For glossary
 \usepackage[acronym]{glossaries}
 
+\usepackage{natbib}
+
 %% Additional options for feupteses.sty: 
 %% - onpaper: links are not shown (for paper versions)
 %% - backrefs: include back references from bibliography to citation place
@@ -65,7 +67,7 @@
 %% Include source-code listings package
 \usepackage{listings}
 \lstset{ %
- language=C,                        % choose the language of the code
+ language=Java,                        % choose the language of the code
  basicstyle=\footnotesize\ttfamily,
  keywordstyle=\bfseries,
  numbers=left,                      % where to put the line-numbers
@@ -171,6 +173,7 @@
 \include{chapters/background}
 \include{chapters/solution}
 \include{chapters/architecture}
+\include{chapters/validation}
 \include{chapters/futurework}
 \include{chapters/conclusions}
 
@@ -185,8 +188,10 @@
 %% Bibliography
 %% Comment the next command if BibTeX file not used
 %% bibliography is in ``myrefs.bib''
+%\bibliographystyle{chicago}
+%\bibliographystyle{plainnat}
 \PrintBib{myrefs}
-%\bibliography{myrefs}
+\bibliography{myrefs}
 
 %% Index
 %% Uncomment next command if index is required
