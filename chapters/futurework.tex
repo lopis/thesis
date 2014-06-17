@@ -1,15 +1,16 @@
 %!TEX root = ../thesis.tex
-\chapter{Future Work}
-\label{chap:futurework}
+\section{Future Work}
+%\label{sec:futurework}
+Although the development and validation of SAJaS proved its concept and is already capable of being used to developed some kinds of MABS, there is still room for development and future enhancements and not only to the API and the plugin. Following are some interesting ideias of future work.
 
-\section{Increasing SAJaS support of JADE features}
+\subsection{Increasing SAJaS support of JADE features}
 The most immediate extension to this project is to extend the rage of supported JADE features present in SAJaS. While it is important to maintain the simplicity of SAJaS's internals to avoid negatively affecting simulations performance, to allow the conversion of even more complex scenarios. The core of SAJaS allows to easily extend the API with more interaction protocols and other types of behaviours.
 
-\section{Extending native support to other simulation tools}
+\subsection{Extending native support to other simulation tools}
 While developing SAJaS, a conscious effort was made to keep the API very generic, defining a clear separation within SAJaS between Repast-specific elements and everything else. This modularity allows future extensions without changing the API and opens doors to future integration with other simulation tools.
 
-\section{Enhancing the plugin with more options and features}
+\subsection{Enhancing the plugin with more options and features}
 Possible enhancements to the plugin could include providing support for user configurations. From the point of view of the user of the plugin, the code conversion tool provides no flexibility beyond choosing the direction of conversion (from SAJaS to JADE or the reverse). For instance, the plugin could allow the selection of the name and location of the newly generated project, enable the manual selection of the classes to be converted (presently, the whole project is always cloned and transformed) and provide sutomatic creation of ``stub launchers'' that would allow to quickly test is the generated project executed correctly.
 
-\section{Enable support for charts and displays in SAJaS}
+\subsection{Enable support for charts and displays in SAJaS}
 One interesting feature in Repast is to be able to create real time visualizations of agent data. This is possible in part because agents in Repast are executed locally, so access to this data is facilitated. In could be interesting to include a information display tools - like charts and grids - that could be ported between frameworks. A ``Display Agent'' would handle all visualizations and agents would provide him with the information to display. This agent could be fully compatible with JADE and be converted with the plugin.

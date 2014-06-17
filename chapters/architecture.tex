@@ -80,18 +80,30 @@ Section \ref{sec:arch_conceptual} provides a broad overview of the whole system,
 \label{sec:arch_conceptual}
 The diagram in Figure \ref{fig:arch} represents the internal architecture of SAJaS. The module captioned ``My Implementation'' represents an hypothetical implementation of a MAS that uses SAJaS. The ``Repast Simphony'' package's purpose is to represent dependencies of the code to Repast libraries.
 
-Within the API, three different categories of classes are represented. First, inside the ``Repast'' package arethe classes that have dependencies with Repast Simphony. Second, classes whose border is dotted are internal classes that are not meant to be used by programmers; some are not present in JADE and therefore their use cannot be ported by the conversion tool. Finally, the rest rest of the classes are the ones that developers are the ones that programmers are expected to use and are directly supported in JADE and by the code conversion tool.
+Within the API, three different categories of classes are represented. First, inside the ``Repast'' package are the classes that have dependencies with Repast Simphony. Second, classes whose border is dotted are internal classes that are not meant to be used by programmers; some are not present in JADE and therefore their use cannot be ported by the conversion tool. Finally, the rest rest of the classes are the ones that programmers are expected to use and are directly supported by JADE and by the code conversion tool.
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{figures/sajas_arch.pdf}
 	\caption{Architecture of \apiname{}. The classes with doted border are internal.}
 	\label{fig:arch}
 \end{figure}
 
-In the diagram, the Behaviour, the Protocol Initiator and the Protocol Responder are actually representations of a family of classes. For simplicity of this diagram, their complete representation is isolated in Figure \ref{fig:arch_proto}.
+While tasks can be performed during agent setup and takedown, in runtime they are typically executed inside Behaviours. In the diagram, the Behaviour, the Protocol Initiator and the Protocol Responder are actually representations of a family of classes. For simplicity of this diagram, their complete representation is isolated in Figure \ref{fig:arch_proto}.
 
+An agent in \apiname{} contains a MessageQueue which holds queue of ACLMessages. The Agent does not have access to its own behaviours. The behaviours, however, have access to the agent who owns them and to its MessageQueue.
 
+The DFService, as described before, provides the yellow page service. Agents can register or deregister themselves from the DF and perform searches. The DF contains a set of DFAgentDescriptions that describe agents and the services they perform. To quickly fetch agents when a search query arrives, the DF contains a mapping of the agents that are registered with each service, protocol, ontology and language. That means that, internally, the Directory Facilitator actually contains multiple sub-directories.
+
+Agent interaction is always established through the use of ACLMessages. At no point to agent have access to other agents. Agents use an AID to identify themselves and other Agents. Besides the Agent itself, only the AMSService knows the address corresponding to an AID.
+
+Behaviours that implement interaction protocols contain a MessageTemplate. In the case of Finite State Machine behaviours (FSMBehaviours), this template is not fixed, but changes depending on the state of the protocol. The template is used to retrieve one message at a time from the agent's MessageQueue. One template can match multiple ACLMessages in the queue, but it always returns one single message.
+
+\subsection{Behaviours and Protocols (Draft)}
+\label{sec:arch_behaviours}
+Figure \ref{fig:arch_proto} shows with higher level of detail the Behaviour module and the Protocol module. The super abstract class Behaviour has methods that are triggered by certain events. Method \texttt{action} is executed once per tick; \texttt{reset} may be called externally to reset the whole behaviour; \texttt{onEnd} is called right after the behaviour ended and was removed from the scheduler; \texttt{done} is called once per tick to determine if the behaviour ended. The default implementation of all these methods in the Behaviour class is empty and are overridden by the subclasses when needed.
+
+The five responder initiator classes available in SAJaS implement two protocols: AchieveRE and ContractNet.
 
 \begin{figure}
 	\centering
@@ -100,14 +112,16 @@ In the diagram, the Behaviour, the Protocol Initiator and the Protocol Responder
 	\label{fig:arch_proto}
 \end{figure}
 
-\subsection{}
-\label{sec:arch_behaviours}
-\subsection{}
+\subsection{Interfacing SAJaS (Draft)}
 \label{sec:arch_interface}
+The interface points of the API are the Agent, the Behaviour and their derived classes. The API also supports direct access to the DFService.
 
-\section{Extension Perspectives}
+\section{Extension Perspectives (Draft)}
 
+SAJaS was developed keeping in mind the possibility to create extensions to it's features in the future. While
+this thesis was focused on providing Repast with support for FIPA standards for agent interaction (and all the infrastructure that supports it), the API is purposely generic and `framework agnostic`. Support for other simulation development tools may be added will little or no changes to the API itself.
 
+The CCT is closely related to SAJaS, so updates to SAJaS will demand changes to the plugin as well. To facilitate the update of the plugin, it relies on a dictionary file that contains a mapping of the classes between SAJaS and JADE. The dictionary also supports some annotations that allow more that just a direct translation between two classes.
 
 
 %Figure \ref{fig:arch} illustrates the details of \apiname{}'s architecture. Most concepts represented in this diagram are present in JADE, namely the Agent, ACL Message, Behaviour, MTS and DF service.
