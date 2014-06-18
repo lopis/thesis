@@ -1,0 +1,100 @@
+%!TEX root = ../thesis.tex
+\section{Multiple Contract Net using Trust}
+
+\begin{figure}
+	\label{fig:enterprise_JADE}
+	\centering
+	\begin{tikzpicture}[scale=0.85]
+
+		% horizontal axis
+		\draw[->] (0,0) -- (11,0);
+		\draw (5.5,-1.2) node[align=center] {Time/s}; %label
+
+		% labels
+		\draw	(1.4,0) node[anchor=north] {2}
+				(2.8,0) node[anchor=north] {4}
+				(4.2,0) node[anchor=north] {6}
+				(5.6,0) node[anchor=north] {8}
+				(7.1,0) node[anchor=north] {10}
+				(8.5,0) node[anchor=north] {12}
+				(9.9,0) node[anchor=north] {14};
+		
+		
+		% vertical axis
+		\draw[->] (0,0) -- (0,5);
+		\draw (-1.1,2.5) node[rotate=90, anchor=south, align=center]
+			{\% of Fullfielment}; %label
+		\draw	(0, 1) node[anchor=east] {0.25}
+				(0, 2) node[anchor=east] {0.50}
+				(0, 3) node[anchor=east] {0.75}
+				(0, 4) node[anchor=east] {1.00};
+		
+		
+
+		%% Data %%
+
+		%subtitle
+		\draw[thick,thick] (0.5,3.5) --
+			(1,3.5) node[anchor=west, pos=1.0] {Using trust and proposal};
+		%line
+		\input{chapters/charts/values_with_trust}
+
+		\draw[thick, dotted]%subtitle
+			(0.5,4.5) --
+			(1,4.5) node[anchor=west, pos=1.0] {Using only the proposal}; 
+		\input{chapters/charts/values_no_trust}
+
+
+	\end{tikzpicture}
+	\caption[Enterprise scenario results in JADE]
+	{Average result after 5 executions of the Enterprise scenario in JADE}
+\end{figure}
+
+
+\begin{figure}
+	\label{fig:enterprise_SAJaS}
+	\centering
+	\begin{tikzpicture}[scale=0.85]
+
+		% horizontal axis
+		\draw[->] (0,0) -- (11,0);
+		\draw (5.5,-1.2) node[align=center] {Time/s}; %label
+
+		% labels
+		\draw	(1.4,0) node[anchor=north] {1}
+				(2.8,0) node[anchor=north] {2}
+				(4.2,0) node[anchor=north] {3}
+				(5.6,0) node[anchor=north] {4}
+				(7.1,0) node[anchor=north] {5}
+				(8.5,0) node[anchor=north] {6}
+				(9.9,0) node[anchor=north] {7};
+		
+		
+		% vertical axis
+		\draw[->] (0,0) -- (0,5);
+		\draw (-1.1,2.5) node[rotate=90, anchor=south, align=center]
+			{\% of Fullfielment}; %label
+		\draw	(0, 1) node[anchor=east] {0.25}
+				(0, 2) node[anchor=east] {0.50}
+				(0, 3) node[anchor=east] {0.75}
+				(0, 4) node[anchor=east] {1.00};
+
+		%% Data %%
+
+		%subtitle
+		\draw[thick,dotted] (0.5,3.5) --
+			(1,3.5) node[anchor=west, pos=1.0] {Using trust and proposal};
+		%line
+		\input{chapters/charts/values_with_trust_sajas}
+
+		\draw[thick] 
+			%subtitle
+			(0.5,4.5) --
+			(1,4.5) node[anchor=west, pos=1.0] {Using only the proposal}; 
+		\input{chapters/charts/values_no_trust_sajas}
+
+
+	\end{tikzpicture}
+	\caption[Enterprise scenario results in Repast]
+	{Average result after 5 executions of the Enterprise scenario in Repast}
+\end{figure}

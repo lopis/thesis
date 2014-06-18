@@ -3,20 +3,20 @@
 \label{chap:background}
 
 
-Studying ways to bridge the gap between the fields of \gls{MAS} and \gls{MABS} has been the subject of several works and resulted in the development of different tools, each with its own purpose. Some works were in search of increased performance for MABS; others tried to cater specific needs such as providing an appropriate learning environment. This chapter describes some works that are relevant to this thesis and makes a comparison between some of them. Also included later in this chapter is an overview of code transformation tools that were studied as part of the development of the proposed solution.
+Studying ways to bridge the gap between the fields of MAS and MABS has been the subject of several works and resulted in the development of different tools, each with its own purpose. Some works were in search of increased performance for MABS; others tried to cater specific needs such as providing an appropriate learning environment. This chapter describes some works that are relevant to this thesis and makes a comparison between some of them.
 
 \section{Related Work}
 % Study of similar frameworks for agent based simulation
-Several frameworks exist that offer support to the development of MAS or MABS. Some are domain specific, meaning that their purposed was well defined in their conception. Examples are MASeRaTi\cite{ahlbrecht2014scalable}, MATSim\cite{balmer2008agent} and SUMO\cite{SUMO2012} which are MABS frameworks for traffic and transports simulation. Others like Repast\cite{collier2003repast}, NetLogo\cite{tisue2004netlogo}, GALATEA\cite{davila2000galatea} and Plasma\cite{warden2010towards} are considered general-purpose.This list comprises only tools that are free and open source and issw not meant to be exhaustive.
+Several frameworks exist that offer support to the development of MAS or MABS. Some are domain specific, meaning that their purpose was well defined in their conception. Examples are MASeRaTi\cite{ahlbrecht2014scalable}, MATSim\cite{balmer2008agent} and SUMO\cite{SUMO2012} which are MABS frameworks for traffic and transports simulation. Others like Repast\cite{collier2003repast}, NetLogo\cite{tisue2004netlogo}, GALATEA\cite{davila2000galatea} and Plasma\cite{warden2010towards} are considered general-purpose. This list comprises only tools that are free and open source and is not meant to be exhaustive.
 
-Some works propose approaches that are very similar to the solution proposed in this thesis to solve some of its goals, namely the bridging of the domains of MAS and Simulation. MISIA, JRep and Plasma were built on top of JADE to create a simulation environment based on it. These three works were studied with more detailed due to these similarities.
+Some works propose approaches that are very similar to the solution proposed in this thesis, namely the bridging of the domains of MAS and Simulation. MISIA, JRep and Plasma were built on top of JADE to create a simulation environment based on it. These three works were studied with more detailed due to these similarities.
 
 MISIA's approach, as suggested by Figure \ref{fig:misia}, is to use a middle layer that acts as the bridge between two other layers that interact with JADE and Repast. By extending the agents in Repast and JADE, communicating through a coordinator and synchronizing their state, these agents work as a single one.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.75\linewidth]{figures/MISIA.pdf}
-	\caption{High-level representation of MISIA's architecture (adapted from \cite{garcia2011misia})}
+	\caption[MISIA's architecture]{High-level representation of MISIA's architecture (adapted from \cite{garcia2011misia})}
 	\label{fig:misia}
 \end{figure}
 
@@ -30,7 +30,7 @@ Figure \ref{fig:jrep} represents the basic structure of JRep.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.5\linewidth]{figures/jrep.pdf}
-	\caption{High-level representation of JRep's architecture}
+	\caption[JRep's architecture]{High-level representation of JRep's architecture}
 	\label{fig:jrep}
 \end{figure}
 
@@ -41,7 +41,7 @@ Unlike the two previous frameworks, the PlaSMA system is based solely on the JAD
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.5\linewidth]{figures/PlaSMA.pdf}
-	\caption{High-level representation of PlaSMA's architecture}
+	\caption[PlaSMA's architecture]{High-level representation of PlaSMA's architecture}
 	\label{fig:plasma}
 \end{figure}
 
