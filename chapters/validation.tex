@@ -2,12 +2,21 @@
 \chapter{Validation}
 \label{chap:validation}
 
-All tests were performed using an Intel i7 CPU (8 logical cores) at 2.20 GHz. 
+The main goal of this thesis was to develop a solution for bridging the gap between the simulation and MAS domains that, while maintaining a familiar JADE-like environment, would offer significant performance improvements to MABS development. To validate this approach and the developed tools, a set of experiments were designed, in an attempt to cover and test all the available features.
+
+The first example consists in a simple contract net between one buyer and multiple sellers. In the second examples, multiple contract nets run concurrently and requests to a Computational Trust registry were added. The third example is a board game developed prior to this thesis. The goal was to test this system in a ``real life'' example, that had not been developed specifically for this thesis. All tests were performed in a laptop using an Intel i7 CPU (8 logical cores) at 2.20 GHz and 8GB of RAM.
 
 \input{chapters/validation:cnet}
 
 \input{chapters/validation:enterprise}
 
-\section{Risk Multiplayer Game}
+\input{chapters/validation:risk}
+
 
 \section{Summary}
+
+These three experiments were designed to validate the results of this thesis.Technically, the scenarios described in this chapter covered all currently available features in SAJaS. The Achieve RE protocol was used in the Enterprise scenario to communicate with the CT Agent and it was widely used in Risk for all communications. The Contract Net protocol was covered in the first two experiments. The Enterprise scenario also allowed multiple concurrent contracts to take place by using the Responder Dispatcher.
+
+All scenarios made use of the DF service, the AMS, the MTS and of containers like the ACL Message, the Message Template, the DFAgentDescription and the Service Description. The creation of custom Simple Behaviours and Finite State Machine (FSM) Behaviours was covered by Risk. It was possible to demonstrate that bringing JADE and Repast together is not only feasible using the developed tools, but also provides increased performance when compared with JADE MAS.
+
+

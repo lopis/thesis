@@ -10,9 +10,9 @@ The diagram in Figure \ref{fig:CNetExample} illustrates the contract net created
 Supplier agents have a maximum supply capacity and a price for each product. After receiving a CFP, the supplier replies with a PROPOSAL containing a price for each product if the demanded supply is within the seller's capacity. Otherwise, a REFUSE message will be sent to the buyer.
 Finally, the buyer agent compares all valid proposals, chooses the cheapest offer for each of the three products and replies with an ACCEPT PROPOSAL to the best offers, and REJECT PROPOSAL to all others.
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
-	\includegraphics[width=3.0in]{figures/CNetExample.pdf}
+	\includegraphics[width=0.60\linewidth]{figures/CNetExample.pdf}
 	\caption{Representation of the contract net scenario.}
 	\label{fig:CNetExample}
 \end{figure}
@@ -29,10 +29,7 @@ For each number of agents, the experiment was run 10 times. The average performa
 
 Regarding the outcome of the protocol, the same values were obtained in both implementations for each number of agents, confirming that the execution is identical in both implementations.
 
-\begin{figure}
-	\caption[Execution performance in a simple contract net]
-	{Average execution time of each framework in the different experiments.}
-	\label{fig:performance}
+\begin{figure}[h]
 	\centering
 	\begin{tikzpicture}[scale=0.85]
 
@@ -97,4 +94,7 @@ Regarding the outcome of the protocol, the same values were obtained in both imp
 
 
 	\end{tikzpicture}
+	\caption[Execution performance in a simple contract net]
+	{Average execution time of each framework in the different experiments.}
+	\label{fig:performance}
 \end{figure}

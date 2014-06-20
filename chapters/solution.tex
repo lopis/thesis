@@ -79,13 +79,22 @@ The AchieveRE encompasses multiple \gls{FIPA} protocols, namely Request, Query, 
 \section{Usage Scenarios}
 \label{sec:solution-scenarios}
 %In this section, show how the whole setup is used with detailed use cases
-This section is meant to describe both the scenarios where this system is expected to be useful, as well as the actual possible use cases.
+This section is meant to describe both the scenarios where this system is expected to be useful, as well as the actual possible use cases. Figure \ref{fig:prototypeFlow} ilustra
 
 One possible scenario is when a JADE developer created a JADE MAS and desires to perform some tests and simulations in a local and controlled environment. The developer can use this tool to convert the MAS into a MABS. Eventually, the application can be converted back is changes were made while in the simulation format.
 
 A second possible scenario could be that of a developer that intends to create a MABS with the goal of later creating a MAS out of it. This could be a Repast developer who desires to create more complex agent simulations or a JADE developer that wants to create Repast simulations using familiar JADE-like tools.
 
 A third scenario is when a developer simply wants to create a complex agent-based, FIPA-compliant simulation. In this case, there is no need for a code conversion tool, but SAJaS can be used as a standalone library.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/prototypeFlow.pdf}
+	\caption{
+		Two possible workflows for \apiname{} users
+	}
+	\label{fig:prototypeFlow}
+\end{figure}
 
 \section{Source Code Transformations}
 \label{sec:solution-codeGeneration}

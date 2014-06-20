@@ -19,11 +19,11 @@ Figure \ref{fig:direct_method_execution} represents a scenario where two agents 
 
 In Figure \ref{fig:assynch_execution} on the other and, each agent is allowed to execute one task - send one message, in this case. Messages stay waiting until the agent reads and processes it. This way, Agent C didn't have to wait  for the other two to finish.
 
-\begin{figure}
+\begin{figure}[ht]
 	\centering
     \begin{subfigure}[b]{\linewidth}
 		\centering
-		\includegraphics[width=.6\linewidth]{figures/executionProblem.pdf}
+		\includegraphics[width=.7\linewidth]{figures/executionProblem.pdf}
 		\caption{
 			With direct method invocation
 		}
@@ -31,7 +31,7 @@ In Figure \ref{fig:assynch_execution} on the other and, each agent is allowed to
     \end{subfigure} \\
     \begin{subfigure}[b]{\linewidth}
 		\centering
-		\includegraphics[width=.6\linewidth]{figures/executionProblem2.pdf}
+		\includegraphics[width=.7\linewidth]{figures/executionProblem2.pdf}
 		\caption{
 			Asynchronously 
 		}
@@ -45,19 +45,20 @@ In \cite{mengistu2008scalability}, authors concluded that increasing the granula
 
 In SAJaS, as in JADE, agent interaction occurs using the available mechanism. Therefore, it asynchronous execution is appropriate for the kind of applications developed for JADE and SAJaS. To better demonstrate the differences between agent execution in both frameworks, figure \ref{fig:execution_example} and \ref{fig:com-example-repast} represent a scenario where two agents send a message to a third one who then replies. In Repast (Fig. \ref{fig:com-example-repast}), messages are delivered to agent C's message queue, and processed only in C's turn. In JADE (Fig. \ref{fig:com-example-jade}), messages can arrive concurrently. Their arrival triggers an event and they are processed right away. In this case, agent C handled the messages as they arrived and issues the respective replies.
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
     \begin{subfigure}[b]{\linewidth}
 		\centering
-		\includegraphics[width=0.6\linewidth]{figures/tickExample2.pdf}
+		\includegraphics[width=0.7\linewidth]{figures/tickExample2.pdf}
 		\caption{
 			In JADE, running in parallel
 		}
 		\label{fig:com-example-jade}
-    \end{subfigure} \\
+    \end{subfigure}
+    \vspace{1cm}
     \begin{subfigure}[b]{\linewidth}
 		\centering
-		\includegraphics[width=0.8\linewidth]{figures/tickExample.pdf}
+		\includegraphics[width=0.9\linewidth]{figures/tickExample.pdf}
 		\caption{
 			In Repast, using \apiname{}.
 		}

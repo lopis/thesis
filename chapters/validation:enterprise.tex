@@ -1,8 +1,24 @@
 %!TEX root = ../thesis.tex
 \section{Multiple Contract Net using Trust}
 
-\begin{figure}
-	\label{fig:enterprise_JADE}
+This scenario is similar to the previous one, but attempts to perform a better coverage of the features present in SAJaS. However. rather than comparing the exact value obtained from the simulation, the goal is to compare the overall behaviour of all agents.
+
+\subsection{Experimental Setup}
+This simulation is composed by multiple buyers and multiple sellers running simultaneously. After the sellers register themselves in the DF, each buyer will perform a search for sellers of the particular good it needs to purchase. Then, the buyer sends this list of agents to the CTAgent (CT standing for computational trust). The CTAgent will calculate a trust value for each seller based on its past contracts with buyers and return the top 5 sellers.
+
+With this information, the buyer sends a CFP only to the 5 top agents and ACCEPT the best proposal from them. Some sellers will occasionally violate the contract after acceptance. The buyer will then inform the CTAgent if the contract was fulfilled or violated. The compilation of this composes the trust of the seller.
+
+Some buyers are programmed to ignore trust and rely solely on the proposal. The idea is that informed buyers eventually avoid contacting sellers programmed to violate contracts more often. The goal of this experiment is to model this scenario in SAJaS, convert it to JADE and verify that the obtained results are very similar.
+
+After one contract is concluded, Buyers start a new one, performing a new DF search for the next product they want to buy, request information from the CTAgent and issuing a new CFP.
+
+\subsection{Results}
+
+The experiment was executed 5 times in JADE and 5 times in SAJaS. The scenario is composed of 20 buyers using computational trust, 20 not using trust and 80 sellers. A total of 2000 contracts were recorded to create the following charts in Figures \ref{fig:enterprise_JADE} and \ref{fig:enterprise_SAJaS}. As shown, buyers who made use of computational trust had more successful contracts. The fluctuations early in the simulation are due to the initial lack of trust information.
+
+As expected and as shown in the charts, the same outcome was observed both in JADE and SAJaS. With this experiment, it was possible to test the Request protocol - when requesting computational trust, the Contract Net - when purchasing goods, the Responder Dispatcher - to handle CFPs from multiple buyers concurrently, the messaging system and the DF service.
+
+\begin{figure}[h]
 	\centering
 	\begin{tikzpicture}[scale=0.85]
 
@@ -48,11 +64,11 @@
 	\end{tikzpicture}
 	\caption[Enterprise scenario results in JADE]
 	{Average result after 5 executions of the Enterprise scenario in JADE}
+	\label{fig:enterprise_JADE}
 \end{figure}
 
 
-\begin{figure}
-	\label{fig:enterprise_SAJaS}
+\begin{figure}[h]
 	\centering
 	\begin{tikzpicture}[scale=0.85]
 
@@ -97,4 +113,5 @@
 	\end{tikzpicture}
 	\caption[Enterprise scenario results in Repast]
 	{Average result after 5 executions of the Enterprise scenario in Repast}
+	\label{fig:enterprise_SAJaS}
 \end{figure}
