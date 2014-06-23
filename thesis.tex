@@ -50,6 +50,15 @@
 %%% For charts%%
 \usepackage{tikz}
 
+% For dictionary table with fixed column width
+\usepackage{array}
+
+% For bold faced code blocks
+\usepackage{pxfonts}
+
+% For compact enumarations
+\usepackage{enumitem}
+
 %% Additional options for feupteses.sty: 
 %% - onpaper: links are not shown (for paper versions)
 %% - backrefs: include back references from bibliography to citation place
@@ -96,7 +105,8 @@
 }
 %% For code block %%
 \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
-\lstset{framextopmargin=0pt,frame=lrbt,rulecolor=\color{Gray}}
+\lstset{framextopmargin=0pt,frame=lrbt}
+\DeclareUnicodeCharacter{00A7}{\st}
 %%%
 
 %% Uncomment to create an index (at the end of the document)
@@ -178,6 +188,7 @@
 \include{chapters/background}
 \include{chapters/solution}
 \include{chapters/architecture}
+\include{chapters/conversion_tool}
 \include{chapters/validation}
 \include{chapters/conclusions}
 

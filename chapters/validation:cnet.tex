@@ -1,7 +1,7 @@
 %!TEX root = ../thesis.tex
 \section{Simple Contract Net}
 
-In this scenario, one agent sends a call for proposals (CFP) to multiple agents which then reply with their individual proposals. This simple scenario was created to test the core of SAJaS and the plugin. The goal was not only to create a working simulation model based on SAJaS, but also to demonstrate that the execution of a simulation in SAJaS and the equivalent JADE application generated from it are identical and that performance in SAJaS is higher.
+In this scenario, one agent sends a call for proposals (CFP) to multiple agents which then reply with their individual proposals. This simple scenario was created to test the core of SAJaS and the plugin. The goal was not only to create a working simulation model based on SAJaS, but also to demonstrate that the execution of a simulation in SAJaS and the equivalent JADE application generated from it are identical and that performance in SAJaS is higher. For that purpose, this scenario was developed as a simulation in SAJaS and Repast and then converted to a JADE MAS.
 
 \subsection{Experimental Setup}
 
@@ -19,13 +19,13 @@ Finally, the buyer agent compares all valid proposals, chooses the cheapest offe
 
 To ensure the proper comparison of results, a fixed data set with values for prices and demand was used in both frameworks. This experiment focused on two simple metrics to evaluate the result: time and outcome. 
 
-Multiple executions were performed with varying numbers of suppliers (as sugested by Figure \ref{fig:performance}); for each case, the simulation was executed 10 times. The execution time was measured from be begining of the protocol, until all suppliers were notified.
+Multiple executions were performed with varying numbers of suppliers (as sugested by Figure \ref{fig:performance}); for each case, the simulation was executed 10 times. The execution time was measured from the begining of the protocol, until all suppliers were notified.
 
 In JADE, the simulation was tested in two different setups: first, with all agents running in a single container; second, with the supplier agents in one container and the buyer in a separate one (but in the same host). In this configuration, all communication between agents happens across containers. The second validation metric was the actual result of the protocol, i.e who were the supplier agents chosen by the buyer and their price proposals.
 
 \subsection{Results}
 
-For each number of agents, the experiment was run 10 times. The average performance of of the experiment for each number of agents is represented in Figure \ref{fig:performance}. The performance of the simulation based on SAJaS was significantly better, excelling when the number of agents is high. JADE was able to perform better when using two distinct containers. JADE's performance drops very significantly when there is a high communication-to-computation ratio in the application. Also, JADE is capable of performing some optimizations when two interacting agents are located within the same containers\cite{mengistu2008scalability}.
+After 10 executions, the average performance of the experiment was calculated for each number of agents and is represented in Figure \ref{fig:performance}. The performance of the simulation based on SAJaS was significantly better, excelling when the number of agents is high. JADE was able to perform better when using two distinct containers. JADE's performance drops very significantly when there is a high communication-to-computation ratio in the application\cite{mengistu2008scalability}.
 
 Regarding the outcome of the protocol, the same values were obtained in both implementations for each number of agents, confirming that the execution is identical in both implementations.
 

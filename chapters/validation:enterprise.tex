@@ -1,7 +1,7 @@
 %!TEX root = ../thesis.tex
 \section{Multiple Contract Net using Trust}
 
-This scenario is similar to the previous one, but attempts to perform a better coverage of the features present in SAJaS. However. rather than comparing the exact value obtained from the simulation, the goal is to compare the overall behaviour of all agents.
+This scenario is similar to the previous one, but attempts to perform a better coverage of the features present in SAJaS, namely the use of the AchieveRE Protocol and the Responder Dispatcher which allows for multiple contract nets to be handled without deadlocks occuring. However. rather than comparing the exact value obtained from the simulation as in the previous scenario, the goal is to compare the overall behaviour of all agents.
 
 \subsection{Experimental Setup}
 This simulation is composed by multiple buyers and multiple sellers running simultaneously. After the sellers register themselves in the DF, each buyer will perform a search for sellers of the particular good it needs to purchase. Then, the buyer sends this list of agents to the CTAgent (CT standing for computational trust). The CTAgent will calculate a trust value for each seller based on its past contracts with buyers and return the top 5 sellers.
