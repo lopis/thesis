@@ -3,37 +3,31 @@
 \label{sec:fipa}
 
 % Intro to FIPA in JADE/API
-\apiname{} closely follows JADE's architecture regarding the use of protocols and services specified by FIPA. 
-%The architecture of the API described in this paper includes multiple concepts proposed by FIPA: the \gls{DF}, the \gls{MTS}, the \gls{AMS}, the \gls{ACL} Message and the Interaction Protocols. The following is a brief description of these concepts and of how JADE uses and implements them.
+The Foundation for Intelligent, Physical Agents (FIPA) was created to specify certain aspects of MAS\cite{bellifemine2007developing}. FIPA Specifications include standards for agent interaction and agent management (among others). JADE is a FIPA-compliant MAS development framework, viz. the standards proposed by FIPA are part of its architecture. This section describes some of these concepts which are most relevant to this thesis.
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=2.5in]{figures/pdf/AMSdiagram.pdf}
-%	\caption{
-%		Agent Management Reference Model, as specified by FIPA and implemented by JADE. \apiname{} only supports a single Agent Platform.
-%	}
-%	\label{fig:AMSdiagram}
-%\end{figure}
 
 % DF 
+\subsection{Agent Management}
 The Directory Service (DF) is a component that provides a yellow page service and is part of the FIPA Agent Management Specification. It allows one agent to perform searches about agents rendering specific services. Only agents that are registered in the DF will be indexed and agents can register and deregister themselves at any time.
 
 % DF Agent Description
-When searching the DF, agents can use templates that filter the search results. A DF Agent Description represents this template and contains the fields listed in Table \ref{tab:dfAgentDescription}.sim
+When searching the DF, agents can use templates that filter the search results. A DF Agent Description represents this template and contains an AID (mandatory for agent registration, but facultative for searches), a description of the agents' services and some properties of the agent: protocols, ontologies and languages.
 
+% AMS
+The (Agent Management Service) AMS is a mandatory component in FIPA-compliant agent platforms whose purpose is to manage the agent platform, namely the creating and deletion of agents. Registration of each agent in the AMS is required for agents to interact, since it is from the AMS that agents obtain their own AID, needed identify the agent in communication.
+
+\subsection{Messaging}
 
 % MTS
 The MTS is a service for transportation of ACL messages between agents. It is responsible for resolving agent addresses, in order to be able to deliver those messages. The MTS may request information from the AMS to perform this address resolution.
-
-% AMS
-The AMS is a mandatory component in FIPA-compliant agent platforms. Its purpose is to manage the agent platform, namely the creating and deletion of agents.
 
 % ACL Message
 The ACL Message is the envelope that contains the details for communication. The Agent Comunication Language (ACL) stipulates what fields a message should contain. Table \ref{tab:fipaACLMessage} was adapted from the FIPA ACL Message structure specification and contains the list of fields in a message. Not all of them are mandatory. FIPA specifies the \texttt{performative} as the only mandatory field, although the \texttt{sender}, \texttt{receiver} and \texttt{content} are expected to be present.
 
 \begin{table}
 	\normalsize
-	\caption{FIPA ACL Message Parameters}
+	\caption[FIPA ACL Message Parameters]
+	{FIPA ACL Message Parameters (adapted from www.fipa.org)}
 	\label{tab:fipaACLMessage}
 	\begin{center}
 		\fboxsep1pt
@@ -41,52 +35,65 @@ The ACL Message is the envelope that contains the details for communication. The
 		\hline
 		\textbf{Parameter} & \textbf{Category of Parameters} \\
 		\hline
-		\colorbox{Apricot}{\texttt{performative}} & Type of communicative acts \\
+		\texttt{performative} & Type of communicative acts \\
 		\hline
-		\colorbox{Apricot}{\texttt{sender}} & \multirow{3}{*}{Participant in communication} \\
+		\texttt{sender} & \multirow{3}{*}{Participant in communication} \\
 		\cline{1-1}
-		\colorbox{Apricot}{\texttt{receiver}} \\
+		\texttt{receiver} \\
 		\cline{1-1}
 		\texttt{reply-to}  \\
 		\hline
-		\colorbox{Apricot}{\texttt{content}} & Content of message \\
+		\texttt{content} & Content of message \\
 		\hline
 		\texttt{language} & \multirow{3}{*}{Description of Content} \\
 		\cline{1-1}
 		\texttt{encoding} \\
 		\cline{1-1}
-		\colorbox{Apricot}{\texttt{ontology}} \\
+		\texttt{ontology} \\
 		\hline
-		\colorbox{Apricot}{\texttt{protocol}} & \multirow{5}{*}{Control of conversation} \\
+		\texttt{protocol} & \multirow{5}{*}{Control of conversation} \\
 		\cline{1-1}
-		\colorbox{Apricot}{\texttt{conversation-id}} \\
+		\texttt{conversation-id} \\
 		\cline{1-1}
 		\texttt{reply-with} \\
 		\cline{1-1}
 		\texttt{in-reply-to} \\
 		\cline{1-1}
-		\colorbox{Apricot}{\texttt{reply-by}} \\
+		\texttt{reply-by} \\
 		\hline
 		\end{tabular}
 	\end{center}
 \end{table} 
 
-% Protocols In FIPA
-FIPA Interaction Protocols typify communication interactions among agents by specifying two roles: initiator (the agent starting the interaction) and responder (a participant in the interaction). Each protocol defines precisely which messages are sent by each role ad in which sequence.
+\subsection{Interaction Protocols}
+
+%The most relevant FIPA interaction protocols to this thesis that are available in JADE as will be explained further ahead in Chapter \ref{chap:solution}, are the FIPA Request, and the FIPA Contract Net. JADE supports a few other protocols, namely FIPA Propose, Iterated FIPA Request and Query and FIPA Subscribe. Table \ref{tab:fipa_protos} presents a mapping between the FIPA interaction protocols and the classes that implement them in JADE -- restricted to the protocols that are relevant to this thesis.
+
+%Protocol initiators are the behaviours that initiate the communication, sending the first message. The responders are usually setup before the initiator and stay waiting for messages to handle. Because protocols have states, some agents will ocasionally find themselves in a state that can't handle any more messages at that moment. For agent that need to process multiple incoming messages, JADE provides the ``ResponderDispatcher''. This behaviour is not part of a protocol, but handles incoming messages and dispatchers the necessary responder. For instance, the ``SSContractNetResponder'' is similar to ``ContractNet'' but handles a single message and then is terminated.
+
+
+%In JADE, the AchieveRE protocol encompasses the multiple ``request-like'' behaviours such as FIPA-Request. It is a simple protocol with three moments of interaction, as Figure \ref{fig:FIPA_request_proto} shows: a request, a facultative response of acceptance or refusal and a result notification. JADE allows the use of other interaction protocols with the AchieveRE: FIPA-query, FIPA-Request-When, FIPA-recruiting and FIPA-brokering. Interaction using this protocol can be 1:1 or 1:N.
+
+%The Contract Net protocol -- depicted in Figure \ref{fig:FIPA_contnet_proto}, starts with a Call for Proposals (CFP) sent to one or more agents, which can reply with a proposal or with a refusal to propose. The initiator can then accept or reject the proposals. The ContractNetResponder class from JADE resets its state after terminating the protocol and stays waiting for new CFPs. JADE provides an alternative responder class called SSContractNetResponder that terminates after a single session (SS stands for single session).
 
 % Behaviors in JADE
-In JADE, every agent activity is programmed through the notion o behaviours. For interaction protocols, typically behaviour-pairs are used for each side of the interaction, and JADE's API supports the most important protocols with built-in initiator and responder behaviours.
+%In JADE, agent activity is programmed through the notion of behaviours. For interaction protocols, two complementing behaviours are used for each side of the interaction, and JADE's API supports the most important protocols with built-in initiator and responder behaviours.
+
+% Initiators and responders
+%FIPA Interaction Protocols typify communication interactions among agents by specifying two roles: initiator (the agent starting the interaction) and responder (a participant in the interaction). Each protocol defines precisely which messages are sent by each role ad in which sequence.
+
 % Implementing these protocols.
-In order to create an application using these protocols, programmers only need to extend these behaviours and implement the message handlers.
-All the complexity regarding the interaction and networking infrastructure is hidden and taken care of by JADE, allowing the programmer to focus on the implementation of agent behaviour.
+%In order to create an application using these protocols, programmers only need to extend these behaviours and implement the message handlers. All the complexity regarding the interaction and networking infrastructure is hidden and taken care of by JADE, allowing the programmer to focus on the implementation of agent behaviour.
 
-\subsection{FIPA Interaction Protocols}
+FIPA Interaction Protocols typify communication interactions among agents by specifying two roles: initiator (the agent starting the interaction) and responder (a participant in the interaction). Each protocol defines precisely which messages are sent by each role and in which sequence.
 
-To provide a more solid background to the protocols mentioned in this thesis, it's relevant to perform a deeper analysys of them. The two protocols currently supported in the API, as will be explained further ahead in Chapter \ref{chap:solution}, are the FIPA Request, FIPA Query and the FIPA Contract Net. JADE supports a few other protocols, namely FIPA Propose, Iterated FIPA Request and Query and FIPA Subscribe.
+In JADE, agent activity is programmed through the notion of behaviours. For interaction protocols, two complementing behaviours are used for each side of the interaction, and JADE’s API supports the most important protocols with built-in initiator and responder behaviours.
+
+Interaction protocols that are available in JADE include FIPA Request and FIPA Contract Net (and their iterated versions). JADE supports a few other protocols, namely FIPA Propose and FIPA Subscribe. Table \ref{tab:fipa_protos} presents a mapping between some FIPA interaction protocols and the classes that implement them in JADE.
 
 \begin{table}
 	\normalsize
-	\caption{Interaction protocols supported in JADE}
+	\caption{Interaction protocols supported in JADE (adapted from \cite{bellifemine2007developing})}
 	\label{tab:fipa_protos}
 	\begin{center}
 		\fboxsep1pt
@@ -94,22 +101,27 @@ To provide a more solid background to the protocols mentioned in this thesis, it
 		\hline
 		\textbf{Protocol(s)} & \textbf{Initiator class} & \textbf{Initiator class} \\
 		\hline
-		FIPA request 	& \multirow{2}{*}{AchieveREInitiator} & \multirow{2}{*}{AchieveREResponder}\\
+		FIPA Request 	& \multirow{2}{*}{AchieveREInitiator} & \multirow{2}{*}{AchieveREResponder}\\
 		FIPA Query 		& \\
 		\hline
 		\multirow{2}{*}{FIPA Contract Net} & \multirow{2}{*}{ContractNetInitiator} & ContractNetResponder \\
 		 &  & SSContractNetResponder \\
 		\hline
+		FIPA Propose & Propose Initiator & Propose Responder \\
+		\hline 
+		FIPA Subscribe & SubscriptionInitiator & SubscriptionResponder \\
+		\hline
 		\end{tabular}
 	\end{center}
 \end{table}
 
+Protocol initiators are behaviours that initiate the communication, sending the first message. Responders start by waiting for this message to arrive. Because protocols have states, each responder is able to handle one conversation at a time. In JADE, a responder restarts after the conversation has finished, thus becoming ready to handle a new conversation. For the ability to handle concurrent conversations, JADE provides \textit{responder dispatchers}, which may be used to handle the first message of a protocol and create on the fly an appropriate single session (SS) responder, that is, a responder whose purpose is to handle a single conversation. For this, JADE’s API includes single session versions of responders. Using this mechanism, a variable number of responder behaviours may be active at any point in time, one for each of ongoing conversations.
 
-In JADE, the AchieveRE protocol encompases the multiple ``request-like'' behaviours such as FIPA-Request. It is a simple protocol with three moments of interaction, as Figure \ref{fig:FIPA_request_proto} shows: a request, a response of acceptance or refusal and a facultative result notification. JADE allows the use of other interaction protocols with the AchieveRE: FIPA-query, FIPA-Request-When, FIPA-recruiting and FIPA-brokering. Interaction using this protocol can be 1:1 or 1:N.
+In JADE, the AchieveREInitiator/Responder classes encompass multiple “request-like” interaction protocols, such as FIPA Request and FIPA Query. It is a simple protocol with three moments of interaction, as Figure \ref{fig:FIPA_request_proto} shows: a request, a facultative response (agreement or refusal) and a result notification (failure or inform). Interactions using this protocol can be 1:1 or 1:N.
 
-The Contract Net protocol starts with a Call for Proposals (CFP) sent to one or more agents, which can reply with a proposal or with a refusal to propose. The initiator can then accept or reject the proposals. As in FIPA-Request, the final result notification is facultative. The ContractNetResponder class from JADE resets itself after terminating the protocol and stays waiting for new CFPs. JADE provides an alternative responder class called SSContractNetResponder that terminates after a single session (SS stands for single session).
+The Contract Net protocol, depicted in Figure \ref{fig:FIPA_contnet_proto}, starts with a Call for Proposals (CFP) sent to one or more agents, which can reply with a proposal or with a refusal to propose. The initiator can then accept or reject the proposals, after which a result notification is sent back.
 
-\begin{figure}[ht]
+\begin{figure}
 	\centering
     \begin{subfigure}[b]{0.44\textwidth}
 		\centering
@@ -123,6 +135,8 @@ The Contract Net protocol starts with a Call for Proposals (CFP) sent to one or 
 		\caption[FIPA-Contract-Net protocol]{FIPA-Contract-Net protocol}
 		\label{fig:FIPA_contnet_proto}
     \end{subfigure}
-    \caption[]{Sequence diagrams for the protocols Contract Net and Request. \\Figures are from the FIPA specifications website \footnote{http://fipa.org/})}
+    \caption[]{Sequence diagrams for the protocols Contract Net and Request.}
     \label{fig:FIPA_Protocols}
 \end{figure}
+
+In order to create an application using these protocols, programmers need to extend pairs of initiator/responder behaviours and implement their message handlers. All the complexity regarding message sequencing, state handling and networking infrastructure is hidden and taken care of by JADE, allowing the programmer to focus on the implementation of agents’ actions while participating in the protocol.

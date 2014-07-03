@@ -10,7 +10,7 @@ The diagram in Figure \ref{fig:CNetExample} illustrates the contract net created
 Supplier agents have a maximum supply capacity and a price for each product. After receiving a CFP, the supplier replies with a PROPOSAL containing a price for each product if the demanded supply is within the seller's capacity. Otherwise, a REFUSE message will be sent to the buyer.
 Finally, the buyer agent compares all valid proposals, chooses the cheapest offer for each of the three products and replies with an ACCEPT PROPOSAL to the best offers, and REJECT PROPOSAL to all others.
 
-\begin{figure}[h]
+\begin{figure}
 	\centering
 	\includegraphics[width=0.60\linewidth]{figures/CNetExample.pdf}
 	\caption{Representation of the contract net scenario.}
@@ -25,11 +25,12 @@ In JADE, the simulation was tested in two different setups: first, with all agen
 
 \subsection{Results}
 
-After 10 executions, the average performance of the experiment was calculated for each number of agents and is represented in Figure \ref{fig:performance}. The performance of the simulation based on SAJaS was significantly better, excelling when the number of agents is high. JADE was able to perform better when using two distinct containers. JADE's performance drops very significantly when there is a high communication-to-computation ratio in the application\cite{mengistu2008scalability}.
+After 10 executions, the average performance of the experiment was calculated for each number of agents and is represented in Figure \ref{fig:performance}. The performance of the simulation based on SAJaS was significantly better, excelling when the number of agents is high. JADE was able to perform better when using two distinct containers.
+%JADE's performance drops very significantly when there is a high communication-to-computation ratio in the application\cite{mengistu2008scalability}.
 
 Regarding the outcome of the protocol, the same values were obtained in both implementations for each number of agents, confirming that the execution is identical in both implementations.
 
-\begin{figure}[h]
+\begin{figure}
 	\centering
 	\begin{tikzpicture}[scale=0.85]
 

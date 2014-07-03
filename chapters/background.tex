@@ -2,19 +2,18 @@
 \chapter{Background}
 \label{chap:background}
 
-
 Studying ways to bridge the gap between the fields of MAS and MABS has been the subject of several works and resulted in the development of different tools, each with its own purpose. Some works were in search of increased performance for MABS; others tried to cater specific needs such as providing an appropriate learning environment. This chapter describes some works that are relevant to this thesis and makes a comparison between some of them.
 
 \section{Related Work}
 % Study of similar frameworks for agent based simulation
 Several frameworks exist that offer support to the development of MAS or MABS. Some are domain specific, meaning that their purpose was well defined in their conception. MASeRaTi\cite{ahlbrecht2014scalable}, MATSim\cite{balmer2008agent} and SUMO\cite{SUMO2012} are some examples of MABS frameworks for traffic and transports simulation. 
 
-Other works like Repast\cite{collier2003repast}, NetLogo\cite{tisue2004netlogo}, GALATEA\cite{davila2000galatea} and Plasma\cite{warden2010towards} are considered general-purpose. This list comprises only tools that are free and open source and is not meant to be exhaustive. 
+Other works like Repast\cite{collier2003repast}, NetLogo\cite{tisue2004netlogo}, GALATEA\cite{davila2000galatea} and Plasma \cite{warden2010towards} are considered general-purpose. This list comprises only tools that are free and open source and is not meant to be exhaustive. 
 
 Some works propose approaches that are very similar to the solution proposed in this thesis, namely the bridging of the domains of MAS and Simulation. MISIA, JRep and Plasma were built on top of JADE to create a simulation environment based on it. These three works were studied with more detailed due to these similarities.
 
 \subsection{MISIA}
-MISIA is a middleware whose goal is to enhance the simulation of intelligent agents and to allow the visualization and analysis of agent's behavior. It was developed by the Bioinformatic, Intelligent Systems and Educational Technology Research Group (BISITE) from Universidad de Salamanca\footnote{http://bisite.usal.es/}. It is no longer an active project; as a research experiment, work on this middleware evolved into other more specific tools.
+MISIA is a middleware whose goal is to enhance the simulation of intelligent agents and to allow the visualization and analysis of agent's behaviour. It was developed by the Bioinformatic, Intelligent Systems and Educational Technology Research Group (BISITE) from Universidad de Salamanca\footnote{http://bisite.usal.es/}. It is no longer an active project; as a research experiment, work on this middleware evolved into other more specific tools.
 
 MISIA's approach, as suggested by Figure \ref{fig:misia}, is to use a middle layer that acts as the bridge between two other layers that interact with JADE and Repast. By extending the agents in Repast and JADE, communicating through a coordinator and synchronizing their state, these agents work as a single one.
 
@@ -101,6 +100,19 @@ Repast is a toolkit that provides an environment for the creation of MABS using 
 
 In JADE, as table \ref{tab:jadevsrep} illustrates, agents execute in separate threads and while this architecture facilitates the platform's distribution, JADE's agent are heavy in terms of resources. Experiments with JADE show that the platform's scalability is limited in number of agents and that the global system performance drops quickly for large number of agents \cite{mengistu2008scalability} \cite{garcia2011misia}. This further strengthens the idea that using JADE or a JADE-Repast hybrid, as describe in the related work, is not the best course of action is performance is an important issue.
 
+In Repast, agent execution is scheduled manually. An agent class can contain annotations that indicate which methods should be called and when (for instance every tick or every 100 ticks). This approach is very flexible, allowing to schedule any method but more complex structures are non-existent in Repast.
+
+In contrast, JADE agent actions can be executed in their setup and takedown, but most are encapsulated in objects called Behaviours. JADE has many different kinds of behaviours that function in different ways, such as running one single task once or running them cyclically. Other behaviours implement FIPA interaction protocols, which agents can use to interact with other agents.
+
+Agents, as well as their behaviours, go through different states, as Figure \ref{fig:jade_fluxogram} suggests. As each agent in JADE runs in a thread, each one is dedicated solely to the agent's behaviours. These behaviours are executed consecutively until the agents is taken down and each behaviour stops being scheduled when it is ``done'' -- indicated by the return value of the method \texttt{done()}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/jade_fluxogram.pdf}
+	\caption[JADE Behaviour execution states]{JADE Behaviour execution states and events (adapted from \cite{bellifemine2007developing})}
+	\label{fig:jade_fluxogram}
+\end{figure}
+
 \input{chapters/background:fipa}
 
 \section{Summary}
@@ -108,4 +120,4 @@ Although the specific problem of reimplementing JADE features in Repast using a 
 
 JREP and MISIA show that interoperability between the two frameworks is possible and they helped understand the limitations of each framework. They both attempted to complement Repast's lack of communication protocols by creating an interface with JADE's implementation of FIPA interaction protocols. The usefulness of these works is limited, though, since the source code is not readily available and neither project is still being developed and supported.
 
-Other works related to the integration of features from Repast and JADE are available and these were selected as the most relevant. While the goal of this thesis is not to use both frameworks simultaneously, these works give a valuable insight into the shortcomings of both frameworks as well as providing some interesting comparisons between their features. Open source projects exist that contemplate the use of FIPA ACL as a library, but none was found to be actively maintained or properly documented. Therefore, this thesis contemplates the creation of a Java API that brings JADE-like features to simulation tools, including FIPA standards. Chapter \ref{chap:solution} provides a more detailed description of the proposed solution. The next section makes a comparison between JADE and Repast.
+Other works related to the integration of features from Repast and JADE are available and these were selected as the most relevant. While the goal of this thesis is not to use both frameworks simultaneously, these works give a valuable insight into the shortcomings of both frameworks as well as providing some interesting comparisons between their features. Open source projects exist that contemplate the use of FIPA ACL as a library, but none was found to be actively maintained or properly documented. Therefore, this thesis contemplates the creation of a Java API that brings JADE-like features to simulation tools, including FIPA standards.

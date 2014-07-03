@@ -25,8 +25,8 @@
 %% English version
 
 %% MIEIC options
-\usepackage[mieic]{feupteses}
-%\usepackage[mieic,juri]{feupteses}
+%\usepackage[mieic]{feupteses}
+\usepackage[mieic,juri]{feupteses}
 %\usepackage[mieic,final]{feupteses}
 %\usepackage[mieic,final,onpaper]{feupteses}
 
@@ -59,6 +59,9 @@
 % For compact enumarations
 \usepackage{enumitem}
 
+% For URL references in bibtex
+\usepackage{hyperref}
+
 %% Additional options for feupteses.sty: 
 %% - onpaper: links are not shown (for paper versions)
 %% - backrefs: include back references from bibliography to citation place
@@ -72,8 +75,11 @@
 \usepackage{color}
 \definecolor{cloudwhite}{cmyk}{0,0,0,0.025}
 \definecolor{Apricot}{HTML}{FBB982}
+
 \newcommand{\apiname}{SAJaS} 
 \newcommand{\apilongname}{Simple API for JADE-based Simulations}
+\newcommand\plugin{MasSim2Dev}
+\newcommand\pluginname{MAS Simulation to Development code convertion tool}
 
 %%% For charts%%
 \usepackage{tikz}
@@ -135,7 +141,7 @@
 \author{João Pedro Camacho Lopes}
 
 %% Uncomment next line for date of submission
-%\thesisdate{July 31, 2008}
+\thesisdate{June 23, 2014}
 
 %%Uncomment next line for copyright text if used
 %\copyrightnotice{Name of the Author, 2008}

@@ -166,9 +166,6 @@ For MABS based on SAJaS and Repast, a program launcher must implement the Repast
 
 SAJaS was developed keeping in mind the possibility to create extensions to it's features in the future. While this thesis was initially focused on providing Repast with support for FIPA standards for agent interaction (and all the infrastructure that supports it), the API evolved to incorporate many more JADE-based features. It is purposely generic and to allow support for other simulation development tools to be added will few changes to the API itself. To support another framework, a scheduling mechanism should be crated that is appropriate for that framework. That scheduler should run call the BehaviourAction one per ``tick''.
 
-The plugin is closely related to SAJaS, so updates to SAJaS will demand changes to the plugin as well. To facilitate the update of the plugin, it relies on a dictionary file that contains a mapping of the classes between SAJaS and JADE. The dictionary also supports some annotations that allow more that just a direct translation between two classes.
-
-
 
 
 %Figure \ref{fig:arch} illustrates the details of \apiname{}'s architecture. Most concepts represented in this diagram are present in JADE, namely the Agent, ACL Message, Behaviour, MTS and DF service.

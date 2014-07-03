@@ -6,7 +6,7 @@ This scenario is similar to the previous one, but attempts to perform a better c
 \subsection{Experimental Setup}
 This simulation is composed by multiple buyers and multiple sellers running simultaneously. After the sellers register themselves in the DF, each buyer will perform a search for sellers of the particular good it needs to purchase. Then, the buyer sends this list of agents to the CTAgent (CT standing for computational trust). The CTAgent will calculate a trust value for each seller based on its past contracts with buyers and return the top 5 sellers.
 
-With this information, the buyer sends a CFP only to the 5 top agents and ACCEPT the best proposal from them. Some sellers will occasionally violate the contract after acceptance. The buyer will then inform the CTAgent if the contract was fulfilled or violated. The compilation of this composes the trust of the seller.
+With this information, the buyer sends a CFP only to the 5 top agents and accept the best proposal from them. Some sellers will occasionally violate the contract after acceptance. The buyer will then inform the CTAgent if the contract was fulfilled or violated. The compilation of this composes the trust of the seller.
 
 Some buyers are programmed to ignore trust and rely solely on the proposal. The idea is that informed buyers eventually avoid contacting sellers programmed to violate contracts more often. The goal of this experiment is to model this scenario in SAJaS, convert it to JADE and verify that the obtained results are very similar.
 
@@ -18,7 +18,102 @@ The experiment was executed 5 times in JADE and 5 times in SAJaS. The scenario i
 
 As expected and as shown in the charts, the same outcome was observed both in JADE and SAJaS. With this experiment, it was possible to test the Request protocol - when requesting computational trust, the Contract Net - when purchasing goods, the Responder Dispatcher - to handle CFPs from multiple buyers concurrently, the messaging system and the DF service.
 
-\begin{figure}[h]
+In terms of performance, the outcome of this experiment, as ilustrated by the chart in Figure \ref{fig:enterprise_times}, may not seem as impressive when compared with the first experience. However, the algorithm employed to calculate trust is very time consuming. In a setup without the use of trust by any of the buyers, the performance difference between JADE and SAJaS is comparable to the first scenario.
+
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\begin{tikzpicture}[scale=0.85]
+
+			% horizontal axis
+			\draw[->] (0,0) -- (11,0);
+			\draw (5.5,-1.2) node[align=center] {Number of Contracts}; %label
+
+			% labels
+			\draw	(0  ,0) node[anchor=north] {0}
+					(2.5,0) node[anchor=north] {500}
+					(5  ,0) node[anchor=north] {1000}
+					(7.5,0) node[anchor=north] {1500}
+					(10 ,0) node[anchor=north] {2000};
+			
+			
+			% vertical axis
+			\draw[->] (0,0) -- (0,5);
+			\draw (-1.1,2.5) node[rotate=90, anchor=south, align=center]
+				{\% of Fullfielment}; %label
+			\draw	(0, 1) node[anchor=east] {0.25}
+					(0, 2) node[anchor=east] {0.50}
+					(0, 3) node[anchor=east] {0.75}
+					(0, 4) node[anchor=east] {1.00};
+			
+			
+
+			%% Data %%
+
+			%subtitles
+			\draw[thick] (0.5,3.5) --
+				(1,3.5) node[anchor=west, pos=1.0] {Using trust and proposal};
+			\draw[thick, dotted]
+				(0.5,4.5) --
+				(1,4.5) node[anchor=west, pos=1.0] {Using only the proposal}; 
+
+			%lines
+			\input{chapters/charts/enterprise_values_jade}
+
+
+		\end{tikzpicture}
+		\caption{In SAJaS}
+		\label{fig:enterprise_JADE}
+	\end{subfigure}
+	\bigskip\\
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\begin{tikzpicture}[scale=0.85]
+
+			% horizontal axis
+			\draw[->] (0,0) -- (11,0);
+			\draw (5.5,-1.2) node[align=center] {Number of Contracts}; %label
+
+			% labels
+			\draw	(0  ,0) node[anchor=north] {0}
+					(2.5,0) node[anchor=north] {500}
+					(5  ,0) node[anchor=north] {1000}
+					(7.5,0) node[anchor=north] {1500}
+					(10 ,0) node[anchor=north] {2000};
+			
+			
+			% vertical axis
+			\draw[->] (0,0) -- (0,5);
+			\draw (-1.1,2.5) node[rotate=90, anchor=south, align=center]
+				{\% of Fullfielment}; %label
+			\draw	(0, 1) node[anchor=east] {0.25}
+					(0, 2) node[anchor=east] {0.50}
+					(0, 3) node[anchor=east] {0.75}
+					(0, 4) node[anchor=east] {1.00};
+
+			%% Data %%
+
+			%subtitles
+			\draw[thick] (0.5,3.5) --
+				(1,3.5) node[anchor=west, pos=1.0] {Using trust and proposal};
+			\draw[thick, dotted] 
+				(0.5,4.5) --
+				(1,4.5) node[anchor=west, pos=1.0] {Using only the proposal}; 
+			
+			%lines
+			\input{chapters/charts/enterprise_values_sajas}
+
+
+		\end{tikzpicture}
+		\caption{In JADE}
+		\label{fig:enterprise_SAJaS}
+	\end{subfigure}
+	\caption[Multiple Contract Net scenario results in JADE]
+	{Average result of 5 executions of the Multiple Contract Net scenario during 2000 contracts}
+\end{figure}
+
+\begin{figure}
 	\centering
 	\begin{tikzpicture}[scale=0.85]
 
@@ -39,79 +134,29 @@ As expected and as shown in the charts, the same outcome was observed both in JA
 		% vertical axis
 		\draw[->] (0,0) -- (0,5);
 		\draw (-1.1,2.5) node[rotate=90, anchor=south, align=center]
-			{\% of Fullfielment}; %label
-		\draw	(0, 1) node[anchor=east] {0.25}
-				(0, 2) node[anchor=east] {0.50}
-				(0, 3) node[anchor=east] {0.75}
-				(0, 4) node[anchor=east] {1.00};
+			{Number of Contracts}; %label
+		\draw	(0, 0) node[anchor=north] {0}
+				(0, 1) node[anchor=east] {500}
+				(0, 2) node[anchor=east] {1000}
+				(0, 3) node[anchor=east] {1500}
+				(0, 4) node[anchor=east] {2000};
 		
 		
 
-		%% Data %%
-
+		%% Data 
 		%subtitle
-		\draw[thick,thick] (0.5,3.5) --
-			(1,3.5) node[anchor=west, pos=1.0] {Using trust and proposal};
+		\draw[thick] (0.5,3.5) --
+			(1,3.5) node[anchor=west, pos=1.0] {SAJaS};
 		%line
-		\input{chapters/charts/values_with_trust}
+		\input{chapters/charts/enterprise_times}
 
 		\draw[thick, dotted]%subtitle
 			(0.5,4.5) --
-			(1,4.5) node[anchor=west, pos=1.0] {Using only the proposal}; 
-		\input{chapters/charts/values_no_trust}
+			(1,4.5) node[anchor=west, pos=1.0] {JADE}; 
 
 
 	\end{tikzpicture}
-	\caption[Enterprise scenario results in JADE]
-	{Average result after 5 executions of the Enterprise scenario in JADE}
-	\label{fig:enterprise_JADE}
-\end{figure}
-
-
-\begin{figure}[h]
-	\centering
-	\begin{tikzpicture}[scale=0.85]
-
-		% horizontal axis
-		\draw[->] (0,0) -- (11,0);
-		\draw (5.5,-1.2) node[align=center] {Time/s}; %label
-
-		% labels
-		\draw	(1.4,0) node[anchor=north] {1}
-				(2.8,0) node[anchor=north] {2}
-				(4.2,0) node[anchor=north] {3}
-				(5.6,0) node[anchor=north] {4}
-				(7.1,0) node[anchor=north] {5}
-				(8.5,0) node[anchor=north] {6}
-				(9.9,0) node[anchor=north] {7};
-		
-		
-		% vertical axis
-		\draw[->] (0,0) -- (0,5);
-		\draw (-1.1,2.5) node[rotate=90, anchor=south, align=center]
-			{\% of Fullfielment}; %label
-		\draw	(0, 1) node[anchor=east] {0.25}
-				(0, 2) node[anchor=east] {0.50}
-				(0, 3) node[anchor=east] {0.75}
-				(0, 4) node[anchor=east] {1.00};
-
-		%% Data %%
-
-		%subtitle
-		\draw[thick,dotted] (0.5,3.5) --
-			(1,3.5) node[anchor=west, pos=1.0] {Using trust and proposal};
-		%line
-		\input{chapters/charts/values_with_trust_sajas}
-
-		\draw[thick] 
-			%subtitle
-			(0.5,4.5) --
-			(1,4.5) node[anchor=west, pos=1.0] {Using only the proposal}; 
-		\input{chapters/charts/values_no_trust_sajas}
-
-
-	\end{tikzpicture}
-	\caption[Enterprise scenario results in Repast]
-	{Average result after 5 executions of the Enterprise scenario in Repast}
-	\label{fig:enterprise_SAJaS}
+	\caption[Multiple Contract Net scenario results in Repast]
+	{Number of contracts executed in JADE and SAJaS. Final number of contracts is 2000 for both frameworks.}
+	\label{fig:enterprise_times}
 \end{figure}

@@ -2,6 +2,15 @@
 \chapter{Conclusions}
 \label{chap:conclusions}
 
-Conclusions here...
+MAS are used in many different domains and research based on simulation has seen an increase in the use of agent-based approaches in their development. As a result, many frameworks for the development of MABS have been created. With a review of the available literature, it is possible to conclude that there is interest in bridging the domains of MAS and MABS. While MABS are typically not used in production, MAS are usually not the most appropriate to perform tests and simulations, more so when large number of agents are in use.
+
+Some works were studied whose motivation was to bridge these domains. MISIA, JRep and PlaSMA proposed approaches that extended the MAS development framework JADE with simulation development features. This thesis proposed an alternative approach in which JADE-based features were included in the MAS framework Repast without relying in JADE libraries -- those features were re-implemented for this purpose.
+
+\section{Main Contributions}
+To bridge the gap between MAS development and simulation, the Simple API for JADE-based Simulations (\apiname) was created. JADE developers are able to create Repast-based simulations using familiar JADE features. The \pluginname (\plugin) was also developed to enable the conversion of simulations created with \apiname into JADE MAS.
+
+The main issues detected during the development of \apiname were related to to the different nature of the execution of Repast and JADE. JADE's agents run in multiple threads and global agent synchronization does not exist. Agent interaction happens asynchronously. The kind of simulation frameworks targeted by this API, like Repast, relies on synchronized events that occur consecutively in ``ticks''. By using ACLMessages in Repast and a messaging system that relies on messages being kept in a mail queue, asynchronous agent interaction is possible despite Repast synchronism. Messages are processed when the simulation grants execution the the agent who owns them.
+
+Negotiation scenarios were created to validate both \apiname and \plugin. The goals were to demonstrate that it was possible to create agent-based scenarios with some complexity using \apiname's implemented features and that after its conversion using \plugin was not only feasible, but the resulted MAS displayed identical behaviour when executed. Furthermore, the \apiname version is significantly faster. The two negotiation scenarios showed that a Repast simulation based on \apiname was many times faster than its JADE equivalent.
 
 \input{chapters/futurework}
