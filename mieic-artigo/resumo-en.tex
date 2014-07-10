@@ -1,0 +1,133 @@
+%-----------------------------------------------
+% Template para criação de resumos de projectos/dissertação
+% jlopes AT fe.up.pt,   Fri Jul  3 11:08:59 2009
+%-----------------------------------------------
+
+\documentclass[9pt,a4paper]{extarticle}
+
+%% English version: comment first, uncomment second
+%\usepackage[portuguese]{babel}  % Portuguese
+%\usepackage[english]{babel}     % English
+\usepackage{graphicx}           % images .png or .pdf w/ pdflatex OR .eps w/ latex
+\usepackage[utf8]{inputenc}     % 8 bits using UTF-8
+\usepackage{url}                % URLs
+\usepackage{multicol}           % twocolumn, etc
+\usepackage{float}              % improve figures & tables floating
+\usepackage[tableposition=top]{caption} % captions
+%% English version: comment first (maybe)
+\usepackage{indentfirst}        % portuguese standard for paragraphs
+%\usepackage{parskip}
+
+%% page layout
+\usepackage[a4paper,margin=30mm,noheadfoot]{geometry}
+
+% For subfigure
+\usepackage{subcaption}
+
+%% space between columns
+\columnsep 12mm
+
+%% headers & footers
+\pagestyle{empty}
+
+%% figure & table caption
+\captionsetup{figurename=Fig.,tablename=Tab.,labelsep=endash,font=bf,skip=.5\baselineskip}
+
+%% heading
+\makeatletter
+\renewcommand*{\@seccntformat}[1]{%
+  \csname the#1\endcsname.\quad
+}
+\makeatother
+
+%% avoid widows and orphans
+\clubpenalty=300
+\widowpenalty=300
+
+\begin{document}
+
+\title{\vspace*{-8mm}\textbf{\textsc{
+  From simulation to development in MAS:\\
+  A JADE-based Approach
+}}}
+\author{
+  \emph{João P. C. Lopes}\\[2mm]
+  \small{Thesis developed under supervision of \emph{Henrique Lopes Cardoso}}
+}
+\date{June 23, 2014}
+\maketitle
+%no page number 
+\thispagestyle{empty}
+
+\vspace*{-4mm}\noindent\rule{\textwidth}{0.4pt}\vspace*{4mm}
+
+\begin{multicols}{2}
+
+%!TEX root = thesis.tex
+\section{Abstract}
+
+Multi-agent systems (MAS) present an interesting approach to the efficient development of modular systems, composed autonomous, interacting computational units called agents. Frameworks exist that aid the development of this class of systems and they range from mostly general-purpose frameworks to domain-specific in an array of different domains.
+
+\subsection{Motivation}
+Multi-agent-based simulations (MABS) are sometimes used on the course of development of a full-featured MAS -- for instance, for testing purposes -- for the potential gains in performance when simulating MAS. 
+However, most platforms for MAS development are not well suited for MABS development due to scalability limitations\cite{mengistu2008scalability}. Some related works were studied that demonstrate some interest in solutions that make MABS more easy to be created using MAS development frameworks. Furthermore, an opportunity exists to partially automate the development of robust MAS from a previously tested simulation.
+
+JADE \cite{bellifemine2007developing}, a very popular MAS development framework allows the creation of seamless distributed agent systems and complies with FIPA standards for agent interaction. Unfortunately, its multi-threaded architecture falls short in delivering the necessary performance to run a local simulation with a large number of agents.
+
+Repast \cite{collier2003repast} is an agent-based simulation toolkit that allows creating simulations using rich GUI elements and real time agent statistics. It can easily handle large numbers of agents in a single simulation. Unlike JADE, though, Repast lacks much of the infrastructure for agent creation and interaction.
+
+The main motivation for this thesis lies in the potential performance gains when using agent simulation frameworks to produce a simulation of a MAS more complex than those typically developed with such frameworks. Some works \cite{garcia2011misia,gormer2011jrep} propose, as a solution for bridging the gap between MAS development and simulation, an integration of JADE and simulation features by extending this framework with a simulation layer created from scratch, or by integrating another framework, such as Repast.
+
+\subsection{Goals}
+This thesis proposes the development of an integrated solution for bridging the domains of simulation and MAS. In order to do that, two main sub-goals were identified.
+
+\begin{enumerate}
+  \item \textbf{First}, the creation of an adapter or API that would allow developers to abstract from simulation frameworks' features. It does so by reimplementing from scratch many JADE features, including its implementation of FIPA specifications for agent interaction and management. Since the API's architecture is very close to JADE's, conversion becomes more straightforward.
+  \item \textbf{Second}, the development of a code conversion mechanism. By abstracting from the simulation tools and creating a MAS-like MABS, it becomes possible and more straightforward to engineer a tool that performs the automatic conversion of these MABS into equivalent MAS.
+\end{enumerate}
+
+%This system is specially aimed at JADE developers who need to create a simulation of their already-developed MAS. By converting their code, the developer can perform tests and simulation and later convert the simulation back to a MAS, preserving all changes. JADE developers can also create simulations from scratch using frameworks like Repast using familiar JADE-like features, which would then be converted to a full features JADE MAS. Finally, this system is also of interest to Repast developers who desire to expand their knowledge of MAS development using more complex frameworks.
+
+\subsection{SAJaS}
+
+The \textbf{Simple API for JADE-based Simulations (SAJaS)} provides a set of features present in JADE; those features were reimplemented from scratch in an attempt to simplify their internal complexity, increasing its overall performance but preserving JADE-like external execution. Among these JADE-based features are the agent management, messaging and agent interaction FIPA specification. 
+
+One of the main conceptual challenges when developing SAJaS was in adapting JADE's asynchronous execution to Repast's tick-based synchronized environment. Except when executed during their setup or takedown, agents' actions in JADE are encapsulated in Behaviours which run concurrently or in parallel. In SAJaS, behaviours are executed sequentially. Furthermore, to emulate JADE's asynchronous communication in SAJaS, messages sent to an agent are kept in its message queue until needed, and processed only then -- in contrast, the arrival of a message in JADE triggers the appropriate behaviour right away.
+
+SAJaS's behaviours follow the same life cycle as their JADE counterpart, implementing the methods \texttt{action}, \texttt{onStart}, \texttt{done} and \texttt{onEnd}. It also currently includes an implementation of some JADE interaction protocols, namely FIPA Request and FIPA Contract Net.
+
+A concious effort was made to keep SAJaS fairly generic in regard to its dependency to Repast, opening doors for future integration with other simulation tools without the need to modify the existing framework.
+
+\subsection{MASSim2Dev}
+
+The \textbf{MAS Simulation to Development code conversion tool (MASSim2Dev)} is the tool that, using SAJaS, closes the gap between MAS simulation and development.
+
+JDT was chosen for the development of this tool. Some of its most interesting features are the automatic cloning of projects, the handling of classes, imports, methods and fields as objects and the possibility of doing complex manipulation tasks without parsing the code. It also allows the use of a high level AST for a more direct manipulation of the source code.
+
+After conversion, no dependency to the previous platform exists in the generated project. Naturally, this is not true is JADE features that are not yet available in SAJaS are used in the MAS. The same happens when using internal features from SAJaS that are not present in JADE.
+
+\subsection{Validation}
+Three tests were designed to demonstrate that the behaviour of the currently implemented JADE features in the API is the same as the analogous JADE ones. Furthermore, using the API it is possible to achieve very significant performance gains.
+
+The first example consists in a simple contract net between one buyer and multiple sellers. In the second example, multiple contract nets run concurrently and some of the buyers include available computational trust about sellers. 
+The third example is a board game called Risk developed prior to this thesis. The goal of this last example was to test SAJaS in a ``real'' example of a previously developed MAS, one that had not been developed specifically for this thesis.
+
+These scenarios covered all SAJaS features. It was possible to demonstrate that bringing JADE and Repast together is not only feasible using the developed tools, but also provides increased performance when compared with JADE MAS.
+
+\subsection{Conclusions}
+The study of the available literature demonstrated an interest in developing tools for simulation of MAS due to limitations in existing MAS development frameworks.
+
+The proposed integrated solution, composed of SAJaS and MASSim2Dev, allows the development of simulations using familiar JADE features in a simulation framework like Repast.
+
+Presently, a subset of JADE features are present in SAJaS. However, the validation tests created show that these with features it is possible to create MAS with some complexity and that their conversion using MASSim2Dev preserves the original functionality.
+
+Some suggested future work includes expanding the subset of JADE features supported by SAJaS, extending native support to more simulation frameworks, enhancing the plugin with user configurations and enabling support for charts and displays in SAjaS.
+
+%%English version: comment first, uncomment second
+%\bibliographystyle{unsrt-pt}  % numeric, unsorted refs
+\bibliographystyle{unsrt}  % numeric, unsorted refs
+\bibliography{myrefs}
+
+\end{multicols}
+
+\end{document}
