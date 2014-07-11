@@ -15,6 +15,8 @@
 \usepackage{tikz}
 \usepackage[utf8]{inputenc}
 \usepackage[labelformat=empty]{caption}
+% For subfigure
+\usepackage{subcaption}
 \usetikzlibrary{decorations.fractals}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -72,6 +74,9 @@
 \section{Revisão Bibliográfica}
 \input{sections/background}
 
+\section{Proposta}
+\input{sections/proposal}
+
 \section{SAJaS}
 \input{sections/sajas}
 
@@ -81,8 +86,14 @@
 \section{Validação}
 \input{sections/validation}
 
+\section{Conclusões}
+\input{sections/conclusions}
+
 \section{Referências}
+\begin{frame}{Referências}
+\bibliographystyle{apacite}
 \bibliography{myrefs}
+\end{frame}
 
 
 \end{document}

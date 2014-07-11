@@ -4,4 +4,32 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{MASSim2Dev - Ferramenta de Conversão}
 
+	\begin{itemize}
+	\item MASSim2Dev (\emph{MAS Simulation to Development code conversion tool})
+	\item Estabelece a ponte entre o desenvolvimento e simulação de MAS utilizando o SAJaS
+	\end{itemize}
+\end{frame}
+
+\subsection{Transformações de código}
+\begin{frame}{MASSim2Dev - Ferramenta de Conversão}
+
+	Transformações de código Java
+
+	\begin{itemize}
+	\item ATL (``ATLAS Transformation Language'') - transformações de modelos através de AST usando linguagem específica;
+	\item Spoon - transformações de código Java baseadas em anotações, usando Java
+	\item JDT (``Eclipse Java Development Tools'') - criação de plugins para Eclipse, que permitem edições de alto nível, assim como via AST
+
+	\end{itemize}
+\end{frame}
+
+\subsection{Processo de conversão}
+\begin{frame}{MASSim2Dev - Ferramenta de Conversão}
+
+	Após a conversão, não restam dependências da plataforma original.
+	\begin{figure}[h]
+	\centering
+	\includegraphics[height=5cm]{../figures/conversion_representation.pdf}
+\end{figure}
+	
 \end{frame}
