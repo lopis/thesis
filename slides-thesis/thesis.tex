@@ -40,6 +40,15 @@
 \setbeamercolor*{palette tertiary}{fg=black,bg=black!10} 
 \setbeamercolor*{palette quaternary}{fg=black,bg=black!10} 
 
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+\setbeamercolor{footline}{fg=black}
+\setbeamerfont{footline}{series=\bfseries}
+
 %\setbeamertemplate{note page}[plain]
 
 \renewcommand{\(}{\begin{columns}}
@@ -71,7 +80,7 @@
 \section{Introdução}
 \input{sections/introduction}
 
-\section{Revisão Bibliográfica}
+\section{Estado da Arte}
 \input{sections/background}
 
 \section{Proposta}

@@ -12,72 +12,72 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Contexto}
 \begin{frame}{Contexto}
-- Sistemas multi-agente (MAS) focam-se na interação entre agentes.
-
-- Agentes são inteligentes e autónomos mas os MAS conseguem ter comportamentos complexos.
-
-- Usos: Jogos, Negociação eletrónica, Problemas não determinísticos, Simulação (tráfego, contextos sociais...)
+	\begin{itemize}
+		\item Sistemas multi-agente (MAS) focam-se na interação entre agentes.
+		\item Agentes são inteligentes e autónomos mas os MAS conseguem ter comportamentos complexos.
+		\item Jogos, negociação eletrónica, problemas não determinísticos, gestão de operações...
+		\vspace{1cm}
+		\item Simulações baseadas em multi-agentes (MABS) permitem testar sistemas complexos de agentes
+		\item Simulação de tráfego, contextos sociais, negociação..
+		\item Tipicamente mais simples, rápidas e sincronizadas
+		\item Ambiente controlado
+	\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Problemas}
 \begin{frame}{Problemas}
-- Multiplos standards para desenvolvimento de MAS
-
-- Uma única plataforma não cumpre a totalidade dos requisitos da maioria dos projetos
-
-- Fraca performance na simulação de MAS usando plataformas de desenvolvimento.
-
-- Simulações baseadas em multi-agentes (MABS) usam plataformas mais simples.
-
+	\begin{itemize}
+		\item Multiplos standards para desenvolvimento de MAS
+		\item Uma única plataforma não cumpre a totalidade dos requisitos da maioria dos projetos
+		\item Fraca performance na simulação de MAS usando plataformas de desenvolvimento.
+		\item Plataformas para simulações baseadas em multi-agentes (MABS) têm infrastruturas mais simples.
+	\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Motivação}
 \begin{frame}{Motivação}
-- Interesse em simulação durante o ciclo de desenvolvimento de MAS
-
-- Ganhos de performance usando ferramentas de simulação
-
-- Possibilidade de aproximar a simulação e o desenvolvimento
+	\begin{itemize}
+		\item Interesse em simulação durante o ciclo de desenvolvimento de MAS
+		\item Ganhos de performance usando ferramentas de simulação
+		\item Possibilidade de aproximar a simulação e o desenvolvimento
+	\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Objetivos}
 \begin{frame}{Objetivos}
-Aproximar simulação e o desenvolvimento de MAS:
-\begin{enumerate}
-\item Criar um adaptador para ferramentas de simulação
-\item Desenvolver um mecanismo de conversão baseado em 1)
-\end{enumerate}
+	Aproximar simulação e o desenvolvimento de MAS:
+	\begin{enumerate}
+		\item Criar um adaptador para ferramentas de simulação
+		\item Desenvolver um mecanismo de conversão baseado em 1)
+	\end{enumerate}
+	\vspace{0.5cm}
+	Plataformas selecionadas: JADE (MAS) e Repast (MABS)
+
+		\begin{itemize}
+			\item Amplamente utilizadas e populares
+			\item Documentação abrangente
+			\item Código livre e aberto
+			\item Ambos em Java
+		\end{itemize}
+
+	\begin{figure}
+		\includegraphics[height=1cm]{figures/jade.jpeg}
+		\hspace{1cm}
+		\includegraphics[height=1cm]{figures/repast.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Objetivos}
-Plataformas selecionadas: JADE e Repast
-
-\begin{enumerate}
-\item Amplamente utilizadas e populares
-\item Documentação abrangente
-\item Código livre e aberto
-\item Ambos em Java
-\end{enumerate}
-
-\begin{figure}
-	\includegraphics[height=1cm]{figures/jade.jpeg}
-	\hspace{1cm}
-	\includegraphics[height=1cm]{figures/repast.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Objetivos}
-\begin{enumerate}
-\item Replicar funcionalidades do JADE no Repast
-\item Standards FIPA no Repast
-\item Manter a API simples, rápida
-\item Não incluir dependências do Repast
-\end{enumerate}
-
+	\begin{enumerate}
+		\item Replicar funcionalidades do JADE no Repast
+		\item Incluir standards FIPA no Repast
+		\item Facilitar a simulação de modelos JADE
+		\item Permitir integração de plataformas além do Repast
+	\end{enumerate}
 \end{frame}
