@@ -1,0 +1,55 @@
+\documentclass{llncs}
+%\documentclass[letterpaper, 10 pt, conference]{llncs}
+%\IEEEoverridecommandlockouts
+%\overrideIEEEmargins
+
+\usepackage{cite}
+\usepackage{makeidx}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[acronym]{glossaries}
+\usepackage[usenames,dvipsnames]{color}
+
+%%% For charts%%
+\usepackage{tikz}
+
+%% For code block %%
+\usepackage{listings}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=0pt,frame=lrbt,rulecolor=\color{Gray}}
+%%%
+
+\newcommand{\apiname}{SAJaS} 
+\newcommand{\apilongname}{Simple API for JADE-based Simulations}
+
+\input{preamble}
+\input{acronyms}
+
+\begin{document}
+
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\input{abstract}
+
+\input{1-intro}
+\input{2-related}
+\input{3-fipa}
+\input{4-proposal}
+\input{5-verification}
+\input{6-prototype}
+\input{7-conclusion}
+
+%\bibliographystyle{llncs}
+%\bibliography{IEEEabrv, references}
+%\bibliographystyle{splncs}
+%\bibliographystyle{spbasic}
+\bibliographystyle{plain}
+\bibliography{references}
+
+
+\end{document}
+

@@ -2,12 +2,12 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Trabalhos relacionados}
-\begin{frame}{Trabalhos relacionados}
+\subsection{Estado da Arte}
+\begin{frame}{Estado da Arte}
 	Plataformas de desenvolvimento de MABS
 	\begin{itemize}
 		\item Domínio específico (p.e. MASeRaTi, MATSim, SUMO)
-		\item Propósito geral (p.e. Repast, NetLogo, GALATEA, PlaSMA)
+		\item Propósito geral (p.e. Repast, NetLogo, GALATEA)
 	\end{itemize}
 
 	Foco em integração de simulação no JADE (p.e. MISIA, JRep, PlaSMA)
@@ -42,8 +42,9 @@
 
 \begin{frame}{Comparação}
 	\begin{itemize}
+		\item MISIA, JRep e PlaSMA dependem da plataforma JADE durante a simulação
+		\item Agentes JADE correm em threads individuais - escalabilidade limitada
 		\item JRep, MISIA não são projetos ativos
-		\item Os três exemplos dependem da plataforma JADE durante a simulação
 	\end{itemize}
 \end{frame}
 
@@ -51,19 +52,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{JADE e Repast}
 
-\begin{frame}{JADE}
+\begin{frame}{JADE e Repast}
 	\begin{table}[h]
 		\label{tab:jadevsrep}
-		\tiny
+		\caption{Comparação entre JADE e Repast.}
+		\small
 		\begin{center}
 			\begin{tabular}{l|cc}
 			\hline
 
 			\hline
 			\textbf{} & \textbf{JADE} & \textbf{Repast} \\ %& \textbf{Cougaar} \\
-			\hline
-				Comunicação & FIPA ACL &  Acesso direto  \\ %& Serialized Object \\
-							  &			 &  Partilha de recursos \\
 			\hline
 				Distribuído & Sim & Não \\ 
 			\hline
@@ -73,10 +72,11 @@
 			\hline
 				Ontologias & Sim & Não \\
 			\hline
-				Execução de & Behaviours 	& Escalonamento  	\\ %&  \\
-				Agentes		& Multi thread 	& Single thread 	\\ %&  \\
-							& Eventos   	& Ticks		 	   	\\ %&  \\
-							& Assíncrona 	& Síncrona 		   	\\ %&  \\
+				Execução	& Concorrente	& Consecutiva  	\\
+							& Assíncrona	& Síncrona 	\\
+			\hline
+				Comunicação & FIPA ACL\footnote{ Agent Communication Language} &  Acesso direto  \\ %& Serialized Object \\
+							  &			 &  Partilha de recursos \\
 			\hline
 				Código Livre & Sim & Sim \\ 
 			\hline
@@ -84,21 +84,23 @@
 			\hline
 			\end{tabular}
 		\end{center}
-		\caption{Comparação entre JADE e Repast.}
 	\end{table}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Especificações FIPA no JADE}
-\begin{frame}{Especificações FIPA no JADE}
-	Três conceitos principais:
+\subsection{Funcionalidades do JADE}
+\begin{frame}{Funcionalidades do JADE}
+	\begin{itemize}
+		\item Especificações FIPA:
 		\begin{itemize}
 			\item Gestão de Agentes (DF, AMS, AID)
 			\item Serviço de Mensagens (MTS, ACL Message)
-			\item Protocolos de interação (FIPA Request, FIPA Contract Net)
+			\item Protocolos de interação (FIPA Request, Contract Net...)
 		\end{itemize}
-		
+		\item Ecapsulamento de ações em Behaviours
+		\item Ontologias
+	\end{itemize}
 \end{frame}
 
 

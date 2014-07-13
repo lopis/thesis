@@ -1,0 +1,8 @@
+# ingore all
+*
+
+# except
+!*.tex
+!*.bib
+!.gitignore
+

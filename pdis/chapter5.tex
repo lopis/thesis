@@ -1,0 +1,62 @@
+%!TEX root = thesis.tex
+\chapter{Future Work}
+\label{chap:plan}
+
+\section*{}
+
+This chapters presents a planification of the future work for this thesis. On the course of the next months, the planned tasks can be separated in three phases: Planning and Specification; Development and Testing; Documentation.
+Following the work plan is a brief description of the expected development environment, including the tools that will be used, followed by an overview of the perspectives of validation for the results of this thesis.
+
+\section{Work Plan}
+
+The diagram in figure \ref{dia:gantt} makes an attempt to summarize all the tasks planned for the next months. The work plan can be grouped in three phases: specification phase, when the details of implementation will be defined with as much detail as possible, and the foundation for the documentation of the tool will be created; the development phase, when the actual programming work load will take place, including creation and execution of tests and finally, the writing of the thesis, which will continue beyond this five month period.
+
+The \emph{specification phase} starts with an analysis of the tools to use (namely Eclipse, Spoon and ATL). The first two weeks of this phase will be dedicated to the study of both tools' API and documentation (2.1), as well as actual testing of its features, followed by two weeks dedicated to a thourough study of JADE and Repast and the mapping of equivalent features between them (2.2). Next comes the definition of the requisites for the FIPA-ACL library for Repast (2.3), as well as the specification for the rest of the code generation tool. (2.4).
+
+The \emph{development phase} starts with a week exclusively dedicated to the creation of the general structure of the code generation tool, followed by the progressive development of all intended features (3.1). This task also includes the creation of a FIPA-ACL protocols library for Repast. Starting in the second week, sample projects will be created. These will be the test examples that the code conversion tool should be capable of converting (3.2). During this period, it is also expected that the creation of most unit tests should be completed, to ensure proper development of the tools (3.3). Validation should start as the tests creation is completed and as the development phase progresses (3.4).
+
+Finally, in the \emph{documentation phase} three kinds of documents will be created. First, and essencially based on the in-code documentation already included in the development phase, Java Docs will be generated. This task will also contemplate the creation of a user manual for the code generation tool. The second document will be a scientific paper which is expectd to be submitted to an international conference or journal. Finally, this phase's main task is the writing of the thesis that will sum up all the details of the actual implementation and documentation of all results.
+
+\begin{figure}[h]
+	\caption{Work plan: Specification Phase}
+	\label{dia:gantt}
+	\begin{ganttchart}[
+		x unit=0.004\textwidth,
+		time slot format=little-endian
+		]{1.2.2014}{30.6.2014}
+		\gantttitlecalendar*{1.2.2014}{30.6.2014}{month=shortname} \\
+		\ganttgroup{1. SOTA}{1.2.2014}{15.2.2014} \\
+
+		\ganttgroup{2. Specification}{17.2.2014}{6.4.2014} \\
+		\ganttbar{2.1 Tool Analysis}{17.2.2014}{2.3.2014} \\
+		\ganttbar{2.2 Framework Analysis}{3.3.2014}{16.3.2014} \\
+		\ganttbar{2.3 FIPA Lib Specification}{17.3.2014}{30.3.2014} \\
+		\ganttbar{2.4 Software Specification}{17.3.2014}{30.3.2014} \\
+
+		\ganttgroup{3. Development}{31.3.2014}{31.5.2014} \\
+		\ganttbar{3.1 Code Gen. Tool}{31.3.2014}{18.5.2014} \\
+		\ganttbar{3.2 Examples Creation}{7.4.2014}{21.4.2014} \\
+		\ganttbar{3.3 Tests Creation}{7.4.2014}{21.4.2014} \\
+		\ganttbar{3.4 Testing and Validation}{7.4.2014}{31.5.2014} \\
+
+		\ganttgroup{4. Documentation}{5.5.2014}{29.6.2014} \\
+		\ganttbar{4.1 Java Docs}{5.5.2014}{19.5.2014} \\
+		\ganttbar{4.2 Sci. Paper}{5.5.2014}{31.5.2014} \\
+		\ganttbar{4.3 Thesis}{5.5.2014}{30.6.2014} \\
+	\end{ganttchart}
+\end{figure}
+
+\section{Development Environment}
+
+This thesis will make use of JADE 4.3.1 (6 December 2013) and Repast Symphony 2.1 (12 August 2013), which are the latest stable versions of these frameworks as of the writing of this report. Repast has implementations in languages other than Java but, since JADE is written in this language, it is only natural to use the Java implementation of Repast for the sake of simplifying the conversion process. The latest stable version of the Java platform, Java 7, is compatible with both frameworks and will be used in the development phase of this thesis.
+
+\section{Validation Perspectives}
+
+Because the validation of this tool's ability to correctly generate code depends entirely on the functionality of said code, unity testing can be used in order to verify conformity of a series of examples. For testing purposes four sets of unit testing will be developed.
+The first set of tests will cover the code of the code generation tool itself;
+the second one will cover the code of the Repast/FIPA-ACL implementation library;
+the third will include a group of example Repast code to be converted to JADE - the unit tests will be applied on the generated code;
+the fourth will perform the complementary tests to the third set, testing the conversion of JADE code to Repast.
+
+While unit testing allows to verify the generated code functionality, it's also important to actually evaluate the quality of the generated MAS or MABS. The agents generated by the code conversion tool should display similar behavior to the original agent's. The work plan reserves a period for the creation of sample projects, during which simple JADE and Repast example projects will be created for testing purposes.
+

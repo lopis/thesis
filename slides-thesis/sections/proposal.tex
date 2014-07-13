@@ -8,8 +8,8 @@
 	\begin{enumerate}
 		\item SAJaS (Simple API for JADE-based Simulations)
 		\begin{itemize}
-			\item Reimpementa funcinalidades do JADE
-			\item Independente do MASSim2Dev
+			\item Reimplementa funcionalidades do JADE
+			\item \emph{Standalone} ou em conjunto com MASSim2Dev
 		\end{itemize}
 		\item MASSim2Dev (MAS Simulation To Development conversion tool)
 		\begin{itemize}
@@ -19,14 +19,28 @@
 	\end{enumerate}
 \end{frame}
 
-\subsection{Scenários de Utilização}
-\begin{frame}{Scenários de Utilização}
-	\begin{figure}
+\subsection{Cenários de Utilização}
+\begin{frame}{Cenários de Utilização}
+	Principais fluxos de trabalho.
+
+	\begin{tikzpicture}
 		\centering
-		\includegraphics[height=6cm]{figures/prototypeFlow.pdf}
-		\caption{
-			Possible work flows for the system's users. ``SJ'' and ``JS'' represent conversion from SAJaS to JADE and the reverse, respectively.
-		}
-		\label{fig:prototypeFlow}
-	\end{figure}
+		\node (img1)
+			{\includegraphics[height=6cm]{figures/flow/flow1.pdf}};
+		\pause
+		\node (img2)
+			{\includegraphics[height=6cm]{figures/flow/flow2.pdf}};
+		\pause
+		\node (img3)
+			{\includegraphics[height=6cm]{figures/flow/flow3.pdf}};
+			\pause
+		\node (img4)
+			{\includegraphics[height=6cm]{figures/flow/flow4.pdf}};
+		\pause
+		\node (img5)
+			{\includegraphics[height=6cm]{figures/flow/flow5.pdf}};
+		\pause
+		\node (img6)
+			{\includegraphics[height=6cm]{figures/flow/flow6.pdf}};
+	\end{tikzpicture}
 \end{frame}

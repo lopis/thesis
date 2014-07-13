@@ -1,0 +1,66 @@
+\documentclass{report}
+%\documentclass[letterpaper, 10 pt, conference]{llncs}
+%\IEEEoverridecommandlockouts
+%\overrideIEEEmargins
+
+\usepackage{cite}
+\usepackage{makeidx}
+\usepackage[utf8]{inputenc}
+%\usepackage[numbers]{natbib}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[acronym]{glossaries}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{pgfgantt}
+
+%%% For charts%%
+\usepackage{tikz}
+%\usepackage{verbatim}
+%\usepackage[active,tightpage]{preview}
+%\PreviewEnvironment{tikzpicture}
+%\setlength\PreviewBorder{10pt}%
+%%% 
+
+%% For code block %%
+\usepackage{listings}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=0pt,frame=lrbt,rulecolor=\color{Gray}}
+%%%
+
+\graphicspath{{figures/}}
+
+%\usepackage{float}
+
+\newcommand{\apiname}{SAJaS} 
+\newcommand{\apilongname}{Simple API for JADE-based Simulations}
+
+\title{From simulation to development in MAS: Repast-JADE automatic code generation for interaction protocols}
+\author{João Pedro Camacho Lopes}
+
+
+\begin{document}
+
+\tableofcontents
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\input{abstract_en}
+
+\include{chapter1} 
+\include{chapter2}
+% \include{chapter3} %technology
+% \include{chapter4} %validation
+\include{chapter5} %work plan
+\include{chapter_conclusion} 
+
+%\bibliographystyle{llncs}
+%\bibliography{IEEEabrv, references}
+%\bibliographystyle{splncs}
+%\bibliographystyle{spbasic}
+%\bibliographystyle{plain}
+\bibliography{references}
+
+
+\end{document}
+
