@@ -2,6 +2,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{MASSim2Dev}
 \begin{frame}{MASSim2Dev - Ferramenta de Conversão}
 
 	\begin{itemize}
@@ -13,12 +14,12 @@
 \subsection{Transformações de código}
 \begin{frame}{MASSim2Dev - Ferramenta de Conversão}
 
-	Transformações de código Java
+	Transformações de código Java: ferramentas estudadas
 
 	\begin{itemize}
 	\item ATL (``ATLAS Transformation Language'') - transformações de modelos através de AST usando linguagem específica;
 	\item Spoon - transformações de código Java baseadas em anotações, usando Java
-	\item JDT (``Eclipse Java Development Tools'') - criação de plugins para Eclipse, que permitem edições de alto nível, assim como via AST
+	\item \color{FEUPCor} JDT (``Eclipse Java Development Tools'') - criação de plugins para Eclipse, que permitem edições de alto nível, assim como via AST
 
 	\end{itemize}
 \end{frame}
@@ -28,8 +29,21 @@
 
 	Após a conversão, não restam dependências da plataforma original.
 	\begin{figure}[h]
-	\centering
-	\includegraphics[height=5cm]{../figures/conversion_representation.pdf}
-\end{figure}
-	
+		\centering
+		\includegraphics[height=5cm]{../figures/conversion_representation.pdf}
+	\end{figure}
 \end{frame}
+
+\begin{frame}{MASSim2Dev - Ferramenta de Conversão}
+
+	Algoritmo
+	\begin{samepage}
+		\begin{enumerate}
+		  \item Clonar o projeto selecionado
+		  \item Mudar as referências a \emph{imports} em cada classe
+		  \item Introduzir as bibliotecas necessárias (JADE, Repast...) e adiciona-las ao \emph{build path} do projeto
+		  \item Reparar hierarquia (p.e. classes que estendem \texttt{RepastAgent} passam a estender \texttt{Agent})
+		\end{enumerate}
+	\end{samepage}
+\end{frame}
+
