@@ -92,10 +92,12 @@ Within the API, three different categories of classes are represented.
 
 \begin{enumerate}
 	\item First, inside the ``Repast'' package are the classes that are specific to the Repast implementation of SAJaS. Repast contains an interface called ``ContextBuilder'' which contains the build method, the first one called when the simulation is initiated.
+	\item Second, classes whose border is dotted are internal classes that are not meant to be used by programmers; some are not present in JADE and therefore their use cannot be ported by the conversion tool.
+	\item Finally, the rest rest of the classes are the ones that programmers are expected to use and are directly supported by JADE and by the code conversion tool.
 \end{enumerate}
 
 
-Second, classes whose border is dotted are internal classes that are not meant to be used by programmers; some are not present in JADE and therefore their use cannot be ported by the conversion tool. Finally, the rest rest of the classes are the ones that programmers are expected to use and are directly supported by JADE and by the code conversion tool.
+
 
 \begin{figure}[h]
 	\centering
